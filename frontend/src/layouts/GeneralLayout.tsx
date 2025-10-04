@@ -1,29 +1,30 @@
-// src/layouts/GeneralLayout.tsx
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const GeneralLayout: React.FC = () => {
   return (
-    <div className="app-layout flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="bg-gray-800 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Hotel Imperial</h1>
-          <nav>
-            <Link to="/" className="mr-4 hover:underline">Inicio</Link>
-            <Link to="/dashboard" className="hover:underline">Dashboard</Link>
-          </nav>
-        </div>
-      </header>
-
-      {/* Contenido dinámico */}
-      <main className="flex-grow container mx-auto p-6">
+    <div className="h-screen w-full flex flex-col bg-gray-800"> {/* Cambiado a fondo oscuro */}
+      {/* Contenido dinámico según la ruta */}
+      <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white p-4 text-center">
-        <p>© 2025 Hotel Imperial - Sistema de Gestión</p>
+      {/* Barra inferior (Footer) */}
+      <footer className="bg-gray-900 p-2 text-center text-sm text-white">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            {/* Izquierda: Copyright y enlaces legales */}
+            <div className="flex space-x-2 mb-2 md:mb-0">
+              <span>© 2025 Hotel Imperial</span>
+              <a href="#" className="hover:text-yellow-400 mx-1">Términos y Condiciones</a>
+              <a href="#" className="hover:text-yellow-400 mx-1">Política de Privacidad</a>
+            </div>
+            {/* Derecha: Ubicación y teléfono */}
+            <div className="flex space-x-2">
+              <span>Dirección: Av. Mariscal Castilla 2874, Huancayo, Peru</span>
+              <span>Teléfono: 902 500 495</span>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
