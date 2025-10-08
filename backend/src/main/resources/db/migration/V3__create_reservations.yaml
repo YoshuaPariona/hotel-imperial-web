@@ -1,0 +1,177 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_reservation_status_enum
+      author: Logan
+      changes:
+        - sql:
+            sql: CREATE TYPE reservation_status AS ENUM ('CONFIRMED', 'CANCELLED', 'COMPLETED');
+
+  - changeSet:
+      id: create_guests_table
+      author: Logan
+      changes:
+        - createTable:
+            tableName: guests
+            columns:
+              - column:
+                  name: guest_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: document_type
+                  type: VARCHAR(20)
+              - column:
+                  name: document_number
+                  type: VARCHAR(50)
+              - column:
+                  name: phone
+                  type: VARCHAR(30)
+              - column:
+                  name: email
+                  type: VARCHAR(150)
+                  constraints:
+                    unique: true
+        - sql:
+            sql: ALTER TABLE guests ADD CONSTRAINT unique_document UNIQUE (document_type, document_number);
+
+  - changeSet:
+      id: create_reservations_table
+      author: Logan
+      changes:
+        - createTable:
+            tableName: reservations
+            columns:
+              - column:
+                  name: reservation_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guest_id
+                  type: BIGINT
+              - column:
+                  name: check_in
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: check_out
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: reservation_status
+                  constraints:
+                    nullable: false
+                  defaultValue: 'CONFIRMED'
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: reservations
+            baseColumnNames: room_id
+            constraintName: fk_reservation_room
+            referencedTableName: rooms
+            referencedColumnNames: room_id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: reservations
+            baseColumnNames: user_id
+            constraintName: fk_reservation_user
+            referencedTableName: users
+            referencedColumnNames: user_id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: reservations
+            baseColumnNames: guest_id
+            constraintName: fk_reservation_guest
+            referencedTableName: guests
+            referencedColumnNames: guest_id
+            onDelete: SET NULL
+        - sql:
+            sql: ALTER TABLE reservations ADD CONSTRAINT check_dates CHECK (check_out > check_in);
+
+  - changeSet:
+      id: create_room_occupancy_table
+      author: Logan
+      changes:
+        - createTable:
+            tableName: room_occupancy
+            columns:
+              - column:
+                  name: occupancy_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guest_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reservation_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: check_in
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: check_out
+                  type: TIMESTAMP WITH TIME ZONE
+        - addForeignKeyConstraint:
+            baseTableName: room_occupancy
+            baseColumnNames: room_id
+            constraintName: fk_occupancy_room
+            referencedTableName: rooms
+            referencedColumnNames: room_id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: room_occupancy
+            baseColumnNames: guest_id
+            constraintName: fk_occupancy_guest
+            referencedTableName: guests
+            referencedColumnNames: guest_id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: room_occupancy
+            baseColumnNames: reservation_id
+            constraintName: fk_occupancy_reservation
+            referencedTableName: reservations
+            referencedColumnNames: reservation_id
+            onDelete: CASCADE
+        - sql:
+            sql: ALTER TABLE room_occupancy ADD CONSTRAINT check_occupancy_dates CHECK (check_out IS NULL OR check_out > check_in);
