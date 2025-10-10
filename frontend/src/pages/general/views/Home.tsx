@@ -3,9 +3,9 @@ import LogoSection from '../components/LogoSection';
 import NavButton from '../components/NavButton';
 
 const videos = [
-  '/src/assets/video1.mp4',
-  '/src/assets/video2.mp4',
-  '/src/assets/video3.mp4'
+  '/videos/video1.webm',
+  '/videos/video2.webm',
+  '/videos/video3.webm'
 ];
 
 const Home: React.FC = () => {
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
         onEnded={handleVideoEnded}
         className="absolute z-0 w-auto h-auto min-w-full min-h-full max-w-none object-cover"
       >
-        <source src={videos[currentVideoIndex]} type="video/mp4" />
+        <source src={videos[currentVideoIndex]} type="video/webm" />
         Tu navegador no soporta el elemento de video.
       </video>
 
@@ -49,21 +49,21 @@ const Home: React.FC = () => {
           {/* Botones de navegación */}
           <div className="flex flex-col space-y-6 md:space-y-8">
             <div className="md:ml-40">
-              <NavButton text="PROCESOS GENERALES" to="/procesos-generales" />
+              <NavButton text="PROCESOS DECISIVOS" to="/procesos-generales" />
             </div>
-            {/* Botón Procesos Misionales con ruta */}
             <div className="self-center">
               <NavButton text="PROCESOS MISIONALES" to="/procesos-misionales" />
             </div>
             <div className="md:ml-40">
-             <NavButton text="PROCESOS SOPORTE" to="/procesos-soporte" />
+              <NavButton text="PROCESOS DE APOYO" to="/procesos-soporte" />
             </div>
           </div>
           {/* Logo */}
           <LogoSection />
         </div>
+      </div>
     </div>
-    </div>
-  );
+    );
 };
+
 export default Home;
