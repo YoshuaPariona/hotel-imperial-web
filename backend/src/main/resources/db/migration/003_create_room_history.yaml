@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-room-status-history
+      author: Yoshua
+      comments: "Crea tabla 'room_status_history' para auditar cambios de estado en habitaciones."
+      changes:
+        - createTable:
+            tableName: room_status_history
+            columns:
+              - column:
+                  name: room_status_history_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: previous_status
+                  type: room_status
+                  constraints:
+                    nullable: false
+              - column:
+                  name: new_status
+                  type: room_status
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed_by
+                  type: BIGINT
+              - column:
+                  name: changed_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: note
+                  type: TEXT
+        - addForeignKeyConstraint:
+            baseTableName: room_status_history
+            baseColumnNames: room_id
+            constraintName: fk_room_history_room
+            referencedTableName: rooms
+            referencedColumnNames: room_id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: room_status_history
+            baseColumnNames: changed_by
+            constraintName: fk_room_history_user
+            referencedTableName: users
+            referencedColumnNames: user_id

@@ -1,14 +1,20 @@
 databaseChangeLog:
   - changeSet:
-      id: create_reservation_status_enum
-      author: Logan
+      id: 007-create-reservation-enums
+      author: Yoshua
+      comments: "Define los ENUMs para estado de reserva y tipo de documento de huésped."
       changes:
         - sql:
-            sql: CREATE TYPE reservation_status AS ENUM ('CONFIRMED', 'CANCELLED', 'COMPLETED');
+            splitStatements: false
+            stripComments: true
+            sql: |
+              CREATE TYPE reservation_status AS ENUM ('CONFIRMADO', 'CANCELADO', 'COMPLETADO');
+              CREATE TYPE document_type AS ENUM ('DNI', 'PASAPORTE');
 
   - changeSet:
-      id: create_guests_table
-      author: Logan
+      id: 008-create-guests
+      author: Yoshua
+      comments: "Crea tabla 'guests' para registrar datos de huéspedes del hotel."
       changes:
         - createTable:
             tableName: guests
@@ -18,7 +24,6 @@ databaseChangeLog:
                   type: BIGSERIAL
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: first_name
                   type: VARCHAR(150)
@@ -30,11 +35,14 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: document_type
-                  type: VARCHAR(20)
+                  name: doc_type
+                  type: document_type
+                  defaultValue: 'DNI'
               - column:
                   name: document_number
                   type: VARCHAR(50)
+                  constraints:
+                    unique: true
               - column:
                   name: phone
                   type: VARCHAR(30)
@@ -43,12 +51,11 @@ databaseChangeLog:
                   type: VARCHAR(150)
                   constraints:
                     unique: true
-        - sql:
-            sql: ALTER TABLE guests ADD CONSTRAINT unique_document UNIQUE (document_type, document_number);
 
   - changeSet:
-      id: create_reservations_table
-      author: Logan
+      id: 009-create-reservations
+      author: Yoshua
+      comments: "Crea tabla 'reservations' con referencias a habitación, usuario y huésped responsable."
       changes:
         - createTable:
             tableName: reservations
@@ -58,7 +65,6 @@ databaseChangeLog:
                   type: BIGSERIAL
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: room_id
                   type: BIGINT
@@ -85,9 +91,7 @@ databaseChangeLog:
               - column:
                   name: status
                   type: reservation_status
-                  constraints:
-                    nullable: false
-                  defaultValue: 'CONFIRMED'
+                  defaultValue: 'CONFIRMADO'
               - column:
                   name: created_at
                   type: TIMESTAMP WITH TIME ZONE
@@ -98,80 +102,15 @@ databaseChangeLog:
             constraintName: fk_reservation_room
             referencedTableName: rooms
             referencedColumnNames: room_id
-            onDelete: RESTRICT
         - addForeignKeyConstraint:
             baseTableName: reservations
             baseColumnNames: user_id
             constraintName: fk_reservation_user
             referencedTableName: users
             referencedColumnNames: user_id
-            onDelete: RESTRICT
         - addForeignKeyConstraint:
             baseTableName: reservations
             baseColumnNames: guest_id
             constraintName: fk_reservation_guest
             referencedTableName: guests
             referencedColumnNames: guest_id
-            onDelete: SET NULL
-        - sql:
-            sql: ALTER TABLE reservations ADD CONSTRAINT check_dates CHECK (check_out > check_in);
-
-  - changeSet:
-      id: create_room_occupancy_table
-      author: Logan
-      changes:
-        - createTable:
-            tableName: room_occupancy
-            columns:
-              - column:
-                  name: occupancy_id
-                  type: BIGSERIAL
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: room_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: guest_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: reservation_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: check_in
-                  type: TIMESTAMP WITH TIME ZONE
-                  constraints:
-                    nullable: false
-              - column:
-                  name: check_out
-                  type: TIMESTAMP WITH TIME ZONE
-        - addForeignKeyConstraint:
-            baseTableName: room_occupancy
-            baseColumnNames: room_id
-            constraintName: fk_occupancy_room
-            referencedTableName: rooms
-            referencedColumnNames: room_id
-            onDelete: RESTRICT
-        - addForeignKeyConstraint:
-            baseTableName: room_occupancy
-            baseColumnNames: guest_id
-            constraintName: fk_occupancy_guest
-            referencedTableName: guests
-            referencedColumnNames: guest_id
-            onDelete: RESTRICT
-        - addForeignKeyConstraint:
-            baseTableName: room_occupancy
-            baseColumnNames: reservation_id
-            constraintName: fk_occupancy_reservation
-            referencedTableName: reservations
-            referencedColumnNames: reservation_id
-            onDelete: CASCADE
-        - sql:
-            sql: ALTER TABLE room_occupancy ADD CONSTRAINT check_occupancy_dates CHECK (check_out IS NULL OR check_out > check_in);

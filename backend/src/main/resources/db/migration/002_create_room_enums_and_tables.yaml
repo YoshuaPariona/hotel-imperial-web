@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-room-enums
+      author: Yoshua
+      comments: "Define los ENUMs principales relacionados a habitaciones."
+      changes:
+        - sql:
+            splitStatements: false
+            stripComments: true
+            sql: |
+              CREATE TYPE room_category AS ENUM ('STANDARD', 'MATRIMONIAL');
+              CREATE TYPE bed_size AS ENUM ('SINGLE', 'DOUBLE');
+              CREATE TYPE room_status AS ENUM ('DISPONIBLE', 'RESERVADA', 'OCUPADA', 'MANTENIMIENTO', 'LIMPIEZA');
+
+  - changeSet:
+      id: 004-create-room-types
+      author: Yoshua
+      comments: "Crea tabla 'room_types' para definir tipos de habitaciones del hotel."
+      changes:
+        - createTable:
+            tableName: room_types
+            columns:
+              - column:
+                  name: room_type_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: category
+                  type: room_category
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bed_size
+                  type: bed_size
+              - column:
+                  name: bed_quantity
+                  type: INTEGER
+              - column:
+                  name: description
+                  type: TEXT
+
+  - changeSet:
+      id: 005-create-rooms
+      author: Yoshua
+      comments: "Crea tabla 'rooms' con referencia a 'room_types'."
+      changes:
+        - createTable:
+            tableName: rooms
+            columns:
+              - column:
+                  name: room_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: room_number
+                  type: VARCHAR(10)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: room_type_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: floor
+                  type: INTEGER
+              - column:
+                  name: capacity
+                  type: INTEGER
+              - column:
+                  name: current_status
+                  type: room_status
+                  defaultValue: 'DISPONIBLE'
+              - column:
+                  name: note
+                  type: TEXT
+        - addForeignKeyConstraint:
+            baseTableName: rooms
+            baseColumnNames: room_type_id
+            constraintName: fk_rooms_room_types
+            referencedTableName: room_types
+            referencedColumnNames: room_type_id
+            onDelete: RESTRICT
