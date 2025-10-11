@@ -2,7 +2,7 @@ package com.imperial.hotel.infrastructure.web.controller;
 
 import com.imperial.hotel.application.room.dto.RoomResponseDTO;
 import com.imperial.hotel.application.room.dto.UpdateRoomRequestDTO;
-import com.imperial.hotel.application.room.usecase.GetRoomByIdUseCase;
+import com.imperial.hotel.application.room.usecase.GetRoomByNumberUseCase;
 import com.imperial.hotel.application.room.usecase.ListRoomsByStatusUseCase;
 import com.imperial.hotel.application.room.usecase.ListRoomsUseCase;
 import com.imperial.hotel.application.room.usecase.UpdateRoomUseCase;
@@ -19,18 +19,16 @@ import java.util.Optional;
 public class RoomController {
 
     private final ListRoomsUseCase listRoomsUseCase;
-    private final GetRoomByIdUseCase getRoomByIdUseCase;
+    private final GetRoomByNumberUseCase getRoomByNumberUseCase;
     private final UpdateRoomUseCase updateRoomUseCase;
     private final ListRoomsByStatusUseCase listRoomsByStatusUseCase;
 
-
-    // Constructor único, Spring lo inyectará automáticamente
     public RoomController(ListRoomsUseCase listRoomsUseCase,
-                          GetRoomByIdUseCase getRoomByIdUseCase,
+                          GetRoomByNumberUseCase getRoomByNumberUseCase,
                           UpdateRoomUseCase updateRoomUseCase,
                           ListRoomsByStatusUseCase listRoomsByStatusUseCase) {
         this.listRoomsUseCase = listRoomsUseCase;
-        this.getRoomByIdUseCase = getRoomByIdUseCase;
+        this.getRoomByNumberUseCase = getRoomByNumberUseCase;
         this.updateRoomUseCase = updateRoomUseCase;
         this.listRoomsByStatusUseCase = listRoomsByStatusUseCase;
     }
@@ -45,18 +43,19 @@ public class RoomController {
         return listRoomsUseCase.execute(numeroMin, numeroMax, status);
     }
 
-    // Endpoint GET /api/habitaciones/{id} -> obtiene una habitación específica
-    @GetMapping("/{id}")
-    public RoomResponseDTO getRoomById(@PathVariable Long id) {
-        return getRoomByIdUseCase.execute(id);
+    // Endpoint GET /api/habitaciones/numero/{roomNumber} -> obtiene una habitación por número
+    @GetMapping("/numero/{roomNumber}")
+    public RoomResponseDTO getRoomByNumber(@PathVariable String roomNumber) {
+        return getRoomByNumberUseCase.execute(roomNumber);
     }
 
-    @PutMapping("/{id}")
+    // Endpoint PUT /api/habitaciones/numero/{roomNumber} -> actualiza habitación por número
+    @PutMapping("/numero/{roomNumber}")
     public RoomResponseDTO updateRoom(
-            @PathVariable Long id,
+            @PathVariable String roomNumber,
             @RequestBody UpdateRoomRequestDTO dto
     ) {
-        return updateRoomUseCase.execute(id, dto);
+        return updateRoomUseCase.execute(roomNumber, dto);
     }
 
     @GetMapping("/estado/{estado}")

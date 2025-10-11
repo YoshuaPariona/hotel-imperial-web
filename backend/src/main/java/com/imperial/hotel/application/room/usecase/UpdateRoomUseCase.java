@@ -22,9 +22,10 @@ public class UpdateRoomUseCase {
         this.roomMapper = roomMapper;
     }
 
-    public RoomResponseDTO execute(Long roomId, UpdateRoomRequestDTO dto) {
-        Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new NoSuchElementException("Habitación no encontrada con id: " + roomId));
+    // Cambiamos roomId por roomNumber
+    public RoomResponseDTO execute(String roomNumber, UpdateRoomRequestDTO dto) {
+        Room room = roomRepository.findByRoomNumber(roomNumber)
+                .orElseThrow(() -> new NoSuchElementException("Habitación no encontrada con número: " + roomNumber));
 
         if (dto.getRoomNumber() != null) {
             room.setRoomNumber(dto.getRoomNumber());

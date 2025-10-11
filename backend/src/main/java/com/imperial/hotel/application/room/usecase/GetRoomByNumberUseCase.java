@@ -9,19 +9,19 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 
 @Service
-public class GetRoomByIdUseCase {
+public class GetRoomByNumberUseCase {
 
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
 
-    public GetRoomByIdUseCase(RoomRepository roomRepository, RoomMapper roomMapper) {
+    public GetRoomByNumberUseCase(RoomRepository roomRepository, RoomMapper roomMapper) {
         this.roomRepository = roomRepository;
         this.roomMapper = roomMapper;
     }
 
-    public RoomResponseDTO execute(Long roomId) {
-        Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new NoSuchElementException("Habitación no encontrada con id: " + roomId));
+    public RoomResponseDTO execute(String roomNumber) {
+        Room room = roomRepository.findByRoomNumber(roomNumber)
+                .orElseThrow(() -> new NoSuchElementException("Habitación no encontrada con número: " + roomNumber));
 
         return roomMapper.toResponseDTO(room);
     }

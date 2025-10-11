@@ -12,6 +12,8 @@ public interface RoomRepository {
 
     Optional<Room> findById(Long id);
 
+    Optional<Room> findByRoomNumber(String roomNumber);
+
     List<Room> findByCurrentStatus(RoomStatus status);
 
     Room save(Room room);
