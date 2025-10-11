@@ -1,5 +1,5 @@
 // src/pages/misionales/gestion-reservas/components/ListarReservas.tsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ListarBase from '../../listar/ListarBase';
 
 interface Reservation {
@@ -24,15 +24,17 @@ export default function ListarReservas() {
   const [searchType, setSearchType] = useState<'guest' | 'room'>('guest');
   const [error, setError] = useState<string | null>(null);
 
+  // ✅ Carga la URL base del backend desde variables de entorno
+  const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080';
+
+  // 🔹 Cargar reservas al montar el componente
   useEffect(() => {
     const fetchReservations = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch('/api/reservas');
-        if (!response.ok) {
-          throw new Error('Error al cargar las reservas');
-        }
+        const response = await fetch(`${API_URL}/api/reservas`);
+        if (!response.ok) throw new Error('Error al cargar las reservas');
         const data = await response.json();
         setReservations(data);
       } catch (error) {
@@ -44,59 +46,49 @@ export default function ListarReservas() {
     };
 
     fetchReservations();
-  }, []);
+  }, [API_URL]);
 
+  // 🔹 Filtros dinámicos
   useEffect(() => {
     let result = [...reservations];
 
-    // Filtrar por estado
     if (filterStatus !== 'TODOS') {
-      result = result.filter(reservation => reservation.status === filterStatus);
+      result = result.filter((r) => r.status === filterStatus);
     }
 
-    // Filtrar por término de búsqueda
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      if (searchType === 'guest') {
-        // Buscar por nombre de huésped
-        result = result.filter(reservation =>
-          reservation.guest_name.toLowerCase().includes(term)
-        );
-      } else {
-        // Buscar por número de habitación
-        result = result.filter(reservation =>
-          reservation.room_number.toLowerCase().includes(term)
-        );
-      }
+      result =
+        searchType === 'guest'
+          ? result.filter((r) => r.guest_name.toLowerCase().includes(term))
+          : result.filter((r) => r.room_number.toLowerCase().includes(term));
     }
 
     setFilteredReservations(result);
   }, [reservations, filterStatus, searchTerm, searchType]);
 
+  // 🔹 Cancelar reserva
   const handleCancelReservation = async (reservationId: number) => {
     try {
-      const response = await fetch(`/api/reservas/${reservationId}/estado`, {
+      const response = await fetch(`${API_URL}/api/reservas/${reservationId}/estado`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'CANCELADO' }),
       });
 
-      if (!response.ok) {
-        throw new Error('Error al cancelar la reserva');
-      }
-
-      setReservations(reservations.filter(reservation => reservation.reservation_id !== reservationId));
+      if (!response.ok) throw new Error('Error al cancelar la reserva');
+      setReservations((prev) =>
+        prev.map((r) =>
+          r.reservation_id === reservationId ? { ...r, status: 'CANCELADO' } : r
+        )
+      );
     } catch (error) {
       console.error('Error canceling reservation:', error);
       setError('No se pudo cancelar la reserva');
     }
   };
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
+  if (loading) return <div>Cargando...</div>;
 
   return (
     <ListarBase title="Listado de Reservas">
