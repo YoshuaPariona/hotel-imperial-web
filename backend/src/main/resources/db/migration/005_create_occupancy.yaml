@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010-create-room-occupancy
+      author: Yoshua
+      comments: "Crea tabla 'room_occupancy' para vincular huéspedes con sus reservas activas."
+      changes:
+        - createTable:
+            tableName: room_occupancy
+            columns:
+              - column:
+                  name: occupancy_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guest_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reservation_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: room_occupancy
+            baseColumnNames: room_id
+            constraintName: fk_occupancy_room
+            referencedTableName: rooms
+            referencedColumnNames: room_id
+        - addForeignKeyConstraint:
+            baseTableName: room_occupancy
+            baseColumnNames: guest_id
+            constraintName: fk_occupancy_guest
+            referencedTableName: guests
+            referencedColumnNames: guest_id
+        - addForeignKeyConstraint:
+            baseTableName: room_occupancy
+            baseColumnNames: reservation_id
+            constraintName: fk_occupancy_reservation
+            referencedTableName: reservations
+            referencedColumnNames: reservation_id
+            onDelete: CASCADE

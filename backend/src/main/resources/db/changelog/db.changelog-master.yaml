@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db/migration/001_create_roles_users.yaml
+  - include:
+      file: db/migration/002_create_room_enums_and_tables.yaml
+  - include:
+      file: db/migration/003_create_room_history.yaml
+  - include:
+      file: db/migration/004_create_guests_and_reservations.yaml
+  - include:
+      file: db/migration/005_create_occupancy.yaml
+  - include:
+      file: db/migration/006_create_incidents.yaml
