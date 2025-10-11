@@ -1,5 +1,5 @@
 // src/views/estratégicos/planificacion-estrategica/components/DiagramQuality.tsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchIncidentStats } from '../components/DatosConnection';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import type { PieLabelRenderProps } from 'recharts';
@@ -27,7 +27,7 @@ const mockIncidentStats: IncidentTypeStats = {
 const DiagramQuality = () => {
   const [incidentStats, setIncidentStats] = useState<IncidentTypeStats>(mockIncidentStats);
   const [loading, setLoading] = useState(true);
-  const [useMockData, setUseMockData] = useState(false); // Cambia a true para usar datos mock
+  const [useMockData, _setUseMokData] = useState(false); // Cambia a true para usar datos mock
 
   useEffect(() => {
     const loadIncidentStats = async () => {

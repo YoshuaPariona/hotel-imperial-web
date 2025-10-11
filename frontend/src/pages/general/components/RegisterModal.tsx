@@ -1,5 +1,5 @@
 // src/pages/general/components/RegisterModal.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AnimatedBackground from './AnimatedBackground';
 
 interface RegisterModalProps {

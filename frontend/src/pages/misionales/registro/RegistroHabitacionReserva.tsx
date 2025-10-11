@@ -1,7 +1,7 @@
 // src/pages/misionales/registro/RegistroHabitacionReserva.tsx
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+/*
 interface Guest {
   guest_id?: number;
   first_name: string;
@@ -11,7 +11,7 @@ interface Guest {
   phone?: string;
   email?: string;
 }
-
+*/
 interface Room {
   room_id: number;
   room_number: string;
@@ -40,11 +40,13 @@ export default function RegistroHabitacionReserva() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL;
+
   // Obtener habitaciones disponibles
   useEffect(() => {
     const fetchAvailableRooms = async () => {
       try {
-        const response = await fetch('/api/habitaciones?current_status=DISPONIBLE');
+        const response = await fetch('${apiBaseUrl}/api/habitaciones?current_status=DISPONIBLE');
         if (!response.ok) {
           throw new Error('Error al cargar las habitaciones disponibles');
         }
@@ -83,7 +85,7 @@ export default function RegistroHabitacionReserva() {
     try {
       // Primero registrar al huésped si no existe
       let guestId = 0;
-      const guestResponse = await fetch('/api/huespedes', {
+      const guestResponse = await fetch('${apiBaseUrl}/api/huespedes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +115,7 @@ export default function RegistroHabitacionReserva() {
         status: formData.status
       };
 
-      const reservationResponse = await fetch('/api/reservas', {
+      const reservationResponse = await fetch('${apiBaseUrl}/api/reservas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +129,7 @@ export default function RegistroHabitacionReserva() {
 
       // Actualizar el estado de la habitación
       const roomStatus = mode === 'reserva' ? 'RESERVADA' : 'OCUPADA';
-      await fetch(`/api/habitaciones/${selectedRoom.room_id}/estado`, {
+      await fetch(`${apiBaseUrl}/api/habitaciones/${selectedRoom.room_id}/estado`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

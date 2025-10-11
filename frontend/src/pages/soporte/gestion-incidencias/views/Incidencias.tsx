@@ -24,11 +24,13 @@ export default function Incidencias() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchIncidencias = async () => {
       setLoading(true);
       try {
-        const response = await fetch('/api/incidencias');
+        const response = await fetch('${apiBaseUrl}/api/incidencias');
         if (!response.ok) {
           throw new Error('Error al cargar las incidencias');
         }
@@ -47,7 +49,7 @@ export default function Incidencias() {
 
   const handleChangeEstado = async (incidenciaId: number, nuevoEstado: Incidencia['estado']) => {
     try {
-      const response = await fetch(`/api/incidencias/${incidenciaId}/estado`, {
+      const response = await fetch(`${apiBaseUrl}/api/incidencias/${incidenciaId}/estado`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reservas")
+@RequestMapping("${apiBaseUrl}/api/reservas")
 public class ReservationController {
 
     private final ListReservationsUseCase listReservationsUseCase;
@@ -31,7 +31,7 @@ public class ReservationController {
 
     }
 
-    // Endpoint GET /api/reservas -> lista todas las reservas
+    // Endpoint GET ${apiBaseUrl}/api/reservas -> lista todas las reservas
     @GetMapping
     public List<ReservationResponseDTO> listReservations() {
         return listReservationsUseCase.execute();

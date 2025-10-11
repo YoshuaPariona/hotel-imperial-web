@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ListarBase from '../../listar/ListarBase';
 
 interface Room {
@@ -16,11 +16,13 @@ export default function ListadoHabitacion() {
   const [filterCategory, setFilterCategory] = useState<string>('TODOS');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchRooms = async () => {
       setLoading(true);
       try {
-        const response = await fetch('/api/habitaciones');
+        const response = await fetch('${apiBaseUrl}/api/habitaciones');
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error al cargar las habitaciones: ${response.status} ${errorText}`);
@@ -55,7 +57,7 @@ export default function ListadoHabitacion() {
 
   const handleStatusChange = async (roomId: number, newStatus: Room['currentStatus']) => {
     try {
-      const response = await fetch(`/api/habitaciones/${roomId}/estado`, {
+      const response = await fetch(`${apiBaseUrl}/api/habitaciones/${roomId}/estado`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

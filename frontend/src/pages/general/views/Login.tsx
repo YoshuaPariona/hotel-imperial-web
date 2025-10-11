@@ -1,5 +1,5 @@
 // src/pages/general/views/Login.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
 import RegisterModal from '../components/RegisterModal';

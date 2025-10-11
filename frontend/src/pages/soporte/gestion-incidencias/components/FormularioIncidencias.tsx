@@ -25,7 +25,7 @@ export default function FormularioIncidencias() {
     setSuccess(false);
 
     try {
-      const response = await fetch("/api/incidencias", {
+      const response = await fetch("${apiBaseUrl}/api/incidencias", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

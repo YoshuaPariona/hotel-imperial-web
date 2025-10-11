@@ -29,7 +29,7 @@ export default function ListarReservas() {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch('/api/reservas');
+        const response = await fetch('${apiBaseUrl}/api/reservas');
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error al cargar las reservas: ${response.status} ${errorText}`);
@@ -65,7 +65,7 @@ export default function ListarReservas() {
   /*
   const handleCancelReservation = async (reservationId: number) => {
     try {
-      const response = await fetch(`/api/reservas/${reservationId}/estado`, {
+      const response = await fetch(`${apiBaseUrl}/api/reservas/${reservationId}/estado`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'CANCELADO' }),

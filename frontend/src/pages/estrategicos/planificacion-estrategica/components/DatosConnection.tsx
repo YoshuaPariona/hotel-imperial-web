@@ -25,7 +25,7 @@ const mockIncidentStats: IncidentTypeStats = {
 
 export const fetchRoomTypeStats = async (): Promise<RoomTypeStat[]> => {
   try {
-    const response = await fetch('/api/room-types/stats');
+    const response = await fetch('${apiBaseUrl}/api/room-types/stats');
     if (!response.ok) {
       console.error('Error en la respuesta de room-types/stats:', response.status);
       return mockRoomTypeStats;
@@ -40,7 +40,7 @@ export const fetchRoomTypeStats = async (): Promise<RoomTypeStat[]> => {
 
 export const fetchIncidentStats = async (): Promise<IncidentTypeStats> => {
   try {
-    const response = await fetch('/api/incidents/stats');
+    const response = await fetch('${apiBaseUrl}/api/incidents/stats');
     if (!response.ok) {
       console.error('Error en la respuesta de incidents/stats:', response.status);
       return mockIncidentStats;
@@ -55,7 +55,7 @@ export const fetchIncidentStats = async (): Promise<IncidentTypeStats> => {
 
 export const fetchReservationStats = async (): Promise<ReservationStatusStats> => {
   try {
-    const response = await fetch('/api/reservations/stats');
+    const response = await fetch('${apiBaseUrl}/api/reservations/stats');
     if (!response.ok) {
       console.error('Error en la respuesta de reservations/stats:', response.status);
       return mockReservationStats;

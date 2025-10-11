@@ -1,5 +1,5 @@
 // src/views/estratégicos/planificacion-estrategica/components/DiagramStrategy.tsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -43,7 +43,7 @@ const DiagramStrategy = () => {
   const [roomTypeStats, setRoomTypeStats] = useState<RoomTypeStat[]>(mockRoomTypeStats);
   const [reservationStats, setReservationStats] = useState<ReservationStatusStats>(mockReservationStats);
   const [loading, setLoading] = useState(true);
-  const [useMockData, setUseMockData] = useState(false); // Cambia a true para usar datos mock
+  const [useMockData, _setUseMockData] = useState(false); // Cambia a true para usar datos mock
 
   useEffect(() => {
     const loadStats = async () => {

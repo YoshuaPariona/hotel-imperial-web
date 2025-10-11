@@ -1,5 +1,5 @@
 // src/views/estratégicos/planificacion-estrategica/views/ViewDashboards.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import DashboardButtons from '../components/DashboardButtons';
 import DiagramQuality from '../components/DiagramQuality';
 import DiagramStrategy from '../components/DiagramStrategy';
