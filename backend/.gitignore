@@ -26,6 +26,3 @@ gradlew.bat
 .DS_Store
 Thumbs.db
 
-# Archivos de configuración locales
-application-*.yml
-application-*.properties

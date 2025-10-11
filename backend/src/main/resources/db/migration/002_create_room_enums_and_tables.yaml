@@ -1,0 +1,122 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-room-types
+      author: Yoshua
+      comments: "Crea tabla 'room_types' para definir tipos de habitaciones del hotel (sin ENUMs)."
+      changes:
+        - createTable:
+            tableName: room_types
+            columns:
+              - column:
+                  name: room_type_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                  remarks: "Categoría de habitación, ej. STANDARD, MATRIMONIAL."
+              - column:
+                  name: bed_size
+                  type: VARCHAR(20)
+                  remarks: "Tamaño de cama, ej. SINGLE, DOUBLE."
+              - column:
+                  name: bed_quantity
+                  type: INTEGER
+                  remarks: "Cantidad de camas en la habitación."
+              - column:
+                  name: description
+                  type: TEXT
+                  remarks: "Descripción opcional del tipo de habitación."
+
+  - changeSet:
+      id: 004-create-rooms
+      author: Yoshua
+      comments: "Crea tabla 'rooms' con columnas VARCHAR para estados y referencias a room_types."
+      changes:
+        - createTable:
+            tableName: rooms
+            columns:
+              - column:
+                  name: room_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: room_number
+                  type: VARCHAR(10)
+                  constraints:
+                    unique: true
+                    nullable: false
+                  remarks: "Número identificador de la habitación."
+              - column:
+                  name: room_type_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                  remarks: "Relación con la tabla room_types."
+              - column:
+                  name: floor
+                  type: INTEGER
+                  remarks: "Piso donde se encuentra la habitación."
+              - column:
+                  name: capacity
+                  type: INTEGER
+                  remarks: "Capacidad máxima de huéspedes."
+              - column:
+                  name: current_status
+                  type: VARCHAR(20)
+                  defaultValue: 'DISPONIBLE'
+                  remarks: "Estado actual de la habitación (DISPONIBLE, RESERVADA, OCUPADA, etc.)."
+              - column:
+                  name: note
+                  type: TEXT
+                  remarks: "Notas internas sobre la habitación."
+        - addForeignKeyConstraint:
+            baseTableName: rooms
+            baseColumnNames: room_type_id
+            constraintName: fk_rooms_room_types
+            referencedTableName: room_types
+            referencedColumnNames: room_type_id
+            onDelete: RESTRICT
+
+  - changeSet:
+      id: 005-seed-room-types
+      author: Yoshua
+      comments: "Carga inicial de tipos de habitación (opcional)."
+      changes:
+        - insert:
+            tableName: room_types
+            columns:
+              - column:
+                  name: category
+                  value: "STANDARD"
+              - column:
+                  name: bed_size
+                  value: "SINGLE"
+              - column:
+                  name: bed_quantity
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: "Habitación estándar con cama individual."
+
+        - insert:
+            tableName: room_types
+            columns:
+              - column:
+                  name: category
+                  value: "MATRIMONIAL"
+              - column:
+                  name: bed_size
+                  value: "DOUBLE"
+              - column:
+                  name: bed_quantity
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: "Habitación matrimonial con cama doble."
