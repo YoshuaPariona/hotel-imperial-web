@@ -1,27 +1,30 @@
+// src/views/estratégicos/planificacion-estrategica/views/ViewDashboards.tsx
 import React, { useState } from 'react';
-import { getDashboardData } from '../components/DatosConnection';
-import DashboardButtons from '../components//DashboardButtons';
-import EstrategicaCharts from '../components/DiagramSrategy';
-import CalidadChart from '../components/DiagramQuality';
+import DashboardButtons from '../components/DashboardButtons';
+import DiagramQuality from '../components/DiagramQuality';
+import DiagramStrategy from '../components/DiagramStrategy';
 
 const ViewDashboards: React.FC = () => {
-  const { roomTypeStats, incidentTypeStats, reservationStatusStats } = getDashboardData();
   const [activeSection, setActiveSection] = useState<'estrategica' | 'calidad'>('estrategica');
 
   return (
-    <div className="p-6 space-y-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 text-center">
+    <div className="p-6 space-y-8 bg-gray-900 min-h-screen">
+      <h1 className="text-3xl font-bold text-white text-center mb-2">
         Dashboard de Procesos
       </h1>
+      <p className="text-center text-gray-400 mb-8">
+        Visualización de datos estratégicos para el Hotel Imperial
+      </p>
 
-      <DashboardButtons activeSection={activeSection} setActiveSection={setActiveSection} />
+      <DashboardButtons
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+      />
 
-      {activeSection === 'estrategica' && (
-        <EstrategicaCharts roomTypeStats={roomTypeStats} reservationStatusStats={reservationStatusStats} />
-      )}
-      {activeSection === 'calidad' && (
-        <CalidadChart incidentTypeStats={incidentTypeStats} />
-      )}
+      <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
+        {activeSection === 'estrategica' && <DiagramStrategy />}
+        {activeSection === 'calidad' && <DiagramQuality />}
+      </div>
     </div>
   );
 };

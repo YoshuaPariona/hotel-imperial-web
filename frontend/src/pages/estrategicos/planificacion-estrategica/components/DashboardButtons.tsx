@@ -1,3 +1,4 @@
+// src/views/estratégicos/planificacion-estrategica/components/DashboardButtons.tsx
 import React from 'react';
 
 interface DashboardButtonsProps {
@@ -12,8 +13,8 @@ const DashboardButtons: React.FC<DashboardButtonsProps> = ({ activeSection, setA
         onClick={() => setActiveSection('estrategica')}
         className={`px-6 py-2 rounded-lg font-semibold transition-colors ${
           activeSection === 'estrategica'
-            ? 'bg-indigo-600 text-white'
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+            ? 'bg-yellow-500 text-gray-900 shadow-lg'
+            : 'bg-gray-700 text-gray-300 border border-gray-600 hover:bg-gray-600'
         }`}
       >
         Planificación Estratégica
@@ -22,8 +23,8 @@ const DashboardButtons: React.FC<DashboardButtonsProps> = ({ activeSection, setA
         onClick={() => setActiveSection('calidad')}
         className={`px-6 py-2 rounded-lg font-semibold transition-colors ${
           activeSection === 'calidad'
-            ? 'bg-indigo-600 text-white'
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+            ? 'bg-yellow-500 text-gray-900 shadow-lg'
+            : 'bg-gray-700 text-gray-300 border border-gray-600 hover:bg-gray-600'
         }`}
       >
         Gestión de Calidad

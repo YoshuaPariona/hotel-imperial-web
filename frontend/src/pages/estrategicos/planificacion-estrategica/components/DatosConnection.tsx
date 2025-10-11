@@ -1,96 +1,69 @@
-// src/views/estratégicos/planificacion-estrategica/components/DatosEjecutivo.tsx
-export interface RoomType {
-  id: number;
-  category: 'STANDARD' | 'MATRIMONIAL';
-  bedSize: 'SINGLE' | 'DOUBLE';
-  bedQuantity: number;
-  description: string;
-}
+// src/views/estratégicos/planificacion-estrategica/components/DatosConnection.tsx
+import type { RoomTypeStat, ReservationStatusStats, IncidentTypeStats } from '../types/dashboardTypes';
 
-export interface Room {
-  id: number;
-  roomNumber: string;
-  roomTypeId: number;
-  floor: number;
-  capacity: number;
-  currentStatus: 'DISPONIBLE' | 'RESERVADA' | 'OCUPADA' | 'MANTENIMIENTO' | 'LIMPIEZA';
-}
-
-export interface Reservation {
-  id: number;
-  roomId: number;
-  userId: number;
-  guestId: number;
-  checkIn: string;
-  checkOut: string;
-  status: 'CONFIRMADO' | 'CANCELADO' | 'COMPLETADO' | 'PENDIENTE' | 'NO_SHOW';
-}
-
-export interface Incident {
-  id: number;
-  type: 'MANTENIMIENTO' | 'LIMPIEZA' | 'RUIDO' | 'DETERIORO_MOBILIARIO' | 'FUGA_AGUA' | 'ELECTRICIDAD';
-  area: 'HABITACION' | 'LAVABO' | 'PASILLO' | 'AREA_COMUN' | 'COCINA' | 'ASCENSOR';
-  priority: 'BAJA' | 'MEDIA' | 'ALTA' | 'CRITICA';
-  status: 'PENDIENTE' | 'EN_PROCESO' | 'RESUELTA';
-  reportedAt: string;
-}
-
-export interface RoomTypeStat {
-  id: number;
-  category: 'STANDARD' | 'MATRIMONIAL';
-  bedSize: 'SINGLE' | 'DOUBLE';
-  bedQuantity: number;
-  description: string;
-  total: number;
-  occupied: number;
-  reserved: number;
-}
-
-export const mockRoomTypes: RoomType[] = [
-  { id: 1, category: 'STANDARD', bedSize: 'SINGLE', bedQuantity: 1, description: 'Habitación estándar con cama individual' },
-  { id: 2, category: 'MATRIMONIAL', bedSize: 'DOUBLE', bedQuantity: 1, description: 'Habitación matrimonial con cama doble' },
+// Datos mock
+const mockRoomTypeStats: RoomTypeStat[] = [
+  { id: 1, category: 'STANDARD', bedSize: 'SINGLE', bedQuantity: 1, description: 'Habitación estándar con cama individual', total: 20, occupied: 8, reserved: 5 },
+  { id: 2, category: 'MATRIMONIAL', bedSize: 'DOUBLE', bedQuantity: 1, description: 'Habitación matrimonial con cama doble', total: 15, occupied: 10, reserved: 3 },
 ];
 
-export const mockRooms: Room[] = [
-  { id: 1, roomNumber: '101', roomTypeId: 1, floor: 1, capacity: 2, currentStatus: 'DISPONIBLE' },
-  { id: 2, roomNumber: '102', roomTypeId: 1, floor: 1, capacity: 2, currentStatus: 'RESERVADA' },
-  { id: 3, roomNumber: '201', roomTypeId: 2, floor: 2, capacity: 2, currentStatus: 'OCUPADA' },
-  { id: 4, roomNumber: '202', roomTypeId: 2, floor: 2, capacity: 2, currentStatus: 'MANTENIMIENTO' },
-];
+const mockReservationStats: ReservationStatusStats = {
+  CONFIRMADO: 12,
+  PENDIENTE: 5,
+  COMPLETADO: 8,
+  CANCELADO: 2,
+};
 
-export const mockReservations: Reservation[] = [
-  { id: 1, roomId: 1, userId: 1, guestId: 1, checkIn: '2025-10-15', checkOut: '2025-10-20', status: 'CONFIRMADO' },
-  { id: 2, roomId: 2, userId: 2, guestId: 2, checkIn: '2025-10-16', checkOut: '2025-10-18', status: 'COMPLETADO' },
-  { id: 3, roomId: 3, userId: 3, guestId: 3, checkIn: '2025-10-17', checkOut: '2025-10-22', status: 'PENDIENTE' },
-];
+const mockIncidentStats: IncidentTypeStats = {
+  MANTENIMIENTO: 12,
+  LIMPIEZA: 8,
+  RUIDO: 5,
+  DETERIORO_MOBILIARIO: 7,
+  FUGA_AGUA: 3,
+  ELECTRICIDAD: 4,
+};
 
-export const mockIncidents: Incident[] = [
-  { id: 1, type: 'MANTENIMIENTO', area: 'HABITACION', priority: 'ALTA', status: 'PENDIENTE', reportedAt: '2025-10-01' },
-  { id: 2, type: 'LIMPIEZA', area: 'LAVABO', priority: 'MEDIA', status: 'RESUELTA', reportedAt: '2025-10-05' },
-  { id: 3, type: 'ELECTRICIDAD', area: 'PASILLO', priority: 'CRITICA', status: 'EN_PROCESO', reportedAt: '2025-10-08' },
-];
+export const fetchRoomTypeStats = async (): Promise<RoomTypeStat[]> => {
+  try {
+    const response = await fetch('/api/room-types/stats');
+    if (!response.ok) {
+      console.error('Error en la respuesta de room-types/stats:', response.status);
+      return mockRoomTypeStats;
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching room type stats:', error);
+    return mockRoomTypeStats;
+  }
+};
 
-export const getDashboardData = () => {
-  const roomTypeStats: RoomTypeStat[] = mockRoomTypes.map((type: RoomType) => {
-    const rooms = mockRooms.filter((r: Room) => r.roomTypeId === type.id);
-    const occupied = rooms.filter((r: Room) => r.currentStatus === 'OCUPADA').length;
-    const reserved = rooms.filter((r: Room) => r.currentStatus === 'RESERVADA').length;
-    return { ...type, total: rooms.length, occupied, reserved };
-  });
+export const fetchIncidentStats = async (): Promise<IncidentTypeStats> => {
+  try {
+    const response = await fetch('/api/incidents/stats');
+    if (!response.ok) {
+      console.error('Error en la respuesta de incidents/stats:', response.status);
+      return mockIncidentStats;
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching incident stats:', error);
+    return mockIncidentStats;
+  }
+};
 
-  const incidentTypeStats = mockIncidents.reduce((acc: Record<string, number>, incident: Incident) => {
-    acc[incident.type] = (acc[incident.type] || 0) + 1;
-    return acc;
-  }, {});
-
-  const reservationStatusStats = mockReservations.reduce((acc: Record<string, number>, reservation: Reservation) => {
-    acc[reservation.status] = (acc[reservation.status] || 0) + 1;
-    return acc;
-  }, {});
-
-  return {
-    roomTypeStats,
-    incidentTypeStats,
-    reservationStatusStats,
-  };
+export const fetchReservationStats = async (): Promise<ReservationStatusStats> => {
+  try {
+    const response = await fetch('/api/reservations/stats');
+    if (!response.ok) {
+      console.error('Error en la respuesta de reservations/stats:', response.status);
+      return mockReservationStats;
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching reservation stats:', error);
+    return mockReservationStats;
+  }
 };
