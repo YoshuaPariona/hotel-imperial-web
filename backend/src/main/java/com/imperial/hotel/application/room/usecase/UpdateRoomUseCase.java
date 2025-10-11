@@ -31,7 +31,12 @@ public class UpdateRoomUseCase {
         }
 
         if (dto.getCurrentStatus() != null) {
-            room.setCurrentStatus(dto.getCurrentStatus()); // puedes validar que sea un RoomStatus válido
+            try {
+                RoomStatus status = RoomStatus.valueOf(dto.getCurrentStatus().toUpperCase());
+                room.setCurrentStatus(status);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Estado de habitación inválido: " + dto.getCurrentStatus());
+            }
         }
 
         if (dto.getRoomTypeCategory() != null) {

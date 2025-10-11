@@ -12,6 +12,8 @@ public interface RoomRepository {
 
     Optional<Room> findById(Long id);
 
+    List<Room> findByCurrentStatus(RoomStatus status);
+
     Room save(Room room);
 
     void deleteById(Long id);

@@ -28,18 +28,11 @@ public class Room {
     private Integer floor;
     private Integer capacity;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String currentStatus = RoomStatus.DISPONIBLE.name(); // valor por defecto
+    private RoomStatus currentStatus = RoomStatus.DISPONIBLE;
 
     @Column(columnDefinition = "TEXT")
     private String note;
 
-    // Métodos convenientes para usar enums
-    public RoomStatus getCurrentStatusEnum() {
-        return RoomStatus.valueOf(this.currentStatus);
-    }
-
-    public void setCurrentStatusEnum(RoomStatus status) {
-        this.currentStatus = status.name();
-    }
 }

@@ -13,7 +13,7 @@ public class RoomMapper {
         return RoomResponseDTO.builder()
                 .id(room.getRoomId()) // Usar roomId que es el @Id
                 .roomNumber(room.getRoomNumber())
-                .currentStatus(room.getCurrentStatus())
+                .currentStatus(room.getCurrentStatus().name())
                 .roomTypeCategory(
                         room.getRoomType() != null && room.getRoomType().getCategory() != null
                                 ? room.getRoomType().getCategory() // es String, no enum
