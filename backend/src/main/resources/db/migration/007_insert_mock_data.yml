@@ -1,0 +1,525 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: tu_nombre
+      changes:
+        # Insertar roles
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: Administrador
+              - column:
+                  name: description
+                  value: Acceso total al sistema
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: Recepcionista
+              - column:
+                  name: description
+                  value: Gestión de reservas y check-in/check-out
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: Mantenimiento
+              - column:
+                  name: description
+                  value: Gestión de incidencias y mantenimiento
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: Limpieza
+              - column:
+                  name: description
+                  value: Gestión de limpieza de habitaciones
+
+  - changeSet:
+      id: 2
+      author: tu_nombre
+      changes:
+        # Insertar usuarios
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+              - column:
+                  name: first_name
+                  value: Admin
+              - column:
+                  name: last_name
+                  value: Principal
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: email
+                  value: admin@hotel.com
+              - column:
+                  name: hashed_password
+                  value: "$2a$10$N9qo8uLOickgx2ZMRZoMy..."
+              - column:
+                  name: phone
+                  value: "999999999"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: role_id
+                  valueNumeric: 2
+              - column:
+                  name: first_name
+                  value: Recepcionista
+              - column:
+                  name: last_name
+                  value: Uno
+              - column:
+                  name: username
+                  value: recepcion1
+              - column:
+                  name: email
+                  value: recepcion1@hotel.com
+              - column:
+                  name: hashed_password
+                  value: "$2a$10$N9qo8uLOickgx2ZMRZoMy..."
+              - column:
+                  name: phone
+                  value: "111111111"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: role_id
+                  valueNumeric: 3
+              - column:
+                  name: first_name
+                  value: Mantenimiento
+              - column:
+                  name: last_name
+                  value: Uno
+              - column:
+                  name: username
+                  value: mantenimiento1
+              - column:
+                  name: email
+                  value: mantenimiento1@hotel.com
+              - column:
+                  name: hashed_password
+                  value: "$2a$10$N9qo8uLOickgx2ZMRZoMy..."
+              - column:
+                  name: phone
+                  value: "222222222"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: role_id
+                  valueNumeric: 4
+              - column:
+                  name: first_name
+                  value: Limpieza
+              - column:
+                  name: last_name
+                  value: Uno
+              - column:
+                  name: username
+                  value: limpieza1
+              - column:
+                  name: email
+                  value: limpieza1@hotel.com
+              - column:
+                  name: hashed_password
+                  value: "$2a$10$N9qo8uLOickgx2ZMRZoMy..."
+              - column:
+                  name: phone
+                  value: "333333333"
+
+  - changeSet:
+      id: 3
+      author: tu_nombre
+      changes:
+        # Insertar tipos de habitación
+        - insert:
+            tableName: room_types
+            columns:
+              - column:
+                  name: category
+                  value: STANDARD
+              - column:
+                  name: bed_size
+                  value: SINGLE
+              - column:
+                  name: bed_quantity
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: Habitación estándar con cama individual
+        - insert:
+            tableName: room_types
+            columns:
+              - column:
+                  name: category
+                  value: STANDARD
+              - column:
+                  name: bed_size
+                  value: DOUBLE
+              - column:
+                  name: bed_quantity
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: Habitación estándar con cama doble
+        - insert:
+            tableName: room_types
+            columns:
+              - column:
+                  name: category
+                  value: MATRIMONIAL
+              - column:
+                  name: bed_size
+                  value: DOUBLE
+              - column:
+                  name: bed_quantity
+                  valueNumeric: 1
+              - column:
+                  name: description
+                  value: Habitación matrimonial con cama doble
+
+  - changeSet:
+      id: 4
+      author: tu_nombre
+      changes:
+        # Insertar habitaciones
+        - insert:
+            tableName: rooms
+            columns:
+              - column:
+                  name: room_number
+                  value: "101"
+              - column:
+                  name: room_type_id
+                  valueNumeric: 1
+              - column:
+                  name: floor
+                  valueNumeric: 1
+              - column:
+                  name: capacity
+                  valueNumeric: 1
+              - column:
+                  name: current_status
+                  value: DISPONIBLE
+        - insert:
+            tableName: rooms
+            columns:
+              - column:
+                  name: room_number
+                  value: "102"
+              - column:
+                  name: room_type_id
+                  valueNumeric: 2
+              - column:
+                  name: floor
+                  valueNumeric: 1
+              - column:
+                  name: capacity
+                  valueNumeric: 2
+              - column:
+                  name: current_status
+                  value: DISPONIBLE
+        - insert:
+            tableName: rooms
+            columns:
+              - column:
+                  name: room_number
+                  value: "201"
+              - column:
+                  name: room_type_id
+                  valueNumeric: 3
+              - column:
+                  name: floor
+                  valueNumeric: 2
+              - column:
+                  name: capacity
+                  valueNumeric: 2
+              - column:
+                  name: current_status
+                  value: DISPONIBLE
+
+  - changeSet:
+      id: 5
+      author: tu_nombre
+      changes:
+        # Insertar huéspedes
+        - insert:
+            tableName: guests
+            columns:
+              - column:
+                  name: first_name
+                  value: Juan
+              - column:
+                  name: last_name
+                  value: Pérez
+              - column:
+                  name: doc_type
+                  value: DNI
+              - column:
+                  name: document_number
+                  value: "12345678"
+              - column:
+                  name: phone
+                  value: "987654321"
+              - column:
+                  name: email
+                  value: juan.perez@example.com
+        - insert:
+            tableName: guests
+            columns:
+              - column:
+                  name: first_name
+                  value: María
+              - column:
+                  name: last_name
+                  value: Gómez
+              - column:
+                  name: doc_type
+                  value: DNI
+              - column:
+                  name: document_number
+                  value: "87654321"
+              - column:
+                  name: phone
+                  value: "912345678"
+              - column:
+                  name: email
+                  value: maria.gomez@example.com
+
+  - changeSet:
+      id: 6
+      author: tu_nombre
+      changes:
+        # Insertar reservas
+        - insert:
+            tableName: reservations
+            columns:
+              - column:
+                  name: room_id
+                  valueNumeric: 1
+              - column:
+                  name: user_id
+                  valueNumeric: 2
+              - column:
+                  name: guest_id
+                  valueNumeric: 1
+              - column:
+                  name: check_in
+                  valueDate: "2025-11-15T14:00:00"
+              - column:
+                  name: check_out
+                  valueDate: "2025-11-17T12:00:00"
+              - column:
+                  name: status
+                  value: CONFIRMADO
+        - insert:
+            tableName: reservations
+            columns:
+              - column:
+                  name: room_id
+                  valueNumeric: 2
+              - column:
+                  name: user_id
+                  valueNumeric: 2
+              - column:
+                  name: guest_id
+                  valueNumeric: 2
+              - column:
+                  name: check_in
+                  valueDate: "2025-11-16T15:00:00"
+              - column:
+                  name: check_out
+                  valueDate: "2025-11-19T11:00:00"
+              - column:
+                  name: status
+                  value: CONFIRMADO
+
+  - changeSet:
+      id: 7
+      author: tu_nombre
+      changes:
+        # Insertar ocupación de habitaciones
+        - insert:
+            tableName: room_occupancy
+            columns:
+              - column:
+                  name: room_id
+                  valueNumeric: 1
+              - column:
+                  name: guest_id
+                  valueNumeric: 1
+              - column:
+                  name: reservation_id
+                  valueNumeric: 1
+        - insert:
+            tableName: room_occupancy
+            columns:
+              - column:
+                  name: room_id
+                  valueNumeric: 2
+              - column:
+                  name: guest_id
+                  valueNumeric: 2
+              - column:
+                  name: reservation_id
+                  valueNumeric: 2
+
+  - changeSet:
+      id: 8
+      author: tu_nombre
+      changes:
+        # Insertar histórico de estado de habitaciones
+        - insert:
+            tableName: room_status_history
+            columns:
+              - column:
+                  name: room_id
+                  valueNumeric: 1
+              - column:
+                  name: previous_status
+                  value: DISPONIBLE
+              - column:
+                  name: new_status
+                  value: RESERVADA
+              - column:
+                  name: changed_by
+                  valueNumeric: 2
+              - column:
+                  name: note
+                  value: Reserva confirmada para Juan Pérez
+        - insert:
+            tableName: room_status_history
+            columns:
+              - column:
+                  name: room_id
+                  valueNumeric: 2
+              - column:
+                  name: previous_status
+                  value: DISPONIBLE
+              - column:
+                  name: new_status
+                  value: RESERVADA
+              - column:
+                  name: changed_by
+                  valueNumeric: 2
+              - column:
+                  name: note
+                  value: Reserva confirmada para María Gómez
+
+  - changeSet:
+      id: 9
+      author: tu_nombre
+      changes:
+        # Insertar incidencias
+        - insert:
+            tableName: incidents
+            columns:
+              - column:
+                  name: type
+                  value: MANTENIMIENTO
+              - column:
+                  name: area
+                  value: HABITACION
+              - column:
+                  name: location_detail
+                  value: "101"
+              - column:
+                  name: description
+                  value: Foco fundido en la lámpara
+              - column:
+                  name: priority
+                  value: BAJA
+              - column:
+                  name: team
+                  value: Mantenimiento
+              - column:
+                  name: reported_by
+                  valueNumeric: 3
+              - column:
+                  name: room_id
+                  valueNumeric: 1
+        - insert:
+            tableName: incidents
+            columns:
+              - column:
+                  name: type
+                  value: LIMPIEZA
+              - column:
+                  name: area
+                  value: LAVABO
+              - column:
+                  name: location_detail
+                  value: "201"
+              - column:
+                  name: description
+                  value: Falta de toallas limpias
+              - column:
+                  name: priority
+                  value: MEDIA
+              - column:
+                  name: team
+                  value: Limpieza
+              - column:
+                  name: reported_by
+                  valueNumeric: 4
+              - column:
+                  name: room_id
+                  valueNumeric: 3
+
+  - changeSet:
+      id: 10
+      author: tu_nombre
+      changes:
+        # Insertar histórico de incidencias
+        - insert:
+            tableName: incident_history
+            columns:
+              - column:
+                  name: incident_id
+                  valueNumeric: 1
+              - column:
+                  name: old_status
+                  value: PENDIENTE
+              - column:
+                  name: new_status
+                  value: EN_PROCESO
+              - column:
+                  name: changed_by
+                  valueNumeric: 3
+              - column:
+                  name: note
+                  value: Se asignó técnico para revisión
+        - insert:
+            tableName: incident_history
+            columns:
+              - column:
+                  name: incident_id
+                  valueNumeric: 2
+              - column:
+                  name: old_status
+                  value: PENDIENTE
+              - column:
+                  name: new_status
+                  value: RESUELTA
+              - column:
+                  name: changed_by
+                  valueNumeric: 4
+              - column:
+                  name: note
+                  value: Se repusieron toallas limpias
