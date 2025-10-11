@@ -5,25 +5,28 @@ import com.imperial.hotel.domain.user.model.User;
 import com.imperial.hotel.domain.guest.model.Guest;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "reservations")
 public class Reservation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
-    private Long id;
+    private Long reservationId; // <-- renombrado
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -37,14 +40,6 @@ public class Reservation {
     @Column(name = "check_out", nullable = false)
     private OffsetDateTime checkOut;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private ReservationStatus status = ReservationStatus.CONFIRMADO;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private OffsetDateTime createdAt = OffsetDateTime.now();
-
-    public enum ReservationStatus {
-        CONFIRMADO, CANCELADO, COMPLETADO
-    }
+    @Column(name = "status", nullable = false, length = 50)
+    private String status;
 }

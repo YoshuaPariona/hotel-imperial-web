@@ -34,7 +34,6 @@ public class RoomController {
         this.listRoomsByCategoryUseCase = listRoomsByCategoryUseCase;
     }
 
-    // Endpoint GET /api/habitaciones -> lista habitaciones con filtros opcionales
     @GetMapping
     public List<RoomResponseDTO> listRooms(
             @RequestParam Optional<Integer> numeroMin,
@@ -44,13 +43,11 @@ public class RoomController {
         return listRoomsUseCase.execute(numeroMin, numeroMax, status);
     }
 
-    // Endpoint GET /api/habitaciones/numero/{roomNumber} -> obtiene una habitación por número
     @GetMapping("/numero/{roomNumber}")
     public RoomResponseDTO getRoomByNumber(@PathVariable String roomNumber) {
         return getRoomByNumberUseCase.execute(roomNumber);
     }
 
-    // Endpoint PUT /api/habitaciones/numero/{roomNumber} -> actualiza habitación por número
     @PutMapping("/numero/{roomNumber}")
     public RoomResponseDTO updateRoom(
             @PathVariable String roomNumber,

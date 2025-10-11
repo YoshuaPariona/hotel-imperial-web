@@ -3,39 +3,46 @@ package com.imperial.hotel.domain.guest.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "guests")
 public class Guest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "guest_id")
-    private Long id;
+    private Long guestId;
 
-    @Column(name = "first_name", nullable = false, length = 150)
+    @Column(nullable = false, length = 150)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 150)
+    @Column(nullable = false, length = 150)
     private String lastName;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "doc_type", nullable = false)
-    private DocumentType documentType = DocumentType.DNI;
+    @Column(length = 20)
+    private String docType = "DNI"; // valor por defecto
 
-    @Column(name = "document_number", unique = true, length = 50)
+    @Column(length = 50, unique = true)
     private String documentNumber;
 
-    @Column(name = "phone", length = 30)
+    @Column(length = 30)
     private String phone;
 
-    @Column(name = "email", unique = true, length = 150)
+    @Column(length = 150, unique = true)
     private String email;
 
+    // Métodos convenientes si quieres manejar docType como enum en la API
     public enum DocumentType {
         DNI, PASAPORTE
+    }
+
+    public DocumentType getDocTypeEnum() {
+        return DocumentType.valueOf(this.docType);
+    }
+
+    public void setDocTypeEnum(DocumentType docType) {
+        this.docType = docType.name();
     }
 }

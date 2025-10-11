@@ -1,18 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 007-create-reservation-enums
-      author: Yoshua
-      comments: "Define los ENUMs para estado de reserva y tipo de documento de huésped."
-      changes:
-        - sql:
-            splitStatements: false
-            stripComments: true
-            sql: |
-              CREATE TYPE reservation_status AS ENUM ('CONFIRMADO', 'CANCELADO', 'COMPLETADO');
-              CREATE TYPE document_type AS ENUM ('DNI', 'PASAPORTE');
-
-  - changeSet:
-      id: 008-create-guests
+      id: 007-create-guests
       author: Yoshua
       comments: "Crea tabla 'guests' para registrar datos de huéspedes del hotel."
       changes:
@@ -36,7 +24,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: doc_type
-                  type: document_type
+                  type: VARCHAR(20)
                   defaultValue: 'DNI'
               - column:
                   name: document_number
@@ -53,7 +41,7 @@ databaseChangeLog:
                     unique: true
 
   - changeSet:
-      id: 009-create-reservations
+      id: 008-create-reservations
       author: Yoshua
       comments: "Crea tabla 'reservations' con referencias a habitación, usuario y huésped responsable."
       changes:
@@ -90,7 +78,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: status
-                  type: reservation_status
+                  type: VARCHAR(20)
                   defaultValue: 'CONFIRMADO'
               - column:
                   name: created_at
