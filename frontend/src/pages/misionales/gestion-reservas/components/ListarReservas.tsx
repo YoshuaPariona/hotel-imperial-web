@@ -1,3 +1,4 @@
+// src/pages/misionales/gestion-reservas/components/ListarReservas.tsx
 import React, { useState, useEffect } from 'react';
 import ListarBase from '../../listar/ListarBase';
 
@@ -20,10 +21,13 @@ export default function ListarReservas() {
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState<string>('TODOS');
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchType, setSearchType] = useState<'guest' | 'room'>('guest');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchReservations = async () => {
       setLoading(true);
+      setError(null);
       try {
         const response = await fetch('/api/reservas');
         if (!response.ok) {
@@ -33,6 +37,7 @@ export default function ListarReservas() {
         setReservations(data);
       } catch (error) {
         console.error('Error fetching reservations:', error);
+        setError('No se pudieron cargar las reservas');
       } finally {
         setLoading(false);
       }
@@ -44,20 +49,29 @@ export default function ListarReservas() {
   useEffect(() => {
     let result = [...reservations];
 
+    // Filtrar por estado
     if (filterStatus !== 'TODOS') {
       result = result.filter(reservation => reservation.status === filterStatus);
     }
 
+    // Filtrar por término de búsqueda
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      result = result.filter(reservation =>
-        reservation.guest_name.toLowerCase().includes(term) ||
-        reservation.room_number.toLowerCase().includes(term)
-      );
+      if (searchType === 'guest') {
+        // Buscar por nombre de huésped
+        result = result.filter(reservation =>
+          reservation.guest_name.toLowerCase().includes(term)
+        );
+      } else {
+        // Buscar por número de habitación
+        result = result.filter(reservation =>
+          reservation.room_number.toLowerCase().includes(term)
+        );
+      }
     }
 
     setFilteredReservations(result);
-  }, [reservations, filterStatus, searchTerm]);
+  }, [reservations, filterStatus, searchTerm, searchType]);
 
   const handleCancelReservation = async (reservationId: number) => {
     try {
@@ -76,6 +90,7 @@ export default function ListarReservas() {
       setReservations(reservations.filter(reservation => reservation.reservation_id !== reservationId));
     } catch (error) {
       console.error('Error canceling reservation:', error);
+      setError('No se pudo cancelar la reserva');
     }
   };
 
@@ -85,19 +100,43 @@ export default function ListarReservas() {
 
   return (
     <ListarBase title="Listado de Reservas">
-      <div className="mb-6 flex flex-col md:flex-row gap-4">
-        <div className="flex-1">
-          <label className="block text-sm font-medium text-white mb-1">Buscar</label>
+      {error && (
+        <div className="mb-4 p-3 bg-red-800 text-red-100 rounded">
+          {error}
+        </div>
+      )}
+
+      <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Selector de tipo de búsqueda */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-1">Buscar por</label>
+          <select
+            value={searchType}
+            onChange={(e) => setSearchType(e.target.value as 'guest' | 'room')}
+            className="w-full p-2 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
+          >
+            <option value="guest" className="bg-gray-700">Nombre de Huésped</option>
+            <option value="room" className="bg-gray-700">Número de Habitación</option>
+          </select>
+        </div>
+
+        {/* Campo de búsqueda */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-1">
+            {searchType === 'guest' ? 'Nombre de Huésped' : 'Número de Habitación'}
+          </label>
           <input
             type="text"
-            placeholder="Nombre de huésped o habitación..."
+            placeholder={searchType === 'guest' ? 'Ej: Juan Pérez' : 'Ej: 101'}
             className="w-full p-2 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="flex-1">
-          <label className="block text-sm font-medium text-white mb-1">Filtrar por estado</label>
+
+        {/* Filtro por estado */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-1">Estado</label>
           <select
             className="w-full p-2 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
             value={filterStatus}
