@@ -20,7 +20,7 @@ public class Room {
     @Column(nullable = false, unique = true, length = 10)
     private String roomNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_type_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_rooms_room_types"))
     private RoomType roomType;
