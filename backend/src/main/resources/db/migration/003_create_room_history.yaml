@@ -19,12 +19,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: previous_status
-                  type: room_status
+                  type: VARCHAR(20)
                   constraints:
                     nullable: false
               - column:
                   name: new_status
-                  type: room_status
+                  type: VARCHAR(20)
                   constraints:
                     nullable: false
               - column:

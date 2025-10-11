@@ -2,7 +2,7 @@ spring:
   application:
     name: hotel
   profiles:
-    active: dev
+    active: prod
 
   # Configuración general de JPA
   jpa:
