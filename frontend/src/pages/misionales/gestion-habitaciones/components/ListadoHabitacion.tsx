@@ -1,120 +1,194 @@
 // src/pages/misionales/gestion-habitaciones/components/ListadoHabitacion.tsx
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import ListarBase from '../../listar/ListarBase';
 
-interface Habitacion {
-  id: number;
-  numero: string;
-  estado: string;
-  descripcion: string;
+interface Room {
+  room_id: number;
+  room_number: string;
+  category: 'STANDARD' | 'MATRIMONIAL';
+  bed_size: 'SINGLE' | 'DOUBLE';
+  bed_quantity: number;
+  current_status: 'DISPONIBLE' | 'RESERVADA' | 'OCUPADA' | 'MANTENIMIENTO' | 'LIMPIEZA';
+  floor?: number;
+  capacity?: number;
 }
 
 export default function ListadoHabitacion() {
-  const [habitaciones, setHabitaciones] = useState<Habitacion[]>([]);
-  const [filtro, setFiltro] = useState({
-    estado: "",
-    numeroMin: "",
-    numeroMax: "",
-  });
+  const [rooms, setRooms] = useState<Room[]>([]);
+  const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filterStatus, setFilterStatus] = useState<string>('TODOS');
+  const [filterCategory, setFilterCategory] = useState<string>('TODOS');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
-    const fetchHabitaciones = async () => {
+    const fetchRooms = async () => {
+      setLoading(true);
       try {
-        const response = await fetch("/api/habitaciones");
+        const response = await fetch('/api/habitaciones');
+        if (!response.ok) {
+          throw new Error('Error al cargar las habitaciones');
+        }
         const data = await response.json();
-        setHabitaciones(data);
+        setRooms(data);
       } catch (error) {
-        console.error("Error al cargar las habitaciones:", error);
+        console.error('Error fetching rooms:', error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchHabitaciones();
+
+    fetchRooms();
   }, []);
 
-  const habitacionesFiltradas = habitaciones.filter((habitacion) => {
-    return (
-      (filtro.estado ? habitacion.estado === filtro.estado : true) &&
-      (filtro.numeroMin ? parseInt(habitacion.numero) >= parseInt(filtro.numeroMin) : true) &&
-      (filtro.numeroMax ? parseInt(habitacion.numero) <= parseInt(filtro.numeroMax) : true)
-    );
-  });
+  useEffect(() => {
+    let result = [...rooms];
+
+    if (filterStatus !== 'TODOS') {
+      result = result.filter(room => room.current_status === filterStatus);
+    }
+
+    if (filterCategory !== 'TODOS') {
+      result = result.filter(room => room.category === filterCategory);
+    }
+
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      result = result.filter(room =>
+        room.room_number.toLowerCase().includes(term)
+      );
+    }
+
+    setFilteredRooms(result);
+  }, [rooms, filterStatus, filterCategory, searchTerm]);
+
+  const handleStatusChange = async (roomId: number, newStatus: Room['current_status']) => {
+    try {
+      const response = await fetch(`/api/habitaciones/${roomId}/estado`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al actualizar el estado de la habitación');
+      }
+
+      setRooms(rooms.map(room =>
+        room.room_id === roomId ? { ...room, current_status: newStatus } : room
+      ));
+    } catch (error) {
+      console.error('Error updating room status:', error);
+    }
+  };
+
+  const getBedDescription = (category: Room['category'], bedSize: Room['bed_size'], bedQuantity: number) => {
+    if (category === 'MATRIMONIAL') {
+      return bedSize === 'DOUBLE' ? `${bedQuantity} Dobles Matrimoniales` : `${bedQuantity} Matrimonial`;
+    } else {
+      return `${bedQuantity} ${bedQuantity === 1 ? 'Cama' : 'Camas'}`;
+    }
+  };
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
 
   return (
-    <div className="p-6 bg-gray-800 text-white">
-      <h2 className="text-2xl font-bold mb-6 text-yellow-400">Lista de Habitaciones</h2>
-      <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <ListarBase title="Listado de Habitaciones">
+      <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-medium text-white">Filtrar por Estado</label>
+          <label className="block text-sm font-medium text-white mb-1">Buscar</label>
+          <input
+            type="text"
+            placeholder="Número de habitación..."
+            className="w-full p-2 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-white mb-1">Filtrar por estado</label>
           <select
-            value={filtro.estado}
-            onChange={(e) => setFiltro({ ...filtro, estado: e.target.value })}
-            className="mt-1 block w-full p-3 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
+            className="w-full p-2 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
           >
-            <option value="" className="bg-gray-700">Todos</option>
-            <option value="Libre" className="bg-gray-700">Libre</option>
-            <option value="Ocupado" className="bg-gray-700">Ocupado</option>
-            <option value="Reservado" className="bg-gray-700">Reservado</option>
-            <option value="En limpieza/mantenimiento" className="bg-gray-700">En limpieza/mantenimiento</option>
+            <option value="TODOS">Todos</option>
+            <option value="DISPONIBLE">Disponible</option>
+            <option value="RESERVADA">Reservada</option>
+            <option value="OCUPADA">Ocupada</option>
+            <option value="MANTENIMIENTO">Mantenimiento</option>
+            <option value="LIMPIEZA">Limpieza</option>
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-white">Número Mínimo</label>
-          <input
-            type="number"
-            value={filtro.numeroMin}
-            onChange={(e) => setFiltro({ ...filtro, numeroMin: e.target.value })}
-            className="mt-1 block w-full p-3 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
-            placeholder="Mínimo"
-            min="0"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-white">Número Máximo</label>
-          <input
-            type="number"
-            value={filtro.numeroMax}
-            onChange={(e) => setFiltro({ ...filtro, numeroMax: e.target.value })}
-            className="mt-1 block w-full p-3 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
-            placeholder="Máximo"
-            min="0"
-          />
+          <label className="block text-sm font-medium text-white mb-1">Filtrar por tipo</label>
+          <select
+            className="w-full p-2 border rounded-md bg-gray-700 text-white border-gray-600 focus:ring-yellow-400 focus:border-yellow-400"
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+          >
+            <option value="TODOS">Todos</option>
+            <option value="STANDARD">Standard</option>
+            <option value="MATRIMONIAL">Matrimonial</option>
+          </select>
         </div>
       </div>
+
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-gray-700 rounded-lg">
+        <table className="min-w-full bg-gray-700 rounded-lg overflow-hidden">
           <thead className="bg-gray-800">
             <tr>
-              <th className="py-3 px-4 text-left">Número</th>
-              <th className="py-3 px-4 text-left">Estado</th>
-              <th className="py-3 px-4 text-left">Descripción</th>
-              <th className="py-3 px-4 text-left">Acciones</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Número</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Tipo</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Estado</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider">Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            {habitacionesFiltradas.map((habitacion) => (
-              <tr key={habitacion.id} className="border-t border-gray-600 hover:bg-gray-600">
-                <td className="py-3 px-4">{habitacion.numero}</td>
-                <td className="py-3 px-4">
-                  <span className={`px-2 py-1 rounded-full text-xs ${
-                    habitacion.estado === 'Libre' ? 'bg-green-500' :
-                    habitacion.estado === 'Ocupado' ? 'bg-red-500' :
-                    habitacion.estado === 'Reservado' ? 'bg-blue-500' : 'bg-yellow-500'
-                  }`}>
-                    {habitacion.estado}
-                  </span>
-                </td>
-                <td className="py-3 px-4">{habitacion.descripcion}</td>
-                <td className="py-3 px-4 space-x-2">
-                  <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-3 py-1 rounded text-sm">
-                    Editar
-                  </button>
-                  <button className="bg-gray-600 hover:bg-gray-500 text-white px-3 py-1 rounded text-sm">
-                    Ver
-                  </button>
+          <tbody className="divide-y divide-gray-600">
+            {filteredRooms.length > 0 ? (
+              filteredRooms.map((room) => (
+                <tr key={room.room_id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{room.room_number}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    {getBedDescription(room.category, room.bed_size, room.bed_quantity)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+                    <select
+                      value={room.current_status}
+                      onChange={(e) => handleStatusChange(room.room_id, e.target.value as Room['current_status'])}
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        room.current_status === 'DISPONIBLE' ? 'bg-green-500 text-white' :
+                        room.current_status === 'RESERVADA' ? 'bg-yellow-500 text-gray-900' :
+                        room.current_status === 'OCUPADA' ? 'bg-red-500 text-white' :
+                        'bg-gray-500 text-white'
+                      }`}
+                    >
+                      <option value="DISPONIBLE">Disponible</option>
+                      <option value="RESERVADA">Reservada</option>
+                      <option value="OCUPADA">Ocupada</option>
+                      <option value="MANTENIMIENTO">Mantenimiento</option>
+                      <option value="LIMPIEZA">Limpieza</option>
+                    </select>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button className="text-indigo-400 hover:text-indigo-300">Ver Detalles</button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="px-6 py-8 text-center text-sm text-gray-300">
+                  No se encontraron habitaciones
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
-    </div>
+    </ListarBase>
   );
 }

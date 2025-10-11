@@ -1,6 +1,9 @@
+// src/pages/misionales/gestion-incidencias/components/FormularioIncidencias.tsx
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function FormularioIncidencias() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     tipo: "",
     area: "",
@@ -11,39 +14,72 @@ export default function FormularioIncidencias() {
     fecha: new Date().toISOString().slice(0, 16),
   });
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
     try {
       const response = await fetch("/api/incidencias", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          estado: "pendiente" // Estado inicial según la documentación
+        }),
       });
-      if (response.ok) {
-        alert("Incidencia reportada con éxito");
-        setFormData({
-          tipo: "",
-          area: "",
-          habitacion: "",
-          descripcion: "",
-          prioridad: "media",
-          equipo: "",
-          fecha: new Date().toISOString().slice(0, 16),
-        });
-      } else {
-        alert("Error al reportar la incidencia");
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error al reportar la incidencia");
       }
+
+      setSuccess(true);
+      setFormData({
+        tipo: "",
+        area: "",
+        habitacion: "",
+        descripcion: "",
+        prioridad: "media",
+        equipo: "",
+        fecha: new Date().toISOString().slice(0, 16),
+      });
+
+      // Redirigir a la lista de incidencias después de 2 segundos
+      setTimeout(() => {
+        navigate('/procesos-misionales/incidencias?tab=listar');
+      }, 2000);
+
     } catch (error) {
       console.error("Error:", error);
-      alert("Ocurrió un error al enviar el formulario");
+      setError(error instanceof Error ? error.message : "Ocurrió un error al enviar el formulario");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-gray-800 rounded-lg shadow-lg text-white border border-gray-700">
       <h2 className="text-2xl font-bold text-yellow-400 mb-4">Reportar Incidencia</h2>
+
+      {error && (
+        <div className="p-3 bg-red-800 text-red-100 rounded">
+          {error}
+        </div>
+      )}
+
+      {success && (
+        <div className="p-3 bg-green-800 text-green-100 rounded">
+          Incidencia reportada con éxito. Redirigiendo...
+        </div>
+      )}
 
       <div>
         <label className="block text-sm font-medium text-white">Tipo de Incidencia</label>
@@ -145,9 +181,10 @@ export default function FormularioIncidencias() {
 
       <button
         type="submit"
-        className="w-full px-4 py-3 bg-yellow-400 text-gray-900 font-bold rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition duration-200"
+        disabled={loading}
+        className="w-full px-4 py-3 bg-yellow-400 text-gray-900 font-bold rounded-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Reportar Incidencia
+        {loading ? 'Procesando...' : 'Reportar Incidencia'}
       </button>
     </form>
   );

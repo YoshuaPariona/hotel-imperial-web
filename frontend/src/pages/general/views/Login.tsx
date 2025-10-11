@@ -2,10 +2,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
+import RegisterModal from '../components/RegisterModal';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,16 +51,27 @@ const Login: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-            <div className="flex justify-center">
+          <div className="flex justify-center gap-4">
             <button
-                type="submit"
-                className="px-6 py-2 mt-4 text-lg font-bold text-black bg-yellow-400 rounded-md transition-all duration-300 hover:bg-orange-400 hover:text-white hover:scale-105"
+              type="submit"
+              className="px-6 py-2 mt-4 text-lg font-bold text-black bg-yellow-400 rounded-md transition-all duration-300 hover:bg-orange-400 hover:text-white hover:scale-105"
             >
-                Iniciar sesión
+              Iniciar sesión
             </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setShowRegisterModal(true)}
+              className="px-6 py-2 mt-4 text-lg font-bold text-black bg-transparent border-2 border-yellow-400 rounded-md transition-all duration-300 hover:bg-yellow-400 hover:text-white hover:scale-105"
+            >
+              Regístrate
+            </button>
+          </div>
         </form>
       </div>
+      <RegisterModal
+        isOpen={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+      />
     </AnimatedBackground>
   );
 };

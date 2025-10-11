@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
-const ProcesosMisionales: React.FC = () => {
+const ProcesosSoporte: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const ProcesosMisionales: React.FC = () => {
             {isSidebarOpen ? (
               <>
                 <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-400">
-                  Hotel Imperial
+                  Procesos Soporte
                 </h1>
                 <button onClick={toggleSidebar} className="p-1">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,19 +45,10 @@ const ProcesosMisionales: React.FC = () => {
             <ul className="space-y-3 flex-grow">
               <li className="px-3 py-2 rounded relative group">
                 <Link
-                  to="gestion-habitaciones"
+                  to="incidencias"
                   className="text-gray-800 hover:text-yellow-600 block relative overflow-hidden"
                 >
-                  <span className="relative z-10">Gestión de Habitaciones</span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 group-hover:w-full transition-all duration-300"></span>
-                </Link>
-              </li>
-              <li className="px-3 py-2 rounded relative group">
-                <Link
-                  to="reservas"
-                  className="text-gray-800 hover:text-yellow-600 block relative overflow-hidden"
-                >
-                  <span className="relative z-10">Gestión de Reservas</span>
+                  <span className="relative z-10">Gestión de Incidencias</span>
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 group-hover:w-full transition-all duration-300"></span>
                 </Link>
               </li>
@@ -85,4 +76,4 @@ const ProcesosMisionales: React.FC = () => {
   );
 };
 
-export default ProcesosMisionales;
+export default ProcesosSoporte;
