@@ -2,10 +2,7 @@ package com.imperial.hotel.infrastructure.web.controller;
 
 import com.imperial.hotel.application.room.dto.RoomResponseDTO;
 import com.imperial.hotel.application.room.dto.UpdateRoomRequestDTO;
-import com.imperial.hotel.application.room.usecase.GetRoomByNumberUseCase;
-import com.imperial.hotel.application.room.usecase.ListRoomsByStatusUseCase;
-import com.imperial.hotel.application.room.usecase.ListRoomsUseCase;
-import com.imperial.hotel.application.room.usecase.UpdateRoomUseCase;
+import com.imperial.hotel.application.room.usecase.*;
 import com.imperial.hotel.domain.room.model.RoomStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +19,19 @@ public class RoomController {
     private final GetRoomByNumberUseCase getRoomByNumberUseCase;
     private final UpdateRoomUseCase updateRoomUseCase;
     private final ListRoomsByStatusUseCase listRoomsByStatusUseCase;
+    private final ListRoomsByCategoryUseCase listRoomsByCategoryUseCase;
+
 
     public RoomController(ListRoomsUseCase listRoomsUseCase,
                           GetRoomByNumberUseCase getRoomByNumberUseCase,
                           UpdateRoomUseCase updateRoomUseCase,
-                          ListRoomsByStatusUseCase listRoomsByStatusUseCase) {
+                          ListRoomsByStatusUseCase listRoomsByStatusUseCase,
+                          ListRoomsByCategoryUseCase listRoomsByCategoryUseCase) {
         this.listRoomsUseCase = listRoomsUseCase;
         this.getRoomByNumberUseCase = getRoomByNumberUseCase;
         this.updateRoomUseCase = updateRoomUseCase;
         this.listRoomsByStatusUseCase = listRoomsByStatusUseCase;
+        this.listRoomsByCategoryUseCase = listRoomsByCategoryUseCase;
     }
 
     // Endpoint GET /api/habitaciones -> lista habitaciones con filtros opcionales
@@ -67,6 +68,11 @@ public class RoomController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estado inválido");
         }
         return listRoomsByStatusUseCase.execute(status);
+    }
+
+    @GetMapping("/categoria/{category}")
+    public List<RoomResponseDTO> getRoomsByCategory(@PathVariable String category) {
+        return listRoomsByCategoryUseCase.execute(category);
     }
 
 }

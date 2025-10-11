@@ -10,6 +10,8 @@ public interface RoomRepository {
 
     List<Room> findAll(Optional<RoomStatus> status, Optional<Integer> numeroMin, Optional<Integer> numeroMax);
 
+    List<Room> findByRoomTypeCategory(String category);
+
     Optional<Room> findById(Long id);
 
     Optional<Room> findByRoomNumber(String roomNumber);
