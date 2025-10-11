@@ -1,16 +1,11 @@
-// src/pages/misionales/gestion-habitaciones/components/ListadoHabitacion.tsx
 import React, { useState, useEffect } from 'react';
 import ListarBase from '../../listar/ListarBase';
 
 interface Room {
-  room_id: number;
-  room_number: string;
-  category: 'STANDARD' | 'MATRIMONIAL';
-  bed_size: 'SINGLE' | 'DOUBLE';
-  bed_quantity: number;
-  current_status: 'DISPONIBLE' | 'RESERVADA' | 'OCUPADA' | 'MANTENIMIENTO' | 'LIMPIEZA';
-  floor?: number;
-  capacity?: number;
+  id: number;
+  roomNumber: string;
+  roomTypeCategory: 'STANDARD' | 'MATRIMONIAL';
+  currentStatus: 'DISPONIBLE' | 'RESERVADA' | 'OCUPADA' | 'MANTENIMIENTO' | 'LIMPIEZA';
 }
 
 export default function ListadoHabitacion() {
@@ -27,7 +22,8 @@ export default function ListadoHabitacion() {
       try {
         const response = await fetch('/api/habitaciones');
         if (!response.ok) {
-          throw new Error('Error al cargar las habitaciones');
+          const errorText = await response.text();
+          throw new Error(`Error al cargar las habitaciones: ${response.status} ${errorText}`);
         }
         const data = await response.json();
         setRooms(data);
@@ -37,32 +33,27 @@ export default function ListadoHabitacion() {
         setLoading(false);
       }
     };
-
     fetchRooms();
   }, []);
 
   useEffect(() => {
     let result = [...rooms];
-
     if (filterStatus !== 'TODOS') {
-      result = result.filter(room => room.current_status === filterStatus);
+      result = result.filter(room => room.currentStatus === filterStatus);
     }
-
     if (filterCategory !== 'TODOS') {
-      result = result.filter(room => room.category === filterCategory);
+      result = result.filter(room => room.roomTypeCategory === filterCategory);
     }
-
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       result = result.filter(room =>
-        room.room_number.toLowerCase().includes(term)
+        room.roomNumber.toLowerCase().includes(term)
       );
     }
-
     setFilteredRooms(result);
   }, [rooms, filterStatus, filterCategory, searchTerm]);
 
-  const handleStatusChange = async (roomId: number, newStatus: Room['current_status']) => {
+  const handleStatusChange = async (roomId: number, newStatus: Room['currentStatus']) => {
     try {
       const response = await fetch(`/api/habitaciones/${roomId}/estado`, {
         method: 'PATCH',
@@ -71,25 +62,20 @@ export default function ListadoHabitacion() {
         },
         body: JSON.stringify({ status: newStatus }),
       });
-
       if (!response.ok) {
-        throw new Error('Error al actualizar el estado de la habitación');
+        const errorText = await response.text();
+        throw new Error(`Error al actualizar el estado: ${response.status} ${errorText}`);
       }
-
       setRooms(rooms.map(room =>
-        room.room_id === roomId ? { ...room, current_status: newStatus } : room
+        room.id === roomId ? { ...room, currentStatus: newStatus } : room
       ));
     } catch (error) {
       console.error('Error updating room status:', error);
     }
   };
 
-  const getBedDescription = (category: Room['category'], bedSize: Room['bed_size'], bedQuantity: number) => {
-    if (category === 'MATRIMONIAL') {
-      return bedSize === 'DOUBLE' ? `${bedQuantity} Dobles Matrimoniales` : `${bedQuantity} Matrimonial`;
-    } else {
-      return `${bedQuantity} ${bedQuantity === 1 ? 'Cama' : 'Camas'}`;
-    }
+  const getRoomTypeDescription = (category: Room['roomTypeCategory']) => {
+    return category === 'MATRIMONIAL' ? 'Matrimonial' : 'Standard';
   };
 
   if (loading) {
@@ -137,7 +123,6 @@ export default function ListadoHabitacion() {
           </select>
         </div>
       </div>
-
       <div className="overflow-x-auto">
         <table className="min-w-full bg-gray-700 rounded-lg overflow-hidden">
           <thead className="bg-gray-800">
@@ -151,19 +136,21 @@ export default function ListadoHabitacion() {
           <tbody className="divide-y divide-gray-600">
             {filteredRooms.length > 0 ? (
               filteredRooms.map((room) => (
-                <tr key={room.room_id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{room.room_number}</td>
+                <tr key={room.id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                    {room.roomNumber}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {getBedDescription(room.category, room.bed_size, room.bed_quantity)}
+                    {getRoomTypeDescription(room.roomTypeCategory)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                     <select
-                      value={room.current_status}
-                      onChange={(e) => handleStatusChange(room.room_id, e.target.value as Room['current_status'])}
+                      value={room.currentStatus}
+                      onChange={(e) => handleStatusChange(room.id, e.target.value as Room['currentStatus'])}
                       className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        room.current_status === 'DISPONIBLE' ? 'bg-green-500 text-white' :
-                        room.current_status === 'RESERVADA' ? 'bg-yellow-500 text-gray-900' :
-                        room.current_status === 'OCUPADA' ? 'bg-red-500 text-white' :
+                        room.currentStatus === 'DISPONIBLE' ? 'bg-green-500 text-white' :
+                        room.currentStatus === 'RESERVADA' ? 'bg-yellow-500 text-gray-900' :
+                        room.currentStatus === 'OCUPADA' ? 'bg-red-500 text-white' :
                         'bg-gray-500 text-white'
                       }`}
                     >
