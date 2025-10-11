@@ -18,9 +18,15 @@ public interface ReservationRepository {
     List<Reservation> findByGuestNameLike(String guestNamePart);
 
     @Query("""
-    SELECT r FROM Reservation r
-    JOIN r.room ro
-    WHERE ro.roomNumber LIKE CONCAT('%', :roomNumberPart, '%')
-""")
+        SELECT r FROM Reservation r
+        JOIN r.room ro
+        WHERE ro.roomNumber LIKE CONCAT('%', :roomNumberPart, '%')
+    """)
     List<Reservation> findByRoomNumberLike(String roomNumberPart);
+
+    @Query("""
+        SELECT r FROM Reservation r
+        WHERE r.status = :status
+    """)
+    List<Reservation> findByStatus(String status);
 }
