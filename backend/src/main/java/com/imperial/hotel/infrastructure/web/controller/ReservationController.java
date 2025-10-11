@@ -2,6 +2,7 @@ package com.imperial.hotel.infrastructure.web.controller;
 
 import com.imperial.hotel.application.reservation.dto.ReservationResponseDTO;
 import com.imperial.hotel.application.reservation.usecase.ListReservationsByGuestUseCase;
+import com.imperial.hotel.application.reservation.usecase.ListReservationsByRoomUseCase;
 import com.imperial.hotel.application.reservation.usecase.ListReservationsUseCase;
 import com.imperial.hotel.domain.reservation.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,15 @@ public class ReservationController {
 
     private final ListReservationsUseCase listReservationsUseCase;
     private final ListReservationsByGuestUseCase listReservationsByGuestUseCase;
+    private final ListReservationsByRoomUseCase listReservationsByRoomUseCase;
+
 
     public ReservationController(ListReservationsUseCase listReservationsUseCase,
-                                 ListReservationsByGuestUseCase listReservationsByGuestUseCase) {
+                                 ListReservationsByGuestUseCase listReservationsByGuestUseCase,
+                                 ListReservationsByRoomUseCase listReservationsByRoomUseCase) {
         this.listReservationsUseCase = listReservationsUseCase;
         this.listReservationsByGuestUseCase = listReservationsByGuestUseCase;
+        this.listReservationsByRoomUseCase = listReservationsByRoomUseCase;
 
     }
 
@@ -31,5 +36,10 @@ public class ReservationController {
     @GetMapping("/huesped/{namePart}")
     public List<ReservationResponseDTO> getReservationsByGuest(@PathVariable("namePart") String namePart) {
         return listReservationsByGuestUseCase.execute(namePart);
+    }
+
+    @GetMapping("/habitacion/{numberPart}")
+    public List<ReservationResponseDTO> getReservationsByRoom(@PathVariable("numberPart") String numberPart) {
+        return listReservationsByRoomUseCase.execute(numberPart);
     }
 }

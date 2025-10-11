@@ -17,4 +17,10 @@ public interface ReservationRepository {
     """)
     List<Reservation> findByGuestNameLike(String guestNamePart);
 
+    @Query("""
+    SELECT r FROM Reservation r
+    JOIN r.room ro
+    WHERE ro.roomNumber LIKE CONCAT('%', :roomNumberPart, '%')
+""")
+    List<Reservation> findByRoomNumberLike(String roomNumberPart);
 }
