@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("${apiBaseUrl}/api/habitaciones")
+@RequestMapping("/api/habitaciones")
 public class RoomController {
 
     private final ListRoomsUseCase listRoomsUseCase;

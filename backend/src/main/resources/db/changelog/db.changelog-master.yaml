@@ -11,5 +11,5 @@ databaseChangeLog:
       file: db/migration/005_create_occupancy.yaml
   - include:
       file: db/migration/006_create_incidents.yaml
-  - include:
-      file: db/migration/007_insert_mock_data.yaml
+#  - include:
+#      file: db/migration/007_insert_mock_data.yaml
