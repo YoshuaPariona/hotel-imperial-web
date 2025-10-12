@@ -18,11 +18,13 @@ export default function ListadoHabitacion() {
 
   const apiBaseUrl = import.meta.env.VITE_API_URL;
 
+  console.log('API base URL:', import.meta.env.VITE_API_URL);
+
   useEffect(() => {
     const fetchRooms = async () => {
       setLoading(true);
       try {
-        const response = await fetch('${apiBaseUrl}/api/habitaciones');
+        const response = await fetch(`${apiBaseUrl}/api/habitaciones`);
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error al cargar las habitaciones: ${response.status} ${errorText}`);
