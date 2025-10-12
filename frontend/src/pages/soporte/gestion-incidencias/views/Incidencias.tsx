@@ -30,7 +30,7 @@ export default function Incidencias() {
     const fetchIncidencias = async () => {
       setLoading(true);
       try {
-        const response = await fetch('${apiBaseUrl}/api/incidencias');
+        const response = await fetch(`${apiBaseUrl}/api/incidencias`);
         if (!response.ok) {
           throw new Error('Error al cargar las incidencias');
         }

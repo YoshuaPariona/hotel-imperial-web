@@ -18,6 +18,8 @@ export default function FormularioIncidencias() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const apiBaseUrl = import.meta.env.VITE_API_URL;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -25,7 +27,7 @@ export default function FormularioIncidencias() {
     setSuccess(false);
 
     try {
-      const response = await fetch("${apiBaseUrl}/api/incidencias", {
+      const response = await fetch(`${apiBaseUrl}/api/incidencias`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

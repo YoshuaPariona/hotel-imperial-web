@@ -18,8 +18,6 @@ export default function ListadoHabitacion() {
 
   const apiBaseUrl = import.meta.env.VITE_API_URL;
 
-  console.log('API base URL:', import.meta.env.VITE_API_URL);
-
   useEffect(() => {
     const fetchRooms = async () => {
       setLoading(true);
