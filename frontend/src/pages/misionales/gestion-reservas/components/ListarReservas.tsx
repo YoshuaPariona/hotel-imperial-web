@@ -24,12 +24,21 @@ export default function ListarReservas() {
   const [searchType, setSearchType] = useState<'guest' | 'room'>('guest');
   const [error, setError] = useState<string | null>(null);
 
+<<<<<<< Updated upstream
+=======
+  const apiBaseUrl = import.meta.env.VITE_API_URL;
+  // ✅ Cargar reservas al montar el componente (usando proxy de Vite)
+>>>>>>> Stashed changes
   useEffect(() => {
     const fetchReservations = async () => {
       setLoading(true);
       setError(null);
       try {
+<<<<<<< Updated upstream
         const response = await fetch('/api/reservas');
+=======
+        const response = await fetch(`${apiBaseUrl}/api/reservas`);
+>>>>>>> Stashed changes
         if (!response.ok) {
           throw new Error('Error al cargar las reservas');
         }
