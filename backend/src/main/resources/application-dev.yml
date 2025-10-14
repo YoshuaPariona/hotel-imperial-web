@@ -1,15 +1,18 @@
+# ==============================
+# 🧩 application-dev.yml (local)
+# ==============================
 spring:
-  datasource:
-    url: jdbc:h2:mem:hotel_db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   jpa:
+    hibernate:
+      ddl-auto: validate    # Verifica que el esquema coincide con las entidades, sin modificarlo
+    show-sql: true          # Muestra SQL en consola
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true  # Añade comentarios en el SQL con el nombre de la entidad
+
+# Configuración de logs detallados para depuración de SQL y bindings
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

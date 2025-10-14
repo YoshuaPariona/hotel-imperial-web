@@ -1,18 +1,28 @@
+# ===================
+# 🌍 application.yml
+# ===================
 spring:
   application:
     name: hotel
   profiles:
-    active: prod
+    # Perfil activo por defecto
+    active: dev
 
-  # Configuración general de JPA
   jpa:
-    hibernate:
-      ddl-auto: none
+    # Propiedades comunes de JPA
+    open-in-view: false     # Evita LazyInitializationException por mal uso en controladores
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
-        format_sql: true
-    open-in-view: false
+        format_sql: true    # Aplica formato legible al SQL generado
 
-  # Liquibase activo en todos los entornos
+  # Configuración de Liquibase (migraciones)
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+
+  # Fuente de datos compartida por todos los entornos
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:imperial_database}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:1234}
+    driver-class-name: org.postgresql.Driver
