@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003_create_room_status_history_table
+      author: Yoshua
+      comments: "Crea tabla 'room_status_history' para auditar cambios de estado en habitaciones."
+      changes:
+        - createTable:
+            tableName: room_status_history
+            columns:
+              - column:
+                  name: room_status_history_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                  remarks: "Referencia a la habitación cuyo estado cambió."
+              - column:
+                  name: previous_status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                  remarks: "Estado anterior de la habitación."
+              - column:
+                  name: new_status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                  remarks: "Nuevo estado de la habitación."
+              - column:
+                  name: changed_by
+                  type: BIGINT
+                  remarks: "Usuario responsable del cambio (puede ser nulo si fue automático)."
+              - column:
+                  name: changed_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  remarks: "Momento exacto del cambio."
+              - column:
+                  name: note
+                  type: TEXT
+                  remarks: "Detalles o motivo del cambio de estado."
+
+        - addForeignKeyConstraint:
+            baseTableName: room_status_history
+            baseColumnNames: room_id
+            constraintName: fk_room_history_room
+            referencedTableName: rooms
+            referencedColumnNames: room_id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: room_status_history
+            baseColumnNames: changed_by
+            constraintName: fk_room_history_user
+            referencedTableName: users
+            referencedColumnNames: user_id
+
+        - createIndex:
+            indexName: idx_room_history_room_id_changed_at
+            tableName: room_status_history
+            columns:
+              - column:
+                  name: room_id
+              - column:
+                  name: changed_at

@@ -1,15 +1,31 @@
 databaseChangeLog:
+# Auth tables
   - include:
-      file: db/migration/001_create_roles_users.yaml
+      file: db/changelog/auth/001_create_roles_table.yaml
   - include:
-      file: db/migration/002_create_room_enums_and_tables.yaml
+      file: db/changelog/auth/002_create_users_table.yaml
+
+# Room tables
   - include:
-      file: db/migration/003_create_room_history.yaml
+      file: db/changelog/room/001_create_room_types_table.yaml
   - include:
-      file: db/migration/004_create_guests_and_reservations.yaml
+      file: db/changelog/room/002_create_rooms_table.yaml
   - include:
-      file: db/migration/005_create_occupancy.yaml
+      file: db/changelog/room/003_create_room_status_history_table.yaml
+
+# Booking tables
   - include:
-      file: db/migration/006_create_incidents.yaml
-#  - include:
-#      file: db/migration/007_insert_mock_data.yaml
+      file: db/changelog/booking/001_create_guests_table.yaml
+  - include:
+      file: db/changelog/booking/002_create_reservations_table.yaml
+
+# Occupancy tables
+  - include:
+      file: db/changelog/occupancy/001_create_room_occupancy_table.yaml
+
+# Incident tables
+  - include:
+      file: db/changelog/incidents/001_create_incidents_table.yaml
+  - include:
+      file: db/changelog/incidents/002_create_incident_history_table.yaml
+

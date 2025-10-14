@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_roles_table
+      author: Yoshua
+      comments: "Crea la tabla 'roles' base para el control de acceso de usuarios."
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT

@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_incidents_table
+      author: Yoshua
+      comments: "Crea la tabla principal 'incidents' con referencias a usuarios y habitaciones."
+      changes:
+        - createTable:
+            tableName: incidents
+            columns:
+              - column:
+                  name: incident_id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: area
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location_detail
+                  type: VARCHAR(100)
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: priority
+                  type: VARCHAR(20)
+                  defaultValue: 'MEDIA'
+              - column:
+                  name: team
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reported_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  defaultValue: 'PENDIENTE'
+              - column:
+                  name: reported_by
+                  type: BIGINT
+              - column:
+                  name: handled_by
+                  type: BIGINT
+              - column:
+                  name: room_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: incidents
+            baseColumnNames: reported_by
+            constraintName: fk_incident_reported_user
+            referencedTableName: users
+            referencedColumnNames: user_id
+        - addForeignKeyConstraint:
+            baseTableName: incidents
+            baseColumnNames: handled_by
+            constraintName: fk_incident_handled_user
+            referencedTableName: users
+            referencedColumnNames: user_id
+        - addForeignKeyConstraint:
+            baseTableName: incidents
+            baseColumnNames: room_id
+            constraintName: fk_incident_room
+            referencedTableName: rooms
+            referencedColumnNames: room_id

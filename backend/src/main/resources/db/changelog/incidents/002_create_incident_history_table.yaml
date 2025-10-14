@@ -1,24 +1,24 @@
 databaseChangeLog:
   - changeSet:
-      id: 006-create-room-status-history
+      id: 002_create_incident_history_table
       author: Yoshua
-      comments: "Crea tabla 'room_status_history' para auditar cambios de estado en habitaciones."
+      comments: "Crea tabla 'incident_history' para rastrear los cambios de estado en cada incidencia."
       changes:
         - createTable:
-            tableName: room_status_history
+            tableName: incident_history
             columns:
               - column:
-                  name: room_status_history_id
+                  name: incident_history_id
                   type: BIGSERIAL
                   constraints:
                     primaryKey: true
               - column:
-                  name: room_id
+                  name: incident_id
                   type: BIGINT
                   constraints:
                     nullable: false
               - column:
-                  name: previous_status
+                  name: old_status
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
@@ -38,15 +38,15 @@ databaseChangeLog:
                   name: note
                   type: TEXT
         - addForeignKeyConstraint:
-            baseTableName: room_status_history
-            baseColumnNames: room_id
-            constraintName: fk_room_history_room
-            referencedTableName: rooms
-            referencedColumnNames: room_id
+            baseTableName: incident_history
+            baseColumnNames: incident_id
+            constraintName: fk_incident_history_incident
+            referencedTableName: incidents
+            referencedColumnNames: incident_id
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseTableName: room_status_history
+            baseTableName: incident_history
             baseColumnNames: changed_by
-            constraintName: fk_room_history_user
+            constraintName: fk_incident_history_user
             referencedTableName: users
             referencedColumnNames: user_id
