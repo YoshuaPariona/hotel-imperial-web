@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 001_create_incidents_table
+      id: 001_create_incident_table
       author: Yoshua
-      comment: "Crea la tabla principal 'incidents' con referencias a usuarios y habitaciones."
+      comment: "Crea la tabla principal 'incident' con referencias a usuarios y habitaciones."
       changes:
         - createTable:
-            tableName: incidents
+            tableName: incident
             columns:
               - column:
                   name: incident_id
@@ -57,20 +57,20 @@ databaseChangeLog:
                   name: room_id
                   type: BIGINT
         - addForeignKeyConstraint:
-            baseTableName: incidents
+            baseTableName: incident
             baseColumnNames: reported_by
             constraintName: fk_incident_reported_user
-            referencedTableName: users
+            referencedTableName: user
             referencedColumnNames: user_id
         - addForeignKeyConstraint:
-            baseTableName: incidents
+            baseTableName: incident
             baseColumnNames: handled_by
             constraintName: fk_incident_handled_user
-            referencedTableName: users
+            referencedTableName: user
             referencedColumnNames: user_id
         - addForeignKeyConstraint:
-            baseTableName: incidents
+            baseTableName: incident
             baseColumnNames: room_id
             constraintName: fk_incident_room
-            referencedTableName: rooms
+            referencedTableName: room
             referencedColumnNames: room_id

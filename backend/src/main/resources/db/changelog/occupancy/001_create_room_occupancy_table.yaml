@@ -47,21 +47,21 @@ databaseChangeLog:
             baseTableName: room_occupancy
             baseColumnNames: room_id
             constraintName: fk_occupancy_room
-            referencedTableName: rooms
+            referencedTableName: room
             referencedColumnNames: room_id
             onDelete: RESTRICT
         - addForeignKeyConstraint:
             baseTableName: room_occupancy
             baseColumnNames: guest_id
             constraintName: fk_occupancy_guest
-            referencedTableName: guests
+            referencedTableName: guest
             referencedColumnNames: guest_id
             onDelete: RESTRICT
         - addForeignKeyConstraint:
             baseTableName: room_occupancy
             baseColumnNames: reservation_id
             constraintName: fk_occupancy_reservation
-            referencedTableName: reservations
+            referencedTableName: reservation
             referencedColumnNames: reservation_id
             onDelete: CASCADE
         - createIndex:

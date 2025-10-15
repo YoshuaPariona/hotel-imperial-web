@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 002_create_users_table
+      id: 002_create_user_table
       author: Yoshua
-      comment: "Crea la tabla 'users' con FK a 'roles', controlando credenciales y estado."
+      comment: "Crea la tabla 'user' con FK a 'role', controlando credenciales y estado."
       changes:
         - createTable:
-            tableName: users
+            tableName: user
             columns:
               - column:
                   name: user_id
@@ -57,22 +57,22 @@ databaseChangeLog:
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: CURRENT_TIMESTAMP
         - addForeignKeyConstraint:
-            baseTableName: users
+            baseTableName: user
             baseColumnNames: role_id
-            constraintName: fk_users_roles
-            referencedTableName: roles
+            constraintName: fk_user_role
+            referencedTableName: role
             referencedColumnNames: role_id
             onDelete: RESTRICT
 
         - createIndex:
-            indexName: idx_users_role_id
-            tableName: users
+            indexName: idx_user_role_id
+            tableName: user
             columns:
               - column:
                   name: role_id
         - createIndex:
-            indexName: idx_users_is_active
-            tableName: users
+            indexName: idx_user_is_active
+            tableName: user
             columns:
               - column:
                   name: is_active

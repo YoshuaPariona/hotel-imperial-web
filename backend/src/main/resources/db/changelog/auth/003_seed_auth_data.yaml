@@ -1,38 +1,38 @@
 databaseChangeLog:
   - changeSet:
-      id: seed-roles
+      id: 003_seed-role
       author: Yoshua
       comment: "Inserta roles básicos para el sistema de autenticación."
       changes:
         - insert:
-            tableName: roles
+            tableName: role
             columns:
-              - column: { name: name, value: "ADMIN" }
+              - column: { name: name, value: "GERENTE" }
               - column: { name: description, value: "Administrador del sistema con acceso total." }
         - insert:
-            tableName: roles
+            tableName: role
             columns:
               - column: { name: name, value: "RECEPCIONISTA" }
               - column: { name: description, value: "Encargado de recepción y gestión de reservas." }
         - insert:
-            tableName: roles
+            tableName: role
             columns:
               - column: { name: name, value: "MANTENIMIENTO" }
               - column: { name: description, value: "Personal de mantenimiento y reparaciones." }
         - insert:
-            tableName: roles
+            tableName: role
             columns:
               - column: { name: name, value: "LIMPIEZA" }
               - column: { name: description, value: "Personal de limpieza y preparación de habitaciones." }
 
   - changeSet:
-      id: seed-users
+      id: 003_seed-user
       author: Yoshua
       comment: "Inserta usuarios de ejemplo para cada rol."
       changes:
         # Admin (role_id = 1)
         - insert:
-            tableName: users
+            tableName: user
             columns:
               - column: { name: role_id, value: "1" }
               - column: { name: first_name, value: "Logan" }
@@ -44,7 +44,7 @@ databaseChangeLog:
               - column: { name: is_active, value: "true" }
         # Recepcionista (role_id = 2)
         - insert:
-            tableName: users
+            tableName: user
             columns:
               - column: { name: role_id, value: "2" }
               - column: { name: first_name, value: "Ana" }
@@ -56,7 +56,7 @@ databaseChangeLog:
               - column: { name: is_active, value: "true" }
         # Mantenimiento (role_id = 3)
         - insert:
-            tableName: users
+            tableName: user
             columns:
               - column: { name: role_id, value: "3" }
               - column: { name: first_name, value: "Carlos" }
@@ -68,7 +68,7 @@ databaseChangeLog:
               - column: { name: is_active, value: "true" }
         # Limpieza (role_id = 4)
         - insert:
-            tableName: users
+            tableName: user
             columns:
               - column: { name: role_id, value: "4" }
               - column: { name: first_name, value: "María" }
@@ -80,7 +80,7 @@ databaseChangeLog:
               - column: { name: is_active, value: "true" }
         # Usuario inactivo (role_id = 2)
         - insert:
-            tableName: users
+            tableName: user
             columns:
               - column: { name: role_id, value: "2" }
               - column: { name: first_name, value: "Pedro" }

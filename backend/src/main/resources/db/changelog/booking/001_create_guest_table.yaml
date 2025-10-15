@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 001_create_guests_table_table
+      id: 001_create_guest_table_table
       author: Yoshua
-      comment: "Crea tabla 'guests' para registrar datos de huéspedes del hotel."
+      comment: "Crea tabla 'guest' para registrar datos de huéspedes del hotel."
       changes:
         - createTable:
-            tableName: guests
+            tableName: guest
             columns:
               - column:
                   name: guest_id

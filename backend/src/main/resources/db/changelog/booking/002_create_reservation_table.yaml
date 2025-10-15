@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 002_create_reservations
+      id: 002_create_reservation
       author: Yoshua
-      comment: "Crea tabla 'reservations' con referencias a habitación, usuario y huésped responsable."
+      comment: "Crea tabla 'reservation' con referencias a habitación, usuario y huésped responsable."
       changes:
         - createTable:
-            tableName: reservations
+            tableName: reservation
             columns:
               - column:
                   name: reservation_id
@@ -46,33 +46,33 @@ databaseChangeLog:
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: CURRENT_TIMESTAMP
         - addForeignKeyConstraint:
-            baseTableName: reservations
+            baseTableName: reservation
             baseColumnNames: room_id
             constraintName: fk_reservation_room
-            referencedTableName: rooms
+            referencedTableName: room
             referencedColumnNames: room_id
         - addForeignKeyConstraint:
-            baseTableName: reservations
+            baseTableName: reservation
             baseColumnNames: user_id
             constraintName: fk_reservation_user
-            referencedTableName: users
+            referencedTableName: user
             referencedColumnNames: user_id
         - addForeignKeyConstraint:
-            baseTableName: reservations
+            baseTableName: reservation
             baseColumnNames: guest_id
             constraintName: fk_reservation_guest
-            referencedTableName: guests
+            referencedTableName: guest
             referencedColumnNames: guest_id
             onDelete: RESTRICT
         - createIndex:
-            indexName: idx_reservations_guest_id
-            tableName: reservations
+            indexName: idx_reservation_guest_id
+            tableName: reservation
             columns:
               - column:
                   name: guest_id
         - createIndex:
-            indexName: idx_reservations_status
-            tableName: reservations
+            indexName: idx_reservation_status
+            tableName: reservation
             columns:
               - column:
                   name: status

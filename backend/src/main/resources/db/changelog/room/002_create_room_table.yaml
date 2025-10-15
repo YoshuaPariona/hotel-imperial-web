@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 002_create_rooms_table
+      id: 002_create_room_table
       author: Yoshua
-      comment: "Crea tabla 'rooms' con columnas VARCHAR para estados y referencias a room_types."
+      comment: "Crea tabla 'room' con columnas VARCHAR para estados y referencias a room_type."
       changes:
         - createTable:
-            tableName: rooms
+            tableName: room
             columns:
               - column:
                   name: room_id
@@ -25,7 +25,7 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
-                  remarks: "Relación con la tabla room_types."
+                  remarks: "Relación con la tabla room_type."
               - column:
                   name: floor
                   type: INTEGER
@@ -45,23 +45,23 @@ databaseChangeLog:
                   remarks: "Notas internas sobre la habitación."
 
         - addForeignKeyConstraint:
-            baseTableName: rooms
+            baseTableName: room
             baseColumnNames: room_type_id
-            constraintName: fk_rooms_room_types
-            referencedTableName: room_types
+            constraintName: fk_room_room_type
+            referencedTableName: room_type
             referencedColumnNames: room_type_id
             onDelete: RESTRICT
 
         - createIndex:
-            indexName: idx_rooms_room_type_id
-            tableName: rooms
+            indexName: idx_room_room_type_id
+            tableName: room
             columns:
               - column:
                   name: room_type_id
 
         - createIndex:
-            indexName: idx_rooms_current_status
-            tableName: rooms
+            indexName: idx_room_current_status
+            tableName: room
             columns:
               - column:
                   name: current_status

@@ -49,7 +49,7 @@ databaseChangeLog:
             baseTableName: room_status_history
             baseColumnNames: room_id
             constraintName: fk_room_history_room
-            referencedTableName: rooms
+            referencedTableName: room
             referencedColumnNames: room_id
             onDelete: CASCADE
 
@@ -57,7 +57,7 @@ databaseChangeLog:
             baseTableName: room_status_history
             baseColumnNames: changed_by
             constraintName: fk_room_history_user
-            referencedTableName: users
+            referencedTableName: user
             referencedColumnNames: user_id
 
         - createIndex:

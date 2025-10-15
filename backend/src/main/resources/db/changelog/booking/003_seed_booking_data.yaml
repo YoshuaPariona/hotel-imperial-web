@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: seed-guests
+      id: 003_seed_guest
       author: Yoshua
       comment: "Inserta huéspedes de ejemplo para el hotel."
       changes:
         # Huésped 1: Juan Pérez
         - insert:
-            tableName: guests
+            tableName: guest
             columns:
               - column: { name: first_name, value: "Juan" }
               - column: { name: last_name, value: "Pérez" }
@@ -16,7 +16,7 @@ databaseChangeLog:
               - column: { name: email, value: "juan.perez@example.com" }
         # Huésped 2: María García
         - insert:
-            tableName: guests
+            tableName: guest
             columns:
               - column: { name: first_name, value: "María" }
               - column: { name: last_name, value: "García" }
@@ -26,7 +26,7 @@ databaseChangeLog:
               - column: { name: email, value: "maria.garcia@example.com" }
         # Huésped 3: Carlos López
         - insert:
-            tableName: guests
+            tableName: guest
             columns:
               - column: { name: first_name, value: "Carlos" }
               - column: { name: last_name, value: "López" }
@@ -36,7 +36,7 @@ databaseChangeLog:
               - column: { name: email, value: "carlos.lopez@example.com" }
         # Huésped 4: Ana Martínez
         - insert:
-            tableName: guests
+            tableName: guest
             columns:
               - column: { name: first_name, value: "Ana" }
               - column: { name: last_name, value: "Martínez" }
@@ -46,7 +46,7 @@ databaseChangeLog:
               - column: { name: email, value: "ana.martinez@example.com" }
         # Huésped 5: Pedro Sánchez
         - insert:
-            tableName: guests
+            tableName: guest
             columns:
               - column: { name: first_name, value: "Pedro" }
               - column: { name: last_name, value: "Sánchez" }
@@ -56,13 +56,13 @@ databaseChangeLog:
               - column: { name: email, value: "pedro.sanchez@example.com" }
 
   - changeSet:
-      id: seed-reservations
+      id: 003_seed_reservation
       author: Yoshua
       comment: "Inserta reservas de ejemplo para los huéspedes."
       changes:
         # Reserva 1: Juan Pérez (Habitación 101, Recepcionista Ana)
         - insert:
-            tableName: reservations
+            tableName: reservation
             columns:
               - column: { name: room_id, value: "1" }
               - column: { name: user_id, value: "2" } # Recepcionista Ana
@@ -72,7 +72,7 @@ databaseChangeLog:
               - column: { name: status, value: "CONFIRMADO" }
         # Reserva 2: María García (Habitación 201, Recepcionista Ana)
         - insert:
-            tableName: reservations
+            tableName: reservation
             columns:
               - column: { name: room_id, value: "3" }
               - column: { name: user_id, value: "2" } # Recepcionista Ana
@@ -82,7 +82,7 @@ databaseChangeLog:
               - column: { name: status, value: "CONFIRMADO" }
         # Reserva 3: Carlos López (Habitación 301, Recepcionista Ana)
         - insert:
-            tableName: reservations
+            tableName: reservation
             columns:
               - column: { name: room_id, value: "5" }
               - column: { name: user_id, value: "2" } # Recepcionista Ana
@@ -92,7 +92,7 @@ databaseChangeLog:
               - column: { name: status, value: "CONFIRMADO" }
         # Reserva 4: Ana Martínez (Habitación 102, Recepcionista Ana)
         - insert:
-            tableName: reservations
+            tableName: reservation
             columns:
               - column: { name: room_id, value: "2" }
               - column: { name: user_id, value: "2" } # Recepcionista Ana
@@ -102,7 +102,7 @@ databaseChangeLog:
               - column: { name: status, value: "CONFIRMADO" }
         # Reserva 5: Pedro Sánchez (Habitación 202, Recepcionista Ana)
         - insert:
-            tableName: reservations
+            tableName: reservation
             columns:
               - column: { name: room_id, value: "4" }
               - column: { name: user_id, value: "2" } # Recepcionista Ana
@@ -112,7 +112,7 @@ databaseChangeLog:
               - column: { name: status, value: "CONFIRMADO" }
         # Reserva 6: Juan Pérez (Habitación 302, Recepcionista Ana) - Reserva futura
         - insert:
-            tableName: reservations
+            tableName: reservation
             columns:
               - column: { name: room_id, value: "6" }
               - column: { name: user_id, value: "2" } # Recepcionista Ana

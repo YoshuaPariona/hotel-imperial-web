@@ -41,12 +41,12 @@ databaseChangeLog:
             baseTableName: incident_history
             baseColumnNames: incident_id
             constraintName: fk_incident_history_incident
-            referencedTableName: incidents
+            referencedTableName: incident
             referencedColumnNames: incident_id
             onDelete: CASCADE
         - addForeignKeyConstraint:
             baseTableName: incident_history
             baseColumnNames: changed_by
             constraintName: fk_incident_history_user
-            referencedTableName: users
+            referencedTableName: user
             referencedColumnNames: user_id
