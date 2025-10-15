@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 001_create_room_types_table
       author: Yoshua
-      comments: "Crea tabla 'room_types' para definir tipos de habitaciones del hotel (sin ENUMs)."
+      comment: "Crea tabla 'room_types' para definir tipos de habitaciones del hotel (sin ENUMs)."
       changes:
         - createTable:
             tableName: room_types

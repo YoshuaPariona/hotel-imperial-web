@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 003_create_room_status_history_table
       author: Yoshua
-      comments: "Crea tabla 'room_status_history' para auditar cambios de estado en habitaciones."
+      comment: "Crea tabla 'room_status_history' para auditar cambios de estado en habitaciones."
       changes:
         - createTable:
             tableName: room_status_history

@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 002_create_incident_history_table
       author: Yoshua
-      comments: "Crea tabla 'incident_history' para rastrear los cambios de estado en cada incidencia."
+      comment: "Crea tabla 'incident_history' para rastrear los cambios de estado en cada incidencia."
       changes:
         - createTable:
             tableName: incident_history

@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 001_create_guests_table_table
       author: Yoshua
-      comments: "Crea tabla 'guests' para registrar datos de huéspedes del hotel."
+      comment: "Crea tabla 'guests' para registrar datos de huéspedes del hotel."
       changes:
         - createTable:
             tableName: guests

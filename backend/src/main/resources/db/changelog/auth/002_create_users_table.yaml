@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 002_create_users_table
       author: Yoshua
-      comments: "Crea la tabla 'users' con FK a 'roles', controlando credenciales y estado."
+      comment: "Crea la tabla 'users' con FK a 'roles', controlando credenciales y estado."
       changes:
         - createTable:
             tableName: users

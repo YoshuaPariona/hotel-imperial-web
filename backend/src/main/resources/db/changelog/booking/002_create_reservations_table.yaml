@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 002_create_reservations
       author: Yoshua
-      comments: "Crea tabla 'reservations' con referencias a habitación, usuario y huésped responsable."
+      comment: "Crea tabla 'reservations' con referencias a habitación, usuario y huésped responsable."
       changes:
         - createTable:
             tableName: reservations

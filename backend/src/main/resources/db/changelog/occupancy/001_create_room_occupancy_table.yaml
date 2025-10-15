@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 001_create_room_occupancy_table
       author: Yoshua
-      comments: "Crea tabla 'room_occupancy' para vincular huéspedes con sus reservas activas."
+      comment: "Crea tabla 'room_occupancy' para vincular huéspedes con sus reservas activas."
       changes:
         - createTable:
             tableName: room_occupancy

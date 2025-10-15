@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 001_create_roles_table
       author: Yoshua
-      comments: "Crea la tabla 'roles' base para el control de acceso de usuarios."
+      comment: "Crea la tabla 'roles' base para el control de acceso de usuarios."
       changes:
         - createTable:
             tableName: roles

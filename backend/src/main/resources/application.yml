@@ -4,14 +4,12 @@
 spring:
   application:
     name: hotel
-  profiles:
-    # Perfil activo por defecto
-    active: dev
+#  profiles:
+#    active: dev
 
   jpa:
     # Propiedades comunes de JPA
     open-in-view: false     # Evita LazyInitializationException por mal uso en controladores
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         format_sql: true    # Aplica formato legible al SQL generado

@@ -4,6 +4,8 @@ databaseChangeLog:
       file: db/changelog/auth/001_create_roles_table.yaml
   - include:
       file: db/changelog/auth/002_create_users_table.yaml
+  - include:
+      file: db/changelog/auth/003_seed_auth_data.yaml
 
 # Room tables
   - include:
@@ -12,20 +14,28 @@ databaseChangeLog:
       file: db/changelog/room/002_create_rooms_table.yaml
   - include:
       file: db/changelog/room/003_create_room_status_history_table.yaml
+  - include:
+      file: db/changelog/room/004_seed_room_data.yaml
 
 # Booking tables
   - include:
       file: db/changelog/booking/001_create_guests_table.yaml
   - include:
       file: db/changelog/booking/002_create_reservations_table.yaml
+  - include:
+      file: db/changelog/booking/003_seed_booking_data.yaml
 
 # Occupancy tables
   - include:
       file: db/changelog/occupancy/001_create_room_occupancy_table.yaml
+  - include:
+      file: db/changelog/occupancy/002_seed_occupancy_data.yaml
 
 # Incident tables
   - include:
-      file: db/changelog/incidents/001_create_incidents_table.yaml
+      file: db/changelog/incident/001_create_incidents_table.yaml
   - include:
-      file: db/changelog/incidents/002_create_incident_history_table.yaml
+      file: db/changelog/incident/002_create_incident_history_table.yaml
+  - include:
+      file: db/changelog/incident/003_seed_incidents_data.yaml
 

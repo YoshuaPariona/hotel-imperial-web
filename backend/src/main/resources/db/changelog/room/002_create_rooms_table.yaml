@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 002_create_rooms_table
       author: Yoshua
-      comments: "Crea tabla 'rooms' con columnas VARCHAR para estados y referencias a room_types."
+      comment: "Crea tabla 'rooms' con columnas VARCHAR para estados y referencias a room_types."
       changes:
         - createTable:
             tableName: rooms

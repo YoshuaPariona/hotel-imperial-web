@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: seed-incidents
+      author: Yoshua
+      comment: "Inserta incidentes de ejemplo reportados en el hotel."
+      changes:
+        # Incidente 1: Fuga de agua en habitación 101
+        - insert:
+            tableName: incidents
+            columns:
+              - column: { name: type, value: "FUGA_AGUA" }
+              - column: { name: area, value: "HABITACION" }
+              - column: { name: location_detail, value: "Baño de la habitación 101" }
+              - column: { name: description, value: "Fuga en el grifo del lavamanos, el agua no para de correr." }
+              - column: { name: priority, value: "ALTA" }
+              - column: { name: team, value: "MANTENIMIENTO" }
+              - column: { name: reported_by, value: "4" } # Usuario de limpieza
+              - column: { name: room_id, value: "1" }
+        # Incidente 2: Problema eléctrico en habitación 201
+        - insert:
+            tableName: incidents
+            columns:
+              - column: { name: type, value: "ELECTRICIDAD" }
+              - column: { name: area, value: "HABITACION" }
+              - column: { name: location_detail, value: "Enchufes de la habitación 201" }
+              - column: { name: description, value: "Los enchufes no funcionan, no hay corriente." }
+              - column: { name: priority, value: "CRITICA" }
+              - column: { name: team, value: "MANTENIMIENTO" }
+              - column: { name: reported_by, value: "2" } # Recepcionista
+              - column: { name: room_id, value: "3" }
+        # Incidente 3: Ruido en pasillo del piso 3
+        - insert:
+            tableName: incidents
+            columns:
+              - column: { name: type, value: "RUIDO" }
+              - column: { name: area, value: "PASILLO" }
+              - column: { name: location_detail, value: "Pasillo del tercer piso" }
+              - column: { name: description, value: "Ruido constante de golpes en el pasillo durante la noche." }
+              - column: { name: priority, value: "MEDIA" }
+              - column: { name: team, value: "RECEPCION" }
+              - column: { name: reported_by, value: "1" } # Admin
+        # Incidente 4: Deterioro de mobiliario en área común
+        - insert:
+            tableName: incidents
+            columns:
+              - column: { name: type, value: "DETERIORO_MOBILIARIO" }
+              - column: { name: area, value: "AREA_COMUN" }
+              - column: { name: location_detail, value: "Sala de espera principal" }
+              - column: { name: description, value: "Sillón roto en la sala de espera, necesita reparación o reemplazo." }
+              - column: { name: priority, value: "BAJA" }
+              - column: { name: team, value: "MANTENIMIENTO" }
+              - column: { name: reported_by, value: "2" } # Recepcionista
+        # Incidente 5: Limpieza urgente en habitación 301
+        - insert:
+            tableName: incidents
+            columns:
+              - column: { name: type, value: "LIMPIEZA" }
+              - column: { name: area, value: "HABITACION" }
+              - column: { name: location_detail, value: "Habitación 301" }
+              - column: { name: description, value: "Derrame de bebida en la alfombra, requiere limpieza inmediata." }
+              - column: { name: priority, value: "ALTA" }
+              - column: { name: team, value: "LIMPIEZA" }
+              - column: { name: reported_by, value: "4" } # Usuario de limpieza
+              - column: { name: room_id, value: "5" }

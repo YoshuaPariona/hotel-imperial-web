@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 001_create_incidents_table
       author: Yoshua
-      comments: "Crea la tabla principal 'incidents' con referencias a usuarios y habitaciones."
+      comment: "Crea la tabla principal 'incidents' con referencias a usuarios y habitaciones."
       changes:
         - createTable:
             tableName: incidents
