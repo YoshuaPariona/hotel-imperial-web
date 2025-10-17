@@ -64,27 +64,3 @@ databaseChangeLog:
             referencedTableName: reservation
             referencedColumnNames: reservation_id
             onDelete: CASCADE
-        - createIndex:
-            indexName: idx_occupancy_room_id
-            tableName: room_occupancy
-            columns:
-              - column:
-                  name: room_id
-        - createIndex:
-            indexName: idx_occupancy_guest_id
-            tableName: room_occupancy
-            columns:
-              - column:
-                  name: guest_id
-        - createIndex:
-            indexName: idx_occupancy_reservation_id
-            tableName: room_occupancy
-            columns:
-              - column:
-                  name: reservation_id
-        - createIndex:
-            indexName: idx_occupancy_status
-            tableName: room_occupancy
-            columns:
-              - column:
-                  name: status

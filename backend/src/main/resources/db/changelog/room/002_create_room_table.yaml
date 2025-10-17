@@ -51,17 +51,3 @@ databaseChangeLog:
             referencedTableName: room_type
             referencedColumnNames: room_type_id
             onDelete: RESTRICT
-
-        - createIndex:
-            indexName: idx_room_room_type_id
-            tableName: room
-            columns:
-              - column:
-                  name: room_type_id
-
-        - createIndex:
-            indexName: idx_room_current_status
-            tableName: room
-            columns:
-              - column:
-                  name: current_status

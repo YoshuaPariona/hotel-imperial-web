@@ -65,7 +65,7 @@ databaseChangeLog:
             tableName: reservation
             columns:
               - column: { name: room_id, value: "1" }
-              - column: { name: user_id, value: "2" } # Recepcionista Ana
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
               - column: { name: guest_id, value: "1" }
               - column: { name: check_in, valueDate: "2025-11-01 14:00:00" }
               - column: { name: check_out, valueDate: "2025-11-05 12:00:00" }
@@ -75,7 +75,7 @@ databaseChangeLog:
             tableName: reservation
             columns:
               - column: { name: room_id, value: "3" }
-              - column: { name: user_id, value: "2" } # Recepcionista Ana
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
               - column: { name: guest_id, value: "2" }
               - column: { name: check_in, valueDate: "2025-11-10 15:00:00" }
               - column: { name: check_out, valueDate: "2025-11-15 11:00:00" }
@@ -85,7 +85,7 @@ databaseChangeLog:
             tableName: reservation
             columns:
               - column: { name: room_id, value: "5" }
-              - column: { name: user_id, value: "2" } # Recepcionista Ana
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
               - column: { name: guest_id, value: "3" }
               - column: { name: check_in, valueDate: "2025-11-20 12:00:00" }
               - column: { name: check_out, valueDate: "2025-11-25 10:00:00" }
@@ -95,7 +95,7 @@ databaseChangeLog:
             tableName: reservation
             columns:
               - column: { name: room_id, value: "2" }
-              - column: { name: user_id, value: "2" } # Recepcionista Ana
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
               - column: { name: guest_id, value: "4" }
               - column: { name: check_in, valueDate: "2025-12-01 16:00:00" }
               - column: { name: check_out, valueDate: "2025-12-10 12:00:00" }
@@ -105,7 +105,7 @@ databaseChangeLog:
             tableName: reservation
             columns:
               - column: { name: room_id, value: "4" }
-              - column: { name: user_id, value: "2" } # Recepcionista Ana
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
               - column: { name: guest_id, value: "5" }
               - column: { name: check_in, valueDate: "2025-12-15 10:00:00" }
               - column: { name: check_out, valueDate: "2025-12-20 12:00:00" }
@@ -115,7 +115,7 @@ databaseChangeLog:
             tableName: reservation
             columns:
               - column: { name: room_id, value: "6" }
-              - column: { name: user_id, value: "2" } # Recepcionista Ana
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
               - column: { name: guest_id, value: "1" }
               - column: { name: check_in, valueDate: "2026-01-10 14:00:00" }
               - column: { name: check_out, valueDate: "2026-01-15 12:00:00" }

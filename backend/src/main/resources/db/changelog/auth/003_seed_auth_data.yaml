@@ -26,66 +26,61 @@ databaseChangeLog:
               - column: { name: description, value: "Personal de limpieza y preparación de habitaciones." }
 
   - changeSet:
-      id: 003_seed-user
+      id: 003_seed-employee
       author: Yoshua
       comment: "Inserta usuarios de ejemplo para cada rol."
       changes:
         # Admin (role_id = 1)
         - insert:
-            tableName: user
+            tableName: employee
             columns:
               - column: { name: role_id, value: "1" }
               - column: { name: first_name, value: "Logan" }
               - column: { name: last_name, value: "Pariona" }
-              - column: { name: username, value: "admin" }
               - column: { name: email, value: "admin@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "admin123"
               - column: { name: phone, value: "+51987654321" }
               - column: { name: is_active, value: "true" }
         # Recepcionista (role_id = 2)
         - insert:
-            tableName: user
+            tableName: employee
             columns:
               - column: { name: role_id, value: "2" }
               - column: { name: first_name, value: "Ana" }
               - column: { name: last_name, value: "Gómez" }
-              - column: { name: username, value: "recepcion1" }
               - column: { name: email, value: "recepcion1@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "recepcion123"
               - column: { name: phone, value: "+51987654322" }
               - column: { name: is_active, value: "true" }
         # Mantenimiento (role_id = 3)
         - insert:
-            tableName: user
+            tableName: employee
             columns:
               - column: { name: role_id, value: "3" }
               - column: { name: first_name, value: "Carlos" }
               - column: { name: last_name, value: "Sánchez" }
-              - column: { name: username, value: "mantenimiento1" }
               - column: { name: email, value: "mantenimiento1@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "mantenimiento123"
               - column: { name: phone, value: "+51987654323" }
               - column: { name: is_active, value: "true" }
         # Limpieza (role_id = 4)
         - insert:
-            tableName: user
+            tableName: employee
             columns:
               - column: { name: role_id, value: "4" }
               - column: { name: first_name, value: "María" }
               - column: { name: last_name, value: "López" }
-              - column: { name: username, value: "limpieza1" }
               - column: { name: email, value: "limpieza1@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "limpieza123"
               - column: { name: phone, value: "+51987654324" }
               - column: { name: is_active, value: "true" }
         # Usuario inactivo (role_id = 2)
         - insert:
-            tableName: user
+            tableName: employee
             columns:
               - column: { name: role_id, value: "2" }
               - column: { name: first_name, value: "Pedro" }
               - column: { name: last_name, value: "Ramírez" }
-              - column: { name: username, value: "recepcion2" }
               - column: { name: email, value: "recepcion2@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "recepcion123"
               - column: { name: phone, value: "+51987654325" }

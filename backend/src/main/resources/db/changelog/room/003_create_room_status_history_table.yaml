@@ -56,15 +56,6 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseTableName: room_status_history
             baseColumnNames: changed_by
-            constraintName: fk_room_history_user
-            referencedTableName: user
-            referencedColumnNames: user_id
-
-        - createIndex:
-            indexName: idx_room_history_room_id_changed_at
-            tableName: room_status_history
-            columns:
-              - column:
-                  name: room_id
-              - column:
-                  name: changed_at
+            constraintName: fk_room_history_employee
+            referencedTableName: employee
+            referencedColumnNames: employee_id

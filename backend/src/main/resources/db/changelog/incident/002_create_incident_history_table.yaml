@@ -47,6 +47,6 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseTableName: incident_history
             baseColumnNames: changed_by
-            constraintName: fk_incident_history_user
-            referencedTableName: user
-            referencedColumnNames: user_id
+            constraintName: fk_incident_history_employee
+            referencedTableName: employee
+            referencedColumnNames: employee_id

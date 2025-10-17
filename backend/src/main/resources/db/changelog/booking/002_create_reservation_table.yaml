@@ -18,7 +18,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: user_id
+                  name: employee_id
                   type: BIGINT
                   constraints:
                     nullable: false
@@ -53,10 +53,10 @@ databaseChangeLog:
             referencedColumnNames: room_id
         - addForeignKeyConstraint:
             baseTableName: reservation
-            baseColumnNames: user_id
-            constraintName: fk_reservation_user
-            referencedTableName: user
-            referencedColumnNames: user_id
+            baseColumnNames: employee_id
+            constraintName: fk_reservation_employee
+            referencedTableName: employee
+            referencedColumnNames: employee_id
         - addForeignKeyConstraint:
             baseTableName: reservation
             baseColumnNames: guest_id
@@ -64,15 +64,3 @@ databaseChangeLog:
             referencedTableName: guest
             referencedColumnNames: guest_id
             onDelete: RESTRICT
-        - createIndex:
-            indexName: idx_reservation_guest_id
-            tableName: reservation
-            columns:
-              - column:
-                  name: guest_id
-        - createIndex:
-            indexName: idx_reservation_status
-            tableName: reservation
-            columns:
-              - column:
-                  name: status

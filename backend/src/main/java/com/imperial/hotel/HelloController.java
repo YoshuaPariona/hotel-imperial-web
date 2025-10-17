@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/series")
+@RequestMapping("/")
 public class HelloController {
 
     @GetMapping
     public String hola() {
-        return "hola mundo";
+        return "Hola mundo";
     }
 }
