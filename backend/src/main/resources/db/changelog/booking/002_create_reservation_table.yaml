@@ -28,6 +28,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                  defaultValue: 'CONFIRMADO'
+              - column:
                   name: check_in
                   type: TIMESTAMP WITH TIME ZONE
                   constraints:
@@ -38,25 +44,24 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: status
-                  type: VARCHAR(20)
-                  defaultValue: 'CONFIRMADO'
-              - column:
                   name: created_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: CURRENT_TIMESTAMP
+
         - addForeignKeyConstraint:
             baseTableName: reservation
             baseColumnNames: room_id
             constraintName: fk_reservation_room
             referencedTableName: room
             referencedColumnNames: room_id
+
         - addForeignKeyConstraint:
             baseTableName: reservation
             baseColumnNames: employee_id
             constraintName: fk_reservation_employee
             referencedTableName: employee
             referencedColumnNames: employee_id
+
         - addForeignKeyConstraint:
             baseTableName: reservation
             baseColumnNames: guest_id
