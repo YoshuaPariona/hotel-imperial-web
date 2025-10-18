@@ -4,7 +4,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none    # Verifica que el esquema coincide con las entidades, sin modificarlo
+      ddl-auto: validate    # Verifica que el esquema coincide con las entidades, sin modificarlo
     show-sql: true          # Muestra SQL en consola
     properties:
       hibernate:

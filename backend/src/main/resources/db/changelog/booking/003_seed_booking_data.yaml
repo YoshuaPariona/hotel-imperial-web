@@ -11,7 +11,7 @@ databaseChangeLog:
               - column: { name: first_name, value: "Juan" }
               - column: { name: last_name, value: "Pérez" }
               - column: { name: doc_type, value: "DNI" }
-              - column: { name: document_number, value: "12345678" }
+              - column: { name: doc_number, value: "12345678" }
               - column: { name: phone, value: "+51987654321" }
               - column: { name: email, value: "juan.perez@example.com" }
         # Huésped 2: María García
@@ -21,7 +21,7 @@ databaseChangeLog:
               - column: { name: first_name, value: "María" }
               - column: { name: last_name, value: "García" }
               - column: { name: doc_type, value: "DNI" }
-              - column: { name: document_number, value: "87654321" }
+              - column: { name: doc_number, value: "87654321" }
               - column: { name: phone, value: "+51981234567" }
               - column: { name: email, value: "maria.garcia@example.com" }
         # Huésped 3: Carlos López
@@ -31,7 +31,7 @@ databaseChangeLog:
               - column: { name: first_name, value: "Carlos" }
               - column: { name: last_name, value: "López" }
               - column: { name: doc_type, value: "PASAPORTE" }
-              - column: { name: document_number, value: "AB123456" }
+              - column: { name: doc_number, value: "AB123456" }
               - column: { name: phone, value: "+51976543210" }
               - column: { name: email, value: "carlos.lopez@example.com" }
         # Huésped 4: Ana Martínez
@@ -41,7 +41,7 @@ databaseChangeLog:
               - column: { name: first_name, value: "Ana" }
               - column: { name: last_name, value: "Martínez" }
               - column: { name: doc_type, value: "DNI" }
-              - column: { name: document_number, value: "45678912" }
+              - column: { name: doc_number, value: "45678912" }
               - column: { name: phone, value: "+51982345678" }
               - column: { name: email, value: "ana.martinez@example.com" }
         # Huésped 5: Pedro Sánchez
@@ -51,7 +51,7 @@ databaseChangeLog:
               - column: { name: first_name, value: "Pedro" }
               - column: { name: last_name, value: "Sánchez" }
               - column: { name: doc_type, value: "DNI" }
-              - column: { name: document_number, value: "23456789" }
+              - column: { name: doc_number, value: "23456789" }
               - column: { name: phone, value: "+51983456789" }
               - column: { name: email, value: "pedro.sanchez@example.com" }
 
