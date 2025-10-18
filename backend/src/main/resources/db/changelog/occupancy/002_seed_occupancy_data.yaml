@@ -6,7 +6,7 @@ databaseChangeLog:
       changes:
         # Ocupación 1: Juan Pérez en habitación 101 (Reserva 1)
         - insert:
-            tableName: room_occupancy
+            tableName: occupancy
             columns:
               - column: { name: room_id, value: "1" }
               - column: { name: guest_id, value: "1" }
@@ -16,7 +16,7 @@ databaseChangeLog:
               - column: { name: status, value: "ACTIVA" }
         # Ocupación 2: María García en habitación 201 (Reserva 2)
         - insert:
-            tableName: room_occupancy
+            tableName: occupancy
             columns:
               - column: { name: room_id, value: "3" }
               - column: { name: guest_id, value: "2" }
@@ -26,7 +26,7 @@ databaseChangeLog:
               - column: { name: status, value: "ACTIVA" }
         # Ocupación 3: Carlos López en habitación 301 (Reserva 3)
         - insert:
-            tableName: room_occupancy
+            tableName: occupancy
             columns:
               - column: { name: room_id, value: "5" }
               - column: { name: guest_id, value: "3" }
@@ -36,7 +36,7 @@ databaseChangeLog:
               - column: { name: status, value: "ACTIVA" }
         # Ocupación 4: Ana Martínez en habitación 102 (Reserva 4)
         - insert:
-            tableName: room_occupancy
+            tableName: occupancy
             columns:
               - column: { name: room_id, value: "2" }
               - column: { name: guest_id, value: "4" }
@@ -46,7 +46,7 @@ databaseChangeLog:
               - column: { name: status, value: "ACTIVA" }
         # Ocupación 5: Pedro Sánchez en habitación 202 (Reserva 5)
         - insert:
-            tableName: room_occupancy
+            tableName: occupancy
             columns:
               - column: { name: room_id, value: "4" }
               - column: { name: guest_id, value: "5" }
@@ -56,7 +56,7 @@ databaseChangeLog:
               - column: { name: status, value: "ACTIVA" }
         # Ocupación 6: Juan Pérez en habitación 302 (Reserva 6, futura)
         - insert:
-            tableName: room_occupancy
+            tableName: occupancy
             columns:
               - column: { name: room_id, value: "6" }
               - column: { name: guest_id, value: "1" }

@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 001_create_room_occupancy_table
+      id: 001_create_occupancy_table
       author: Yoshua
-      comment: "Crea tabla 'room_occupancy' para vincular huéspedes con sus reservas activas."
+      comment: "Crea tabla 'occupancy' para vincular huéspedes con sus reservas activas."
       changes:
         - createTable:
-            tableName: room_occupancy
+            tableName: occupancy
             columns:
               - column:
                   name: occupancy_id
@@ -28,6 +28,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                  defaultValue: 'ACTIVA'
+              - column:
                   name: check_in_date
                   type: TIMESTAMP WITH TIME ZONE
                   constraints:
@@ -35,30 +41,33 @@ databaseChangeLog:
               - column:
                   name: check_out_date
                   type: TIMESTAMP WITH TIME ZONE
-              - column:
-                  name: status
-                  type: VARCHAR(20)
-                  defaultValue: 'ACTIVA'
+                  constraints:
+                    nullable: false
               - column:
                   name: created_at
                   type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
                   defaultValueComputed: CURRENT_TIMESTAMP
+
         - addForeignKeyConstraint:
-            baseTableName: room_occupancy
+            baseTableName: occupancy
             baseColumnNames: room_id
             constraintName: fk_occupancy_room
             referencedTableName: room
             referencedColumnNames: room_id
             onDelete: RESTRICT
+
         - addForeignKeyConstraint:
-            baseTableName: room_occupancy
+            baseTableName: occupancy
             baseColumnNames: guest_id
             constraintName: fk_occupancy_guest
             referencedTableName: guest
             referencedColumnNames: guest_id
             onDelete: RESTRICT
+
         - addForeignKeyConstraint:
-            baseTableName: room_occupancy
+            baseTableName: occupancy
             baseColumnNames: reservation_id
             constraintName: fk_occupancy_reservation
             referencedTableName: reservation

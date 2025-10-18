@@ -36,13 +36,13 @@ public class Reservation {
     @Column(name = "status", nullable = false, length = 20)
     private String status = "CONFIRMADO";
 
-    @Column(name = "check_in", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(name = "check_in", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime checkIn;
 
-    @Column(name = "check_out", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(name = "check_out", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime checkOut;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
     private OffsetDateTime createdAt;
 
     @PrePersist
