@@ -8,10 +8,11 @@ import java.time.OffsetDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDTO {
-    private Long employeeId;
+public class EmployeeResponseDTO {
+    private Long id;
     private String firstName;
     private String lastName;
+    private String fullName;
     private String email;
     private String phone;
     private Boolean isActive;
@@ -22,7 +23,7 @@ public class EmployeeDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RoleDTO {
-        private Long roleId;
+        private Long Id;
         private String name;
         private String description;
     }
