@@ -32,10 +32,10 @@ databaseChangeLog:
       file: db/changelog/occupancy/002_seed_occupancy_data.yaml
 
 # Incident tables
-  - include:
-      file: db/changelog/incident/001_create_incident_table.yaml
-  - include:
-      file: db/changelog/incident/002_create_incident_history_table.yaml
-  - include:
-      file: db/changelog/incident/003_seed_incident_data.yaml
+#  - include:
+#      file: db/changelog/incident/001_create_incident_table.yaml
+#  - include:
+#      file: db/changelog/incident/002_create_incident_history_table.yaml
+#  - include:
+#      file: db/changelog/incident/003_seed_incident_data.yaml
 

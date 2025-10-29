@@ -1,3 +1,16 @@
+POST http://localhost:8080/api/employees
+Content-Type: application/json
+
+{
+  "firstName": "Yoshua",
+  "lastName": "Reyes",
+  "email": "yoshua@imperial.com",
+  "phone": "+57 123456789",
+  "password": "12345",
+  "roleName": "GERENTE"
+}
+
+###
 GET http://localhost:8080/api/employees
 Accept: application/json
 
