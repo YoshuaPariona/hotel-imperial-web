@@ -27,7 +27,7 @@ databaseChangeLog:
 
 # Occupancy tables
   - include:
-      file: db/changelog/occupancy/001_create_room_occupancy_table.yaml
+      file: db/changelog/occupancy/001_create_occupancy_table.yaml
   - include:
       file: db/changelog/occupancy/002_seed_occupancy_data.yaml
 

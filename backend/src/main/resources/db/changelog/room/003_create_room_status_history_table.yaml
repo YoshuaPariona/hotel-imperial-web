@@ -9,7 +9,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: room_status_history_id
-                  type: BIGSERIAL
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -39,14 +40,13 @@ databaseChangeLog:
                   remarks: "Nuevo estado de la habitación."
               - column:
                   name: changed_at
-                  type: TIMESTAMP WITH TIME ZONE
+                  type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP
                   remarks: "Momento exacto del cambio."
               - column:
                   name: note
                   type: TEXT
                   remarks: "Detalles o motivo del cambio de estado."
-
         - addForeignKeyConstraint:
             baseTableName: room_status_history
             baseColumnNames: room_id
@@ -54,7 +54,6 @@ databaseChangeLog:
             referencedTableName: room
             referencedColumnNames: room_id
             onDelete: CASCADE
-
         - addForeignKeyConstraint:
             baseTableName: room_status_history
             baseColumnNames: changed_by

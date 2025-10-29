@@ -2,6 +2,12 @@
 # 🚀 application-prod.yml (deploy)
 # ===============================
 spring:
+
+  jpa:
+    hibernate:
+      ddl-auto: none        # No altera el esquema en producción
+    show-sql: false         # Evita logs de SQL
+
   datasource:
     # Ajustes del pool de conexiones para producción (HikariCP por defecto en Spring Boot)
     hikari:
@@ -9,8 +15,3 @@ spring:
       minimum-idle: 2
       idle-timeout: 30000
       pool-name: HikariPoolProd
-
-  jpa:
-    hibernate:
-      ddl-auto: none        # No altera el esquema en producción
-    show-sql: false         # Evita logs de SQL

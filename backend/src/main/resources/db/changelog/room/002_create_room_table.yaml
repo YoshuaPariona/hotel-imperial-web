@@ -1,53 +1,53 @@
-  databaseChangeLog:
-    - changeSet:
-        id: 002_create_room_table
-        author: Yoshua
-        comment: "Crea tabla 'room' con columnas VARCHAR para estados y referencias a room_type."
-        changes:
-          - createTable:
-              tableName: room
-              columns:
-                - column:
-                    name: room_id
-                    type: BIGSERIAL
-                    constraints:
-                      primaryKey: true
-                      nullable: false
-                - column:
-                    name: room_type_id
-                    type: BIGINT
-                    constraints:
-                      nullable: false
-                    remarks: "Relación con la tabla room_type."
-                - column:
-                    name: room_number
-                    type: VARCHAR(15)
-                    constraints:
-                      unique: true
-                      nullable: false
-                    remarks: "Número identificador de la habitación."
-                - column:
-                    name: floor
-                    type: INTEGER
-                    remarks: "Piso donde se encuentra la habitación."
-                - column:
-                    name: capacity
-                    type: INTEGER
-                    remarks: "Capacidad máxima de huéspedes."
-                - column:
-                    name: current_status
-                    type: VARCHAR(20)
-                    defaultValue: 'DISPONIBLE'
-                    remarks: "Estado actual de la habitación (DISPONIBLE, RESERVADA, OCUPADA, etc.)."
-                - column:
-                    name: note
-                    type: TEXT
-                    remarks: "Notas internas sobre la habitación."
-
-          - addForeignKeyConstraint:
-              baseTableName: room
-              baseColumnNames: room_type_id
-              constraintName: fk_room_room_type
-              referencedTableName: room_type
-              referencedColumnNames: room_type_id
-              onDelete: RESTRICT
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_room_table
+      author: Yoshua
+      comment: "Crea tabla 'room' con columnas VARCHAR para estados y referencias a room_type."
+      changes:
+        - createTable:
+            tableName: room
+            columns:
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: room_type_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                  remarks: "Relación con la tabla room_type."
+              - column:
+                  name: room_number
+                  type: VARCHAR(15)
+                  constraints:
+                    unique: true
+                    nullable: false
+                  remarks: "Número identificador de la habitación."
+              - column:
+                  name: floor
+                  type: INTEGER
+                  remarks: "Piso donde se encuentra la habitación."
+              - column:
+                  name: capacity
+                  type: INTEGER
+                  remarks: "Capacidad máxima de huéspedes."
+              - column:
+                  name: current_status
+                  type: VARCHAR(20)
+                  defaultValue: 'DISPONIBLE'
+                  remarks: "Estado actual de la habitación (DISPONIBLE, RESERVADA, OCUPADA, etc.)."
+              - column:
+                  name: note
+                  type: TEXT
+                  remarks: "Notas internas sobre la habitación."
+        - addForeignKeyConstraint:
+            baseTableName: room
+            baseColumnNames: room_type_id
+            constraintName: fk_room_room_type
+            referencedTableName: room_type
+            referencedColumnNames: room_type_id
+            onDelete: RESTRICT

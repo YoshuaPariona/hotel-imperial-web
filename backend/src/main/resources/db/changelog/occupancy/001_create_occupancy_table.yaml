@@ -9,7 +9,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: occupancy_id
-                  type: BIGSERIAL
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
@@ -35,21 +36,20 @@ databaseChangeLog:
                   defaultValue: 'ACTIVA'
               - column:
                   name: check_in_date
-                  type: TIMESTAMP WITH TIME ZONE
+                  type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
                   name: check_out_date
-                  type: TIMESTAMP WITH TIME ZONE
+                  type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
                   name: created_at
-                  type: TIMESTAMP WITH TIME ZONE
+                  type: TIMESTAMP
                   constraints:
                     nullable: false
                   defaultValueComputed: CURRENT_TIMESTAMP
-
         - addForeignKeyConstraint:
             baseTableName: occupancy
             baseColumnNames: room_id
@@ -57,7 +57,6 @@ databaseChangeLog:
             referencedTableName: room
             referencedColumnNames: room_id
             onDelete: RESTRICT
-
         - addForeignKeyConstraint:
             baseTableName: occupancy
             baseColumnNames: guest_id
@@ -65,7 +64,6 @@ databaseChangeLog:
             referencedTableName: guest
             referencedColumnNames: guest_id
             onDelete: RESTRICT
-
         - addForeignKeyConstraint:
             baseTableName: occupancy
             baseColumnNames: reservation_id

@@ -9,7 +9,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: employee_id
-                  type: BIGSERIAL
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -48,7 +49,7 @@ databaseChangeLog:
                   defaultValueBoolean: true
               - column:
                   name: created_at
-                  type: TIMESTAMP WITH TIME ZONE
+                  type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP
         - addForeignKeyConstraint:
             baseTableName: employee

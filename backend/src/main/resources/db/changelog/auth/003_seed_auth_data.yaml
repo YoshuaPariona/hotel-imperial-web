@@ -40,7 +40,7 @@ databaseChangeLog:
               - column: { name: email, value: "admin@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "admin123"
               - column: { name: phone, value: "+51987654321" }
-              - column: { name: is_active, value: "true" }
+              - column: { name: is_active, value: "1" }
         # Recepcionista (role_id = 2)
         - insert:
             tableName: employee
@@ -51,7 +51,7 @@ databaseChangeLog:
               - column: { name: email, value: "recepcion1@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "recepcion123"
               - column: { name: phone, value: "+51987654322" }
-              - column: { name: is_active, value: "true" }
+              - column: { name: is_active, value: "1" }
         # Mantenimiento (role_id = 3)
         - insert:
             tableName: employee
@@ -62,7 +62,7 @@ databaseChangeLog:
               - column: { name: email, value: "mantenimiento1@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "mantenimiento123"
               - column: { name: phone, value: "+51987654323" }
-              - column: { name: is_active, value: "true" }
+              - column: { name: is_active, value: "1" }
         # Limpieza (role_id = 4)
         - insert:
             tableName: employee
@@ -73,7 +73,7 @@ databaseChangeLog:
               - column: { name: email, value: "limpieza1@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "limpieza123"
               - column: { name: phone, value: "+51987654324" }
-              - column: { name: is_active, value: "true" }
+              - column: { name: is_active, value: "1" }
         # Usuario inactivo (role_id = 2)
         - insert:
             tableName: employee
@@ -84,4 +84,4 @@ databaseChangeLog:
               - column: { name: email, value: "recepcion2@hotelimperial.com" }
               - column: { name: hashed_password, value: "$2a$10$N9qo8uLOickgx2ZMRZoMy.Mr2Y8Zq5BpZJQz6lFq7x5Q3L4W1vKW6" } # Contraseña: "recepcion123"
               - column: { name: phone, value: "+51987654325" }
-              - column: { name: is_active, value: "false" }
+              - column: { name: is_active, value: "0" }

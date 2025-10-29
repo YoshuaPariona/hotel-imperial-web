@@ -13,6 +13,7 @@ spring:
     properties:
       hibernate:
         format_sql: true    # Aplica formato legible al SQL generado
+        dialect: org.hibernate.dialect.MariaDBDialect
 
   # Configuración de Liquibase (migraciones)
   liquibase:
@@ -20,7 +21,7 @@ spring:
 
   # Fuente de datos compartida por todos los entornos
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:imperial_database}
-    username: ${DB_USER:postgres}
+    url: jdbc:mariadb://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:imperial_database}?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=UTC
+    username: ${DB_USER:root}
     password: ${DB_PASSWORD:1234}
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: org.mariadb.jdbc.Driver
