@@ -19,19 +19,19 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
-    private final EmployeeMapper mapper;
+    private final EmployeeMapper employeeMapper;
 
     @Transactional(readOnly = true)
     public List<EmployeeResponseDTO> findAll() {
         return employeeRepository.findAll()
                 .stream()
-                .map(mapper::toDTO)
+                .map(employeeMapper::toDTO)
                 .toList();
     }
 
     @Transactional
     public EmployeeResponseDTO create(EmployeeRequestDTO dto) {
-        Employee employee = mapper.toEntity(dto);
+        Employee employee = employeeMapper.toEntity(dto);
 
         // Buscar rol por nombre
         Role role = roleRepository.findByName(dto.getRoleName())
@@ -43,6 +43,6 @@ public class EmployeeService {
         employee.setHashedPassword("{noop}" + dto.getRawPassword());
 
         Employee saved = employeeRepository.save(employee);
-        return mapper.toDTO(saved);
+        return employeeMapper.toDTO(saved);
     }
 }

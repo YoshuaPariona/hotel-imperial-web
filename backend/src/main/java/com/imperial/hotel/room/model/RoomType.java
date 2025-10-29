@@ -18,7 +18,7 @@ public class RoomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_type_id")
-    private Long roomTypeId;
+    private Long id;
 
     @Column(name = "category", nullable = false, length = 50)
     private String category;

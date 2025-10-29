@@ -18,7 +18,7 @@ public class RoomStatusHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_status_history_id")
-    private Long roomStatusHistoryId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false, foreignKey = @ForeignKey(name = "fk_room_history_room"))
