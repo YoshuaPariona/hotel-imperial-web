@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id")
@@ -25,7 +24,7 @@ public class Room {
     private RoomType roomType;
 
     @Column(name = "room_number", nullable = false, unique = true, length = 15)
-    private String roomNumber;
+    private String number;
 
     @Column(name = "floor")
     private Integer floor;
