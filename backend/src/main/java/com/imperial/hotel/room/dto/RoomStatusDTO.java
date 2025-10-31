@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoomStatusDTO implements Serializable {
-    Long roomId;
-    Long employeeId;
-    String newStatus;
+    private Long roomId;
+    private Long employeeId;
+    private String newStatus;
 }
