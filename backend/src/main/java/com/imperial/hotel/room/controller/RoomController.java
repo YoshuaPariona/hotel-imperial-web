@@ -4,7 +4,6 @@ import com.imperial.hotel.room.dto.RoomListDTO;
 import com.imperial.hotel.room.dto.RoomStatusDTO;
 import com.imperial.hotel.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +28,11 @@ public class RoomController {
         return ResponseEntity.ok(roomService.findAllByFilter(number, category, currentStatus));
     }
 
-    @PutMapping("/status")
-    public ResponseEntity<Void> updateRoomsStatus(@RequestBody RoomStatusDTO dto) {
-        roomService.registerStatusChange(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    @PutMapping("/{roomId}/status")
+    public ResponseEntity<Void> updateRoomsStatus(
+            @RequestBody RoomStatusDTO dto,
+            @PathVariable Long roomId) {
+        roomService.registerStatusChange(roomId, dto);
+        return ResponseEntity.ok(null);
     }
 }

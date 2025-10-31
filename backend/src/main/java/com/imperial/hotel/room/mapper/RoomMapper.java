@@ -21,21 +21,12 @@ public interface RoomMapper {
 
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "room", source = "roomId", qualifiedByName = "mapRoomFromId")
     @Mapping(target = "changedBy", source = "employeeId", qualifiedByName = "mapEmployeeFromId")
     @Mapping(target = "previousStatus", ignore = true)
     @Mapping(target = "newStatus", source = "newStatus")
     @Mapping(target = "changedAt", expression = "java(OffsetDateTime.now())")
     @Mapping(target = "note", ignore = true)
     RoomStatusHistory toStatusEntity(RoomStatusDTO dto);
-
-    @Named("mapRoomFromId")
-    default Room mapRoomFromId(Long id) {
-        if (id == null) return null;
-        Room room = new Room();
-        room.setId(id);
-        return room;
-    }
 
     @Named("mapEmployeeFromId")
     default Employee mapEmployeeFromId(Long id) {

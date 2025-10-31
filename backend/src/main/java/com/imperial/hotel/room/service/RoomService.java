@@ -54,18 +54,17 @@ public class RoomService {
                 .collect(Collectors.toList());
     }
 
-    public RoomStatusHistory registerStatusChange(RoomStatusDTO dto) {
+    @Transactional
+    public void registerStatusChange(Long roomId, RoomStatusDTO dto) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new EntityNotFoundException("Room not found"));
         RoomStatusHistory history = roomMapper.toStatusEntity(dto);
 
-        // obtener el estado previo
-        Room room = roomRepository.findById(dto.getRoomId())
-                .orElseThrow(() -> new EntityNotFoundException("Room not found"));
+        history.setRoom(room);
         history.setPreviousStatus(room.getCurrentStatus());
 
-        // actualizar estado actual de la habitación
         room.setCurrentStatus(dto.getNewStatus());
         roomRepository.save(room);
-
-        return roomStatusHistoryRepository.save(history);
+        roomStatusHistoryRepository.save(history);
     }
 }
