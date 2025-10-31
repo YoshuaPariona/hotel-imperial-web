@@ -67,7 +67,7 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "2" }
               - column: { name: floor, value: "1" }
               - column: { name: capacity, value: "3" }
-              - column: { name: current_status, value: "DISPONIBLE" }
+              - column: { name: current_status, value: "RESERVADA" }
         # Habitación 201 (Matrimonial, piso 2)
         - insert:
             tableName: room
@@ -76,7 +76,7 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "3" }
               - column: { name: floor, value: "2" }
               - column: { name: capacity, value: "3" }
-              - column: { name: current_status, value: "DISPONIBLE" }
+              - column: { name: current_status, value: "OCUPADA" }
         # Habitación 202 (Suite, piso 2)
         - insert:
             tableName: room
@@ -85,7 +85,7 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "4" }
               - column: { name: floor, value: "2" }
               - column: { name: capacity, value: "3" }
-              - column: { name: current_status, value: "DISPONIBLE" }
+              - column: { name: current_status, value: "MANTENIMIENTO" }
         # Habitación 301 (Familiar, piso 3)
         - insert:
             tableName: room
@@ -94,7 +94,7 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "5" }
               - column: { name: floor, value: "3" }
               - column: { name: capacity, value: "3" }
-              - column: { name: current_status, value: "DISPONIBLE" }
+              - column: { name: current_status, value: "LIMPIEZA" }
         # Habitación 302 (Standard Single, piso 3)
         - insert:
             tableName: room
@@ -130,13 +130,13 @@ databaseChangeLog:
               - column: { name: changed_by, value: "4" } # Usuario de limpieza
               - column: { name: changed_at, valueDate: "2025-10-10 09:30:00" }
               - column: { name: note, value: "Habitación lista para nuevos huéspedes." }
-        # Cambio de estado para la habitación 201 (DISPONIBLE -> RESERVADA)
+        # Cambio de estado para la habitación 201 (DISPONIBLE -> OCUPADA)
         - insert:
             tableName: room_status_history
             columns:
               - column: { name: room_id, value: "3" }
               - column: { name: previous_status, value: "DISPONIBLE" }
-              - column: { name: new_status, value: "RESERVADA" }
+              - column: { name: new_status, value: "OCUPADA" }
               - column: { name: changed_by, value: "2" } # Recepcionista
               - column: { name: changed_at, valueDate: "2025-10-12 10:00:00" }
               - column: { name: note, value: "Reserva confirmada para el 15/10/2025." }
