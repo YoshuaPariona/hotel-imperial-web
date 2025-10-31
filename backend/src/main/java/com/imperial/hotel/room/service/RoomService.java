@@ -1,9 +1,13 @@
 package com.imperial.hotel.room.service;
 
 import com.imperial.hotel.room.dto.RoomListDTO;
+import com.imperial.hotel.room.dto.RoomStatusDTO;
 import com.imperial.hotel.room.mapper.RoomMapper;
 import com.imperial.hotel.room.model.Room;
+import com.imperial.hotel.room.model.RoomStatusHistory;
 import com.imperial.hotel.room.repository.RoomRepository;
+import com.imperial.hotel.room.repository.RoomStatusHistoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RoomService {
     private final RoomRepository roomRepository;
+    private final RoomStatusHistoryRepository roomStatusHistoryRepository;
     private final RoomMapper roomMapper;
 
     @Transactional(readOnly = true)
@@ -47,5 +52,20 @@ public class RoomService {
         return roomRepository.findAll(spec).stream()
                 .map(roomMapper::toListDTO)
                 .collect(Collectors.toList());
+    }
+
+    public RoomStatusHistory registerStatusChange(RoomStatusDTO dto) {
+        RoomStatusHistory history = roomMapper.toStatusEntity(dto);
+
+        // obtener el estado previo
+        Room room = roomRepository.findById(dto.getRoomId())
+                .orElseThrow(() -> new EntityNotFoundException("Room not found"));
+        history.setPreviousStatus(room.getCurrentStatus());
+
+        // actualizar estado actual de la habitación
+        room.setCurrentStatus(dto.getNewStatus());
+        roomRepository.save(room);
+
+        return roomStatusHistoryRepository.save(history);
     }
 }
