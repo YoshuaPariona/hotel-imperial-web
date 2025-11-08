@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import LogoSection from '../components/LogoSection';
 import NavButton from '../components/NavButton';
+import PerfilButton from '../components/PerfilButton';
+import PerfilView from '../components/PerfilView';
 
 const videos = [
   '/videos/video1.webm',
@@ -10,6 +12,7 @@ const videos = [
 
 const Home: React.FC = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [showPerfil, setShowPerfil] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoEnded = () => {
@@ -39,31 +42,37 @@ const Home: React.FC = () => {
         Tu navegador no soporta el elemento de video.
       </video>
 
-      {/* Capa oscura para mejorar contraste */}
+      {/* Capa oscura */}
       <div className="absolute inset-0 bg-black opacity-60"></div>
 
+      {/* Botón de perfil */}
+      <div className="absolute top-4 right-4 z-20">
+        <PerfilButton
+          isOpen={showPerfil}
+          onToggle={() => setShowPerfil(!showPerfil)}
+        />
+      </div>
+
       {/* Contenido principal */}
-      <div className="relative z-10 flex justify-center items-center h-full px-5 md:px-10">
-        {/* Contenedor para botones y logo */}
-        <div className="flex flex-col md:flex-row justify-center items-center w-full max-w-6xl space-y-10 md:space-y-0 md:space-x-20">
-          {/* Botones de navegación */}
-          <div className="flex flex-col space-y-6 md:space-y-8">
-            <div className="md:ml-40">
+      {!showPerfil && (
+        <div className="relative z-10 flex justify-center items-center h-full px-5 md:px-10 transition-all duration-500 opacity-100">
+          <div className="flex flex-row justify-center items-center w-full max-w-6xl gap-2">
+            <div className="flex flex-col space-y-4">
               <NavButton text="PROCESOS DECISIVOS" to="/procesos-generales" />
-            </div>
-            <div className="self-center">
               <NavButton text="PROCESOS MISIONALES" to="/procesos-misionales" />
-            </div>
-            <div className="md:ml-40">
               <NavButton text="PROCESOS DE APOYO" to="/procesos-soporte" />
             </div>
+            <div className="w-1/4 scale-125">
+              <LogoSection />
+            </div>
           </div>
-          {/* Logo */}
-          <LogoSection />
-        </div>
-      </div>
+        </div>   
+      )}
+
+      {/* Vista de perfil */}
+      {showPerfil && <PerfilView onClose={() => setShowPerfil(false)} />}
     </div>
-    );
+  );
 };
 
 export default Home;
