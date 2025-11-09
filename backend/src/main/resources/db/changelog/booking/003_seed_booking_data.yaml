@@ -1,0 +1,122 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003_seed_guest
+      author: Yoshua
+      comment: "Inserta huéspedes de ejemplo para el hotel."
+      changes:
+        # Huésped 1: Juan Pérez
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "Juan" }
+              - column: { name: last_name, value: "Pérez" }
+              - column: { name: doc_type, value: "DNI" }
+              - column: { name: doc_number, value: "12345678" }
+              - column: { name: phone, value: "+51987654321" }
+              - column: { name: email, value: "juan.perez@example.com" }
+        # Huésped 2: María García
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "María" }
+              - column: { name: last_name, value: "García" }
+              - column: { name: doc_type, value: "DNI" }
+              - column: { name: doc_number, value: "87654321" }
+              - column: { name: phone, value: "+51981234567" }
+              - column: { name: email, value: "maria.garcia@example.com" }
+        # Huésped 3: Carlos López
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "Carlos" }
+              - column: { name: last_name, value: "López" }
+              - column: { name: doc_type, value: "PASAPORTE" }
+              - column: { name: doc_number, value: "AB123456" }
+              - column: { name: phone, value: "+51976543210" }
+              - column: { name: email, value: "carlos.lopez@example.com" }
+        # Huésped 4: Ana Martínez
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "Ana" }
+              - column: { name: last_name, value: "Martínez" }
+              - column: { name: doc_type, value: "DNI" }
+              - column: { name: doc_number, value: "45678912" }
+              - column: { name: phone, value: "+51982345678" }
+              - column: { name: email, value: "ana.martinez@example.com" }
+        # Huésped 5: Pedro Sánchez
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "Pedro" }
+              - column: { name: last_name, value: "Sánchez" }
+              - column: { name: doc_type, value: "DNI" }
+              - column: { name: doc_number, value: "23456789" }
+              - column: { name: phone, value: "+51983456789" }
+              - column: { name: email, value: "pedro.sanchez@example.com" }
+
+  - changeSet:
+      id: 003_seed_reservation
+      author: Yoshua
+      comment: "Inserta reservas de ejemplo para los huéspedes."
+      changes:
+        # Reserva 1: Juan Pérez (Habitación 101, Recepcionista Ana)
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: room_id, value: "1" }
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
+              - column: { name: guest_id, value: "1" }
+              - column: { name: check_in, valueDate: "2025-11-01 14:00:00" }
+              - column: { name: check_out, valueDate: "2025-11-05 12:00:00" }
+              - column: { name: status, value: "CONFIRMADO" }
+        # Reserva 2: María García (Habitación 201, Recepcionista Ana)
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: room_id, value: "3" }
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
+              - column: { name: guest_id, value: "2" }
+              - column: { name: check_in, valueDate: "2025-11-10 15:00:00" }
+              - column: { name: check_out, valueDate: "2025-11-15 11:00:00" }
+              - column: { name: status, value: "CONFIRMADO" }
+        # Reserva 3: Carlos López (Habitación 301, Recepcionista Ana)
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: room_id, value: "5" }
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
+              - column: { name: guest_id, value: "3" }
+              - column: { name: check_in, valueDate: "2025-11-20 12:00:00" }
+              - column: { name: check_out, valueDate: "2025-11-25 10:00:00" }
+              - column: { name: status, value: "CONFIRMADO" }
+        # Reserva 4: Ana Martínez (Habitación 102, Recepcionista Ana)
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: room_id, value: "2" }
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
+              - column: { name: guest_id, value: "4" }
+              - column: { name: check_in, valueDate: "2025-12-01 16:00:00" }
+              - column: { name: check_out, valueDate: "2025-12-10 12:00:00" }
+              - column: { name: status, value: "CONFIRMADO" }
+        # Reserva 5: Pedro Sánchez (Habitación 202, Recepcionista Ana)
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: room_id, value: "4" }
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
+              - column: { name: guest_id, value: "5" }
+              - column: { name: check_in, valueDate: "2025-12-15 10:00:00" }
+              - column: { name: check_out, valueDate: "2025-12-20 12:00:00" }
+              - column: { name: status, value: "CONFIRMADO" }
+        # Reserva 6: Juan Pérez (Habitación 302, Recepcionista Ana) - Reserva futura
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: room_id, value: "6" }
+              - column: { name: employee_id, value: "2" } # Recepcionista Ana
+              - column: { name: guest_id, value: "1" }
+              - column: { name: check_in, valueDate: "2026-01-10 14:00:00" }
+              - column: { name: check_out, valueDate: "2026-01-15 12:00:00" }
+              - column: { name: status, value: "CONFIRMADO" }

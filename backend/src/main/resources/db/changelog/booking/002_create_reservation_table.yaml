@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_reservation
+      author: Yoshua
+      comment: "Crea tabla 'reservation' con referencias a habitación, usuario y huésped responsable."
+      changes:
+        - createTable:
+            tableName: reservation
+            columns:
+              - column:
+                  name: reservation_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guest_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                  defaultValue: 'CONFIRMADO'
+              - column:
+                  name: check_in
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: check_out
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: reservation
+            baseColumnNames: room_id
+            constraintName: fk_reservation_room
+            referencedTableName: room
+            referencedColumnNames: room_id
+        - addForeignKeyConstraint:
+            baseTableName: reservation
+            baseColumnNames: employee_id
+            constraintName: fk_reservation_employee
+            referencedTableName: employee
+            referencedColumnNames: employee_id
+        - addForeignKeyConstraint:
+            baseTableName: reservation
+            baseColumnNames: guest_id
+            constraintName: fk_reservation_guest
+            referencedTableName: guest
+            referencedColumnNames: guest_id
+            onDelete: RESTRICT

@@ -1,8 +1,17 @@
+# ===============================
+# 🚀 application-prod.yml (deploy)
+# ===============================
 spring:
+
+  jpa:
+    hibernate:
+      ddl-auto: none        # No altera el esquema en producción
+    show-sql: false         # Evita logs de SQL
+
   datasource:
-    url: jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:imperial_database}
-    username: ${PGUSER:postgres}
-    password: ${PGPASSWORD:1234}
-  h2:
-    console:
-      enabled: false
+    # Ajustes del pool de conexiones para producción (HikariCP por defecto en Spring Boot)
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      pool-name: HikariPoolProd

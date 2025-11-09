@@ -1,15 +1,41 @@
 databaseChangeLog:
+# Auth tables
   - include:
-      file: db/migration/001_create_roles_users.yaml
+      file: db/changelog/auth/001_create_role_table.yaml
   - include:
-      file: db/migration/002_create_room_enums_and_tables.yaml
+      file: db/changelog/auth/002_create_employee_table.yaml
   - include:
-      file: db/migration/003_create_room_history.yaml
+      file: db/changelog/auth/003_seed_auth_data.yaml
+
+# Room tables
   - include:
-      file: db/migration/004_create_guests_and_reservations.yaml
+      file: db/changelog/room/001_create_room_type_table.yaml
   - include:
-      file: db/migration/005_create_occupancy.yaml
+      file: db/changelog/room/002_create_room_table.yaml
   - include:
-      file: db/migration/006_create_incidents.yaml
+      file: db/changelog/room/003_create_room_status_history_table.yaml
+  - include:
+      file: db/changelog/room/004_seed_room_data.yaml
+
+# Booking tables
+  - include:
+      file: db/changelog/booking/001_create_guest_table.yaml
+  - include:
+      file: db/changelog/booking/002_create_reservation_table.yaml
+  - include:
+      file: db/changelog/booking/003_seed_booking_data.yaml
+
+# Occupancy tables
+  - include:
+      file: db/changelog/occupancy/001_create_occupancy_table.yaml
+  - include:
+      file: db/changelog/occupancy/002_seed_occupancy_data.yaml
+
+# Incident tables
 #  - include:
-#      file: db/migration/007_insert_mock_data.yaml
+#      file: db/changelog/incident/001_create_incident_table.yaml
+#  - include:
+#      file: db/changelog/incident/002_create_incident_history_table.yaml
+#  - include:
+#      file: db/changelog/incident/003_seed_incident_data.yaml
+

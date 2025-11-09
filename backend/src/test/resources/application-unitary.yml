@@ -1,16 +1,36 @@
+# ========================================
+# 🧩 application-unitary.yml (tests unitarios)
+# ========================================
 spring:
   config:
     activate:
       on-profile: unitary
+
   datasource:
-    url: jdbc:h2:mem:unit_test_db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    # Base local separada para tests unitarios (puedes crearla vacía)
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:unitary_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:1234}
+    driver-class-name: org.postgresql.Driver
+
   jpa:
+    # Se genera y destruye el esquema para cada suite de tests
     hibernate:
       ddl-auto: create-drop
     open-in-view: false
     show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
   liquibase:
+    # Desactivado para no aplicar migraciones
     enabled: false
+
+# Desactiva inicialización automática de scripts .sql si los hubiera
+spring.sql.init.mode: never
+
+# Nivel de log discreto (opcional)
+logging:
+  level:
+    org.hibernate.SQL: warn

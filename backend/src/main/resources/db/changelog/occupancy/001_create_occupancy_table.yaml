@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_occupancy_table
+      author: Yoshua
+      comment: "Crea tabla 'occupancy' para vincular huéspedes con sus reservas activas."
+      changes:
+        - createTable:
+            tableName: occupancy
+            columns:
+              - column:
+                  name: occupancy_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: guest_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reservation_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                  defaultValue: 'ACTIVA'
+              - column:
+                  name: check_in_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: check_out_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: occupancy
+            baseColumnNames: room_id
+            constraintName: fk_occupancy_room
+            referencedTableName: room
+            referencedColumnNames: room_id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: occupancy
+            baseColumnNames: guest_id
+            constraintName: fk_occupancy_guest
+            referencedTableName: guest
+            referencedColumnNames: guest_id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: occupancy
+            baseColumnNames: reservation_id
+            constraintName: fk_occupancy_reservation
+            referencedTableName: reservation
+            referencedColumnNames: reservation_id
+            onDelete: CASCADE

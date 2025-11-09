@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_create_employee_table
+      author: Yoshua
+      comment: "Crea la tabla 'employee' con FK a 'role', controlando credenciales y estado."
+      changes:
+        - createTable:
+            tableName: employee
+            columns:
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(150)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: hashed_password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: VARCHAR(30)
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: employee
+            baseColumnNames: role_id
+            constraintName: fk_employee_role
+            referencedTableName: role
+            referencedColumnNames: role_id
+            onDelete: RESTRICT

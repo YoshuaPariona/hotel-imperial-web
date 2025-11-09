@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_room_type_table
+      author: Yoshua
+      comment: "Crea tabla 'room_type' para definir tipos de habitaciones del hotel (sin ENUMs)."
+      changes:
+        - createTable:
+            tableName: room_type
+            columns:
+              - column:
+                  name: room_type_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                  remarks: "Categoría de habitación, ej. STANDARD, MATRIMONIAL."
+              - column:
+                  name: bed_size
+                  type: VARCHAR(50)
+                  remarks: "Tamaño de cama, ej. SINGLE, DOUBLE."
+              - column:
+                  name: bed_quantity
+                  type: INTEGER
+                  remarks: "Cantidad de camas en la habitación."
+              - column:
+                  name: description
+                  type: TEXT
+                  remarks: "Descripción opcional del tipo de habitación."

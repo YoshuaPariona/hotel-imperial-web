@@ -1,0 +1,46 @@
+# Maven
+/target
+.mvn
+!.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+# IDEs
+*.iml
+.idea/
+.vscode/
+*.class
+
+# Logs y datos temporales
+*.log
+*.tmp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# dependencias
+frontend/node_modules/
+/.pnp
+.pnp.js
+
+
+# producción
+/dist
+/build
+
+# archivos de pruebas locales
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# generados por sonarqube
+*/.udg
+.scannerwork/
