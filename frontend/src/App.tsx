@@ -9,12 +9,19 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            {/*<Route path="/settings" element={<Settings />} />*/}
-            {/*<Route path="/reports" element={<Reports />} />*/}
+            <Route path="/ia" element={<Dashboard />} />
+            <Route path="/rooms" element={<Dashboard />} />
+            <Route path="/bookings" element={<Dashboard />} />
+            <Route path="/ocupacion" element={<Dashboard />} />
+            <Route path="/guests" element={<Dashboard />} />
+            <Route path="/payments" element={<Dashboard />} />
+            <Route path="/perfil" element={<Dashboard />} />
+            <Route path="/ajustes" element={<Dashboard />} />
+            <Route path="/logout" element={<Dashboard />} />
           </Routes>
         </Layout>
       </>
   )
 }
 
-export default App
+export default App;

@@ -1,6 +1,5 @@
-import { SideBar } from "@components/layout/SideBar.tsx"
-import { SidebarProvider, SidebarTrigger } from "@components/ui/sidebar.tsx"
-import * as React from "react";
+import { SideBar } from "@components/sidebar/SideBar";
+import { SidebarProvider } from "@components/ui/sidebar";
 
 interface Props {
   children: React.ReactNode;
@@ -9,11 +8,12 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
       <SidebarProvider>
-        <SideBar />
-        <main>
-          <SidebarTrigger />
-          {children}
-        </main>
+        <div className="flex h-screen">
+          <SideBar />
+          <main className="flex-1 p-6 overflow-auto">
+            {children}
+          </main>
+        </div>
       </SidebarProvider>
   );
 }

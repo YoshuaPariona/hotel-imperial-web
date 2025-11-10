@@ -1,17 +1,6 @@
 import { useState, type FC } from "react";
-import {
-  Home,
-  Calendar,
-  Users,
-  CreditCard,
-  BarChart,
-  Building2,
-  Bot,
-  ChevronDown,
-  User,
-  Settings,
-  LogOut,
-} from "lucide-react";
+import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -21,36 +10,19 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@components/ui/sidebar.tsx";
+} from "@components/ui/sidebar";
+import {type MenuItem, SIDEBAR_ITEMS, USER_MENU_ITEMS} from "@components/sidebar/SideBarData.ts";
 
-interface MenuItem {
-  title: string;
-  url: string;
-  icon: FC<any>;
-}
+const Separator: FC = () => (
+    <div className="mx-4 my-2 border-b border-zinc-200 dark:border-zinc-800" />
+);
 
 interface MenuSectionProps {
   label: string;
-  items: MenuItem[];
+  items: readonly MenuItem[];
 }
 
-const MENU_SECTIONS: Record<string, MenuItem[]> = {
-  Estrategicos: [
-    { title: "Panel", url: "#", icon: Home },
-    { title: "Insights de IA", url: "#", icon: Bot },
-  ],
-  Misionales: [
-    { title: "Habitaciones", url: "#", icon: Building2 },
-    { title: "Reservas", url: "#", icon: Calendar },
-    { title: "Ocupación", url: "#", icon: BarChart },
-  ],
-  Apoyo: [
-    { title: "Huéspedes", url: "#", icon: Users },
-    { title: "Pagos", url: "#", icon: CreditCard },
-  ],
-};
-
-const MenuSection: FC<MenuSectionProps> = ({ label, items }) => (
+const MenuSectionComponent: FC<MenuSectionProps> = ({ label, items }) => (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarGroupContent>
@@ -58,10 +30,10 @@ const MenuSection: FC<MenuSectionProps> = ({ label, items }) => (
           {items.map(({ title, url, icon: Icon }) => (
               <SidebarMenuItem key={title}>
                 <SidebarMenuButton asChild className="py-3 px-4">
-                  <a href={url} className="flex items-center gap-3">
+                  <Link to={url} className="flex items-center gap-3">
                     <Icon className="w-6 h-6" />
                     <span className="text-base">{title}</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
           ))}
@@ -71,58 +43,56 @@ const MenuSection: FC<MenuSectionProps> = ({ label, items }) => (
     </SidebarGroup>
 );
 
-const Separator: FC = () => (
-    <div className="mx-4 my-2 border-b border-zinc-200 dark:border-zinc-800" />
-);
-
 interface UserMenuProps {
   open: boolean;
 }
 
 const UserMenu: FC<UserMenuProps> = ({ open }) => (
     <div
-        className={`absolute bottom-6 left-56 w-36 bg-white dark:bg-zinc-900 shadow-lg rounded-md transition-all ${
+        className={`absolute bottom-6 left-56 w-40 bg-white dark:bg-zinc-900 shadow-lg rounded-md transition-all ${
             open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
     >
       <ul className="py-2 text-sm">
-        <UserMenuItem icon={User} label="Perfil" />
-        <UserMenuItem icon={Settings} label="Ajustes" />
-        <UserMenuItem icon={LogOut} label="Cerrar sesión" />
+        {USER_MENU_ITEMS.map(({ title, icon: Icon }) => (
+            <li
+                key={title}
+                className="px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer flex items-center gap-2"
+            >
+              <Icon className="w-4 h-4" />
+              <span>{title}</span>
+            </li>
+        ))}
       </ul>
     </div>
 );
 
-interface UserMenuItemProps {
-  icon: FC<any>;
-  label: string;
-}
-
-const UserMenuItem: FC<UserMenuItemProps> = ({ icon: Icon, label }) => (
-    <li className="px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer flex items-center gap-2">
-      <Icon className="w-4 h-4" />
-      <span>{label}</span>
-    </li>
-);
-
+// ---------- Main Sidebar Component ----------
 export const SideBar: FC = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   return (
-      <div className="w-64 h-screen fixed left-0 top-0 border-r border-zinc-200 dark:border-zinc-800">
+      <div className="w-64 h-screen border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
         <Sidebar>
+          {/* Header */}
           <div className="p-4 flex items-center gap-3 border-b border-zinc-200 dark:border-zinc-800">
-            <div className="w-8 h-8 bg-zinc-300 dark:bg-zinc-700 rounded-md" />
+            <img
+                src="/images/logo.webp"
+                alt="Hotel Imperial"
+                className="w-8 h-8 rounded-md object-cover"
+            />
             <span className="font-semibold text-lg">Hotel Imperial</span>
           </div>
 
+          {/* Sidebar items */}
           <SidebarContent>
-            {Object.entries(MENU_SECTIONS).map(([label, items]) => (
-                <MenuSection key={label} label={label} items={items} />
+            {Object.entries(SIDEBAR_ITEMS).map(([key, { section, items }]) => (
+                <MenuSectionComponent key={key} label={section} items={items} />
             ))}
           </SidebarContent>
 
-          <div className="mt-auto p-3 border-t border-zinc-200 dark:border-zinc-800 relative">
+          {/* User Section */}
+          <div className="mt-auto p-3 border-t border-zinc-200 dark:border-zinc-800 relative hover:bg-zinc-100 dark:hover:bg-zinc-800">
             <button
                 className="w-full flex items-center justify-between cursor-pointer"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
