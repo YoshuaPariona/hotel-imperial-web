@@ -9,12 +9,13 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/ia" element={<Dashboard />} />
-            <Route path="/rooms" element={<Dashboard />} />
-            <Route path="/bookings" element={<Dashboard />} />
+            <Route path="/incidencias" element={<Dashboard />} />
+            <Route path="/insights" element={<Dashboard />} />
+            <Route path="/habitaciones" element={<Dashboard />} />
+            <Route path="/reservas" element={<Dashboard />} />
             <Route path="/ocupacion" element={<Dashboard />} />
-            <Route path="/guests" element={<Dashboard />} />
-            <Route path="/payments" element={<Dashboard />} />
+            <Route path="/huespedes" element={<Dashboard />} />
+            <Route path="/pagos" element={<Dashboard />} />
             <Route path="/perfil" element={<Dashboard />} />
             <Route path="/ajustes" element={<Dashboard />} />
             <Route path="/logout" element={<Dashboard />} />

@@ -1,15 +1,17 @@
 import type { FC } from "react";
 import {
-  Home,
-  Calendar,
+  Hotel,
+  CalendarCheck,
   Users,
   CreditCard,
-  BarChart,
-  Building2,
+  ConciergeBell,
+  Bed,
   Bot,
   User,
   Settings,
   LogOut,
+  TriangleAlert,
+  BadgeCheck,
 } from "lucide-react";
 
 export interface MenuItem {
@@ -27,23 +29,25 @@ export const SIDEBAR_ITEMS: Record<string, MenuSection> = {
   strategy: {
     section: "Procesos Estratégicos",
     items: [
-      { title: "Panel", url: "/", icon: Home },
-      { title: "Insights de IA", url: "/ia", icon: Bot },
+      { title: "Dashboard", url: "/", icon: Hotel },
+      { title: "Calidad", url: "/", icon: BadgeCheck },
+      { title: "Insights de IA", url: "/insights", icon: Bot },
     ],
   },
   mission: {
     section: "Procesos Misionales",
     items: [
-      { title: "Habitaciones", url: "/rooms", icon: Building2 },
-      { title: "Reservas", url: "/bookings", icon: Calendar },
-      { title: "Ocupación", url: "/ocupacion", icon: BarChart },
+      { title: "Habitaciones", url: "/habitaciones", icon: Bed },
+      { title: "Reservas", url: "/reservas", icon: CalendarCheck },
+      { title: "Ocupación", url: "/ocupacion", icon: ConciergeBell },
     ],
   },
   support: {
     section: "Procesos de Apoyo",
     items: [
-      { title: "Huéspedes", url: "/guests", icon: Users },
-      { title: "Pagos", url: "/payments", icon: CreditCard },
+      { title: "Incidencias", url: "/incidencias", icon: TriangleAlert },
+      { title: "Huéspedes", url: "/huespedes", icon: Users },
+      { title: "Pagos", url: "/pagos", icon: CreditCard },
     ],
   },
 } as const;
