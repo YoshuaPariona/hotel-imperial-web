@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "@components/layout/Layout.tsx";
-import {Dashboard} from "@components/Dashboard.tsx";
+import {Dashboard} from "@pages/dashboard/Dashboard.tsx";
 
 function App() {
 

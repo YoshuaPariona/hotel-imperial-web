@@ -72,16 +72,16 @@ export const SideBar: FC = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   return (
-      <div className="w-64 h-screen border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
-        <Sidebar>
+      <div className="h-screen border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+      <Sidebar>
           {/* Header */}
-          <div className="p-4 flex items-center gap-3 border-b border-zinc-200 dark:border-zinc-800">
+          <div className="p-6 flex items-center gap-3 border-b border-zinc-200 dark:border-zinc-800">
             <img
                 src="/images/logo.webp"
                 alt="Hotel Imperial"
                 className="w-8 h-8 rounded-md object-cover"
             />
-            <span className="font-semibold text-lg">Hotel Imperial</span>
+            <span className="font-semibold text-xl">Hotel Imperial</span>
           </div>
 
           {/* Sidebar items */}
