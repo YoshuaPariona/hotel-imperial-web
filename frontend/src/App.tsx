@@ -1,28 +1,37 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "@components/layout/Layout.tsx";
-import {Dashboard} from "@pages/dashboard/Dashboard.tsx";
+import { Dashboard } from "@pages/dashboard/Dashboard.tsx";
+import {FC} from "react";
+import {Rooms} from "@pages/rooms/Rooms";
+import {Incidents} from "@pages/incidents/Incidents";
+import {Insights} from "@pages/insights/Insights";
+import {Reservations} from "@pages/reservations/Reservations";
+import {Occupancy} from "@pages/occupancy/Occupancy";
+import {Guest} from "@pages/guests/Guest";
+import {Payments} from "@pages/payments/Payments";
+import {Profile} from "@pages/profile/Profile";
+import {Preferences} from "@pages/preferences/Preferences";
+import {Quality} from "@pages/quality/Quality";
 
-function App() {
-
-  return (
-      <>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/incidencias" element={<Dashboard />} />
-            <Route path="/insights" element={<Dashboard />} />
-            <Route path="/habitaciones" element={<Dashboard />} />
-            <Route path="/reservas" element={<Dashboard />} />
-            <Route path="/ocupacion" element={<Dashboard />} />
-            <Route path="/huespedes" element={<Dashboard />} />
-            <Route path="/pagos" element={<Dashboard />} />
-            <Route path="/perfil" element={<Dashboard />} />
-            <Route path="/ajustes" element={<Dashboard />} />
-            <Route path="/logout" element={<Dashboard />} />
-          </Routes>
-        </Layout>
-      </>
-  )
-}
+const App: FC = () => (
+    <>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/incidencias" element={<Incidents />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/habitaciones" element={<Rooms />} />
+          <Route path="/calidad" element={<Quality/>} />
+          <Route path="/reservas" element={<Reservations />} />
+          <Route path="/ocupacion" element={<Occupancy />} />
+          <Route path="/huespedes" element={<Guest />} />
+          <Route path="/pagos" element={<Payments />} />
+          <Route path="/perfil" element={<Profile />} />
+          <Route path="/ajustes" element={<Preferences />} />
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </Layout>
+    </>
+);
 
 export default App;

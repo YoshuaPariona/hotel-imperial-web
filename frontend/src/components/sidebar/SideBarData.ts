@@ -30,7 +30,7 @@ export const SIDEBAR_ITEMS: Record<string, MenuSection> = {
     section: "Procesos Estratégicos",
     items: [
       { title: "Dashboard", url: "/", icon: Hotel },
-      { title: "Calidad", url: "/", icon: BadgeCheck },
+      { title: "Calidad", url: "/calidad", icon: BadgeCheck },
       { title: "Insights de IA", url: "/insights", icon: Bot },
     ],
   },

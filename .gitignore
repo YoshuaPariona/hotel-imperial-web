@@ -44,3 +44,6 @@ pnpm-debug.log*
 # generados por sonarqube
 */.udg
 .scannerwork/
+
+# build
+target/

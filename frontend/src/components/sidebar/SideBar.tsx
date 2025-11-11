@@ -13,6 +13,9 @@ import {
 } from "@components/ui/sidebar";
 import {type MenuItem, SIDEBAR_ITEMS, USER_MENU_ITEMS} from "@components/sidebar/SideBarData.ts";
 
+//TODO: Refactorizar SidebarMenuItem para que acepte Link de react-router-dom directamente
+//TODO: Usar avatares de shadcn para el usuario
+
 const Separator: FC = () => (
     <div className="mx-4 my-2 border-b border-zinc-200 dark:border-zinc-800" />
 );
