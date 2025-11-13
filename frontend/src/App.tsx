@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "@components/layout/Layout.tsx";
 import { Dashboard } from "@pages/dashboard/Dashboard.tsx";
 import {FC} from "react";
-import {Rooms} from "@pages/rooms/Rooms";
 import {Incidents} from "@pages/incidents/Incidents";
 import {Insights} from "@pages/insights/Insights";
 import {Reservations} from "@pages/reservations/Reservations";
@@ -12,12 +11,15 @@ import {Payments} from "@pages/payments/Payments";
 import {Profile} from "@pages/profile/Profile";
 import {Preferences} from "@pages/preferences/Preferences";
 import {Quality} from "@pages/quality/Quality";
+import {Auth} from "@pages/auth/Auth";
+import {Rooms} from "@pages/rooms/Rooms";
 
 const App: FC = () => (
     <>
       <Layout>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Auth />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/incidencias" element={<Incidents />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/habitaciones" element={<Rooms />} />
@@ -28,7 +30,6 @@ const App: FC = () => (
           <Route path="/pagos" element={<Payments />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/ajustes" element={<Preferences />} />
-          <Route path="/" element={<Dashboard />} />
         </Routes>
       </Layout>
     </>

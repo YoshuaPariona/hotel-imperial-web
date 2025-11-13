@@ -29,7 +29,7 @@ export const SIDEBAR_ITEMS: Record<string, MenuSection> = {
   strategy: {
     section: "Procesos Estratégicos",
     items: [
-      { title: "Dashboard", url: "/", icon: Hotel },
+      { title: "Dashboard", url: "/dashboard", icon: Hotel },
       { title: "Calidad", url: "/calidad", icon: BadgeCheck },
       { title: "Insights de IA", url: "/insights", icon: Bot },
     ],
@@ -55,5 +55,5 @@ export const SIDEBAR_ITEMS: Record<string, MenuSection> = {
 export const USER_MENU_ITEMS: readonly MenuItem[] = [
   { title: "Perfil", url: "/perfil", icon: User },
   { title: "Ajustes", url: "/ajustes", icon: Settings },
-  { title: "Cerrar sesión", url: "/logout", icon: LogOut },
+  { title: "Cerrar sesión", url: "/", icon: LogOut },
 ] as const;
