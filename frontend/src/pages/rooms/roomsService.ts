@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Habitacion } from "@pages/rooms/RoomsData";
+import {Estado, Habitacion} from "@pages/rooms/roomsTypes";
 
-const API_URL = "http://localhost:8080/rooms"; // cámbialo si tu backend usa otro endpoint
+const API_URL = "http://localhost:8080/rooms";
 
 export const getRooms = async (): Promise<Habitacion[]> => {
   const response = await axios.get(API_URL);
@@ -10,11 +10,7 @@ export const getRooms = async (): Promise<Habitacion[]> => {
 
 export const updateRoomStatus = async (
     roomId: number,
-    payload: {
-      employeeId: number;
-      newStatus: string;
-      changeReason: string;
-    }
+    payload: { employeeId: number; newStatus: Estado; changeReason: string }
 ) => {
   await axios.put(`${API_URL}/${roomId}/status`, payload);
 };

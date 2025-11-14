@@ -12,7 +12,7 @@ import {Profile} from "@pages/profile/Profile";
 import {Preferences} from "@pages/preferences/Preferences";
 import {Quality} from "@pages/quality/Quality";
 import {Auth} from "@pages/auth/Auth";
-import {Rooms} from "@pages/rooms/Rooms";
+import {RoomsPage} from "@pages/rooms/RoomsPage";
 
 const App: FC = () => (
     <>
@@ -22,7 +22,7 @@ const App: FC = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/incidencias" element={<Incidents />} />
           <Route path="/insights" element={<Insights />} />
-          <Route path="/habitaciones" element={<Rooms />} />
+          <Route path="/habitaciones" element={<RoomsPage />} />
           <Route path="/calidad" element={<Quality/>} />
           <Route path="/reservas" element={<Reservations />} />
           <Route path="/ocupacion" element={<Occupancy />} />
