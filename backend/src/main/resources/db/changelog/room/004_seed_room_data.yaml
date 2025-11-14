@@ -11,7 +11,6 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "1" }
               - column: { name: category, value: "MATRIMONIAL" }
               - column: { name: bed_size, value: "SINGLE" }
-              - column: { name: description, value: "Habitación matrimonial con una cama single." }
         # Tipo 2: MATRIMONIAL DOUBLE
         - insert:
             tableName: room_type
@@ -19,7 +18,6 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "2" }
               - column: { name: category, value: "MATRIMONIAL" }
               - column: { name: bed_size, value: "DOUBLE" }
-              - column: { name: description, value: "Habitación matrimonial con una cama double." }
         # Tipo 3: STANDARD 1 cama
         - insert:
             tableName: room_type
@@ -27,7 +25,6 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "3" }
               - column: { name: category, value: "STANDARD" }
               - column: { name: bed_quantity, value: "1" }
-              - column: { name: description, value: "Habitación estándar con una cama." }
         # Tipo 4: STANDARD 2 camas
         - insert:
             tableName: room_type
@@ -35,7 +32,6 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "4" }
               - column: { name: category, value: "STANDARD" }
               - column: { name: bed_quantity, value: "2" }
-              - column: { name: description, value: "Habitación estándar con dos camas." }
         # Tipo 5: STANDARD 3 camas
         - insert:
             tableName: room_type
@@ -43,67 +39,72 @@ databaseChangeLog:
               - column: { name: room_type_id, value: "5" }
               - column: { name: category, value: "STANDARD" }
               - column: { name: bed_quantity, value: "3" }
-              - column: { name: description, value: "Habitación estándar con tres camas." }
 
   - changeSet:
       id: seed-room
       author: Yoshua
       comment: "Inserta habitaciones de ejemplo para cada tipo."
       changes:
-        # Habitación 101 (Standard Single, piso 1)
+        # Habitación 101 - MATRIMONIAL SINGLE
         - insert:
             tableName: room
             columns:
+              - column: { name: room_type_id, value: "1" }
               - column: { name: room_number, value: "101" }
-              - column: { name: room_type_id, value: "1" }
               - column: { name: floor, value: "1" }
-              - column: { name: capacity, value: "3" }
               - column: { name: current_status, value: "DISPONIBLE" }
-        # Habitación 102 (Standard Double, piso 1)
+              - column: { name: amenities, value: "WiFi, TV" }
+              - column: { name: nightly_rate, value: "80.00" }
+        # Habitación 102 - MATRIMONIAL DOUBLE
         - insert:
             tableName: room
             columns:
-              - column: { name: room_number, value: "102" }
               - column: { name: room_type_id, value: "2" }
+              - column: { name: room_number, value: "102" }
               - column: { name: floor, value: "1" }
-              - column: { name: capacity, value: "3" }
               - column: { name: current_status, value: "RESERVADA" }
-        # Habitación 201 (Matrimonial, piso 2)
+              - column: { name: amenities, value: "WiFi, TV, Aire acondicionado" }
+              - column: { name: nightly_rate, value: "140.00" }
+        # Habitación 201 - STANDARD 1 cama
         - insert:
             tableName: room
             columns:
-              - column: { name: room_number, value: "201" }
               - column: { name: room_type_id, value: "3" }
+              - column: { name: room_number, value: "201" }
               - column: { name: floor, value: "2" }
-              - column: { name: capacity, value: "3" }
               - column: { name: current_status, value: "OCUPADA" }
-        # Habitación 202 (Suite, piso 2)
+              - column: { name: amenities, value: "WiFi" }
+              - column: { name: nightly_rate, value: "40.00" }
+        # Habitación 202 - STANDARD 2 camas
         - insert:
             tableName: room
             columns:
-              - column: { name: room_number, value: "202" }
               - column: { name: room_type_id, value: "4" }
+              - column: { name: room_number, value: "202" }
               - column: { name: floor, value: "2" }
-              - column: { name: capacity, value: "3" }
               - column: { name: current_status, value: "MANTENIMIENTO" }
-        # Habitación 301 (Familiar, piso 3)
+              - column: { name: amenities, value: "WiFi, TV" }
+              - column: { name: nightly_rate, value: "70.00" }
+        # Habitación 301 - STANDARD 3 camas
         - insert:
             tableName: room
             columns:
-              - column: { name: room_number, value: "301" }
               - column: { name: room_type_id, value: "5" }
+              - column: { name: room_number, value: "301" }
               - column: { name: floor, value: "3" }
-              - column: { name: capacity, value: "3" }
               - column: { name: current_status, value: "LIMPIEZA" }
-        # Habitación 302 (Standard Single, piso 3)
+              - column: { name: amenities, value: "WiFi, TV, Aire acondicionado" }
+              - column: { name: nightly_rate, value: "100.00" }
+        # Habitación 302 - MATRIMONIAL SINGLE
         - insert:
             tableName: room
             columns:
-              - column: { name: room_number, value: "302" }
               - column: { name: room_type_id, value: "1" }
+              - column: { name: room_number, value: "302" }
               - column: { name: floor, value: "3" }
-              - column: { name: capacity, value: "3" }
               - column: { name: current_status, value: "DISPONIBLE" }
+              - column: { name: amenities, value: "WiFi, TV" }
+              - column: { name: nightly_rate, value: "80.00" }
 
   - changeSet:
       id: seed-room-status-history
@@ -119,7 +120,7 @@ databaseChangeLog:
               - column: { name: new_status, value: "LIMPIEZA" }
               - column: { name: changed_by, value: "4" } # Usuario de limpieza
               - column: { name: changed_at, valueDate: "2025-10-10 08:00:00" }
-              - column: { name: note, value: "Limpieza después de check-out." }
+              - column: { name: change_reason, value: "Limpieza después de check-out." }
         # Cambio de estado para la habitación 101 (LIMPIEZA -> DISPONIBLE)
         - insert:
             tableName: room_status_history
@@ -129,7 +130,7 @@ databaseChangeLog:
               - column: { name: new_status, value: "DISPONIBLE" }
               - column: { name: changed_by, value: "4" } # Usuario de limpieza
               - column: { name: changed_at, valueDate: "2025-10-10 09:30:00" }
-              - column: { name: note, value: "Habitación lista para nuevos huéspedes." }
+              - column: { name: change_reason, value: "Habitación lista para nuevos huéspedes." }
         # Cambio de estado para la habitación 201 (DISPONIBLE -> OCUPADA)
         - insert:
             tableName: room_status_history
@@ -139,7 +140,7 @@ databaseChangeLog:
               - column: { name: new_status, value: "OCUPADA" }
               - column: { name: changed_by, value: "2" } # Recepcionista
               - column: { name: changed_at, valueDate: "2025-10-12 10:00:00" }
-              - column: { name: note, value: "Reserva confirmada para el 15/10/2025." }
+              - column: { name: change_reason, value: "Reserva confirmada para el 15/10/2025." }
         # Cambio de estado para la habitación 301 (DISPONIBLE -> MANTENIMIENTO)
         - insert:
             tableName: room_status_history
@@ -149,7 +150,7 @@ databaseChangeLog:
               - column: { name: new_status, value: "MANTENIMIENTO" }
               - column: { name: changed_by, value: "3" } # Mantenimiento
               - column: { name: changed_at, valueDate: "2025-10-13 11:00:00" }
-              - column: { name: note, value: "Reparación de aire acondicionado." }
+              - column: { name: change_reason, value: "Reparación de aire acondicionado." }
         # Cambio de estado para la habitación 301 (MANTENIMIENTO -> DISPONIBLE)
         - insert:
             tableName: room_status_history
@@ -159,4 +160,4 @@ databaseChangeLog:
               - column: { name: new_status, value: "DISPONIBLE" }
               - column: { name: changed_by, value: "3" } # Mantenimiento
               - column: { name: changed_at, valueDate: "2025-10-13 14:00:00" }
-              - column: { name: note, value: "Aire acondicionado reparado." }
+              - column: { name: change_reason, value: "Aire acondicionado reparado." }

@@ -32,18 +32,22 @@ databaseChangeLog:
                   type: INTEGER
                   remarks: "Piso donde se encuentra la habitación."
               - column:
-                  name: capacity
-                  type: INTEGER
-                  remarks: "Capacidad máxima de huéspedes."
-              - column:
                   name: current_status
                   type: VARCHAR(20)
                   defaultValue: 'DISPONIBLE'
                   remarks: "Estado actual de la habitación (DISPONIBLE, RESERVADA, OCUPADA, etc.)."
               - column:
-                  name: note
-                  type: TEXT
-                  remarks: "Notas internas sobre la habitación."
+                  name: amenities
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+                  remarks: "Comodidades ofrecidas en cada habitación."
+              - column:
+                  name: nightly_rate
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: false
+                  remarks: "Precio por noche de la habitación."
         - addForeignKeyConstraint:
             baseTableName: room
             baseColumnNames: room_type_id

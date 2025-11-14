@@ -36,8 +36,8 @@ public class RoomStatusHistory {
     @Column(name = "changed_at", columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
     private OffsetDateTime changedAt;
 
-    @Column(name = "note", columnDefinition = "TEXT")
-    private String note;
+    @Column(name = "change_reason", columnDefinition = "TEXT")
+    private String change_Reason;
 
     @PrePersist
     protected void onCreate() {

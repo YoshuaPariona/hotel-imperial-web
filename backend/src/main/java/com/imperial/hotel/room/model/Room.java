@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +30,14 @@ public class Room {
     @Column(name = "floor")
     private Integer floor;
 
-    @Column(name = "capacity")
-    private Integer capacity;
-
     @Column(name = "current_status", length = 20)
     private String currentStatus = "DISPONIBLE";
 
-    @Column(name = "note", columnDefinition = "TEXT")
-    private String note;
+    @Column(name = "amenities", columnDefinition = "TEXT")
+    private String amenities;
+
+    @Column(name = "nightly_rate", nullable = false, precision = 10, scale = 2)
+    private BigDecimal nightlyRate;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<RoomStatusHistory> statusHistory = new ArrayList<>();

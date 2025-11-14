@@ -28,7 +28,3 @@ databaseChangeLog:
                   name: bed_quantity
                   type: INTEGER
                   remarks: "Cantidad de camas en la habitación."
-              - column:
-                  name: description
-                  type: TEXT
-                  remarks: "Descripción opcional del tipo de habitación."

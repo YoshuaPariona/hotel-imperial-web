@@ -44,9 +44,9 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   remarks: "Momento exacto del cambio."
               - column:
-                  name: note
+                  name: change_reason
                   type: TEXT
-                  remarks: "Detalles o motivo del cambio de estado."
+                  remarks: "Motivo del cambio de estado."
         - addForeignKeyConstraint:
             baseTableName: room_status_history
             baseColumnNames: room_id

@@ -28,9 +28,6 @@ public class RoomType {
     @Column(name = "bed_quantity")
     private Integer bedQuantity;
 
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-
     @OneToMany(mappedBy = "roomType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Room> rooms = new ArrayList<Room>();
+    private List<Room> rooms = new ArrayList<>();
 }
