@@ -59,7 +59,6 @@ public class RoomService {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new EntityNotFoundException("Room not found"));
         RoomStatusHistory history = roomMapper.toStatusEntity(dto);
-
         history.setRoom(room);
         history.setPreviousStatus(room.getCurrentStatus());
 

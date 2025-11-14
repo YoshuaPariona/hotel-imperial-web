@@ -37,7 +37,7 @@ public class RoomStatusHistory {
     private OffsetDateTime changedAt;
 
     @Column(name = "change_reason", columnDefinition = "TEXT")
-    private String change_Reason;
+    private String changeReason;
 
     @PrePersist
     protected void onCreate() {

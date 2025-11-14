@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class RoomStatusDTO {
     private Long employeeId;
     private String newStatus;
+    private String changeReason;
 }

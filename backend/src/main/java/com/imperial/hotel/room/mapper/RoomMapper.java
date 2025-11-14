@@ -25,6 +25,7 @@ public interface RoomMapper {
     @Mapping(target = "changedBy", source = "employeeId", qualifiedByName = "mapEmployeeFromId")
     @Mapping(target = "previousStatus", ignore = true)
     @Mapping(target = "changedAt", expression = "java(OffsetDateTime.now())")
+
     RoomStatusHistory toStatusEntity(RoomStatusDTO dto);
 
     @Named("mapEmployeeFromId")
