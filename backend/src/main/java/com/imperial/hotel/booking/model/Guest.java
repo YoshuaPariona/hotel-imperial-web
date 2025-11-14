@@ -26,12 +26,12 @@ public class Guest {
     private String lastName;
 
     @Column(name = "doc_type", nullable = false, length = 20)
-    private String docType = "DNI";
+    private String docType;
 
     @Column(name = "doc_number", nullable = false, unique = true, length = 50)
     private String docNumber;
 
-    @Column(name = "phone", nullable = false, length = 30)
+    @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
     @Column(name = "email", nullable = false, unique = true, length = 150)

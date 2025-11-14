@@ -1,4 +1,4 @@
-// src/pages/rooms/roomTypes.ts
+// src/pages/rooms/core/roomsTypes.ts
 
 export type Estado = "DISPONIBLE" | "OCUPADA" | "MANTENIMIENTO" | "LIMPIEZA";
 
@@ -13,4 +13,9 @@ export interface Habitacion {
   nightlyRate: number;
 }
 
-export const estadosPosibles: Estado[] = ["DISPONIBLE", "OCUPADA", "MANTENIMIENTO", "LIMPIEZA"];
+export const estadosPosibles: Estado[] = [
+  "DISPONIBLE",
+  "OCUPADA",
+  "MANTENIMIENTO",
+  "LIMPIEZA",
+];

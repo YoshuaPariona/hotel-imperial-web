@@ -11,6 +11,7 @@
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@api/*": ["api/*"],
+      "@lib/*": ["lib/*"],
       "@hooks/*": ["hooks/*"],
       "@utils/*": ["utils/*"],
       "@styles/*": ["styles/*"]

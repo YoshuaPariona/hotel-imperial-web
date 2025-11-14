@@ -15,7 +15,8 @@ public class CorsConfig {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:5173", "https://imperialhyo.com/login")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
