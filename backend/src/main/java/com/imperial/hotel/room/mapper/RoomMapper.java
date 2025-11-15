@@ -9,11 +9,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Mapper(
         componentModel = "spring",
-        imports = OffsetDateTime.class
+        imports = LocalDateTime.class
 )
 public interface RoomMapper {
     @Mapping(source = "roomType.category", target = "roomTypeCategory")
@@ -24,7 +24,7 @@ public interface RoomMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "changedBy", source = "employeeId", qualifiedByName = "mapEmployeeFromId")
     @Mapping(target = "previousStatus", ignore = true)
-    @Mapping(target = "changedAt", expression = "java(OffsetDateTime.now())")
+    @Mapping(target = "changedAt", expression = "java(LocalDateTime.now())")
 
     RoomStatusHistory toStatusEntity(RoomStatusDTO dto);
 

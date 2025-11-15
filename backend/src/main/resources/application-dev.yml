@@ -1,18 +1,26 @@
-# ==============================
-# 🧩 application-dev.yml (local)
-# ==============================
+# ================================================
+# 🧩 application-dev.yml — H2 para desarrollo (modo MariaDB)
+# ================================================
 spring:
+  datasource:
+    url: jdbc:h2:mem:hotel_db;DB_CLOSE_DELAY=-1;MODE=MariaDB;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
   jpa:
     hibernate:
-      ddl-auto: none    # Verifica que el esquema coincide con las entidades, sin modificarlo
-    show-sql: true          # Muestra SQL en consola
+      ddl-auto: validate
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
-        use_sql_comments: true  # Añade comentarios en el SQL con el nombre de la entidad
+        use_sql_comments: true
   liquibase:
     enabled: true
-# Configuración de logs detallados para depuración de SQL y bindings
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 logging:
   level:
     org.hibernate.SQL: debug

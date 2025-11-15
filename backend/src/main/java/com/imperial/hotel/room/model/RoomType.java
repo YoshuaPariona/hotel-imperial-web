@@ -1,10 +1,11 @@
 package com.imperial.hotel.room.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,12 @@ public class RoomType {
     @Column(name = "room_type_id")
     private Long id;
 
+    @NotBlank(message = "La categoría es obligatoria")
+    @Size(max = 50, message = "La categoría no puede exceder 50 caracteres")
     @Column(name = "category", nullable = false, length = 50)
     private String category;
 
+    @Size(max = 50, message = "El tamaño de la cama no puede exceder 50 caracteres")
     @Column(name = "bed_size", length = 50)
     private String bedSize;
 

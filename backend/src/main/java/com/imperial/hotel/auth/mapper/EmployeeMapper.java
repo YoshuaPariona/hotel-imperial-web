@@ -6,7 +6,7 @@ import com.imperial.hotel.auth.model.Employee;
 import com.imperial.hotel.auth.model.Role;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+//@Mapper(componentModel = "spring")
 public interface EmployeeMapper {
 
     @Mapping(target = "fullName", expression = "java(employee.getFirstName() + \" \" + employee.getLastName())")

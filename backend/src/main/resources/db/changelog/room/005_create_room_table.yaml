@@ -34,7 +34,7 @@ databaseChangeLog:
                   defaultValue: 'DISPONIBLE'
               - column:
                   name: amenities
-                  type: VARCHAR(200)
+                  type: TEXT
                   constraints:
                     nullable: false
               - column:

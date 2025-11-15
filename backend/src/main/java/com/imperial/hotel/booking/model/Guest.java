@@ -1,4 +1,4 @@
-package com.imperial.hotel.auth.model;
+package com.imperial.hotel.booking.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -9,20 +9,15 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "guest")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee {
+public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id")
+    @Column(name = "guest_id")
     private Long id;
-
-    @NotNull(message = "El rol es obligatorio")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "fk_employee_role"))
-    private Role role;
 
     @NotBlank(message = "El nombre es obligatorio")
     @Size(max = 100, message = "El nombre no puede exceder 100 caracteres")
@@ -34,33 +29,45 @@ public class Employee {
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
 
-    @NotBlank(message = "El email es obligatorio")
-    @Email(message = "El email debe ser válido")
-    @Size(max = 150, message = "El email no puede exceder 150 caracteres")
-    @Column(name = "email", nullable = false, unique = true, length = 150)
-    private String email;
+    @NotBlank(message = "El tipo de documento es obligatorio")
+    @Size(max = 20, message = "El tipo de documento no puede exceder 20 caracteres")
+    @Column(name = "document_type", nullable = false, length = 20)
+    private String documentType;
 
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 8, max = 255, message = "La contraseña debe tener entre 8 y 255 caracteres")
-    @Column(name = "hashed_password", nullable = false)
-    private String hashedPassword;
+    @NotBlank(message = "El número de documento es obligatorio")
+    @Size(max = 50, message = "El número de documento no puede exceder 50 caracteres")
+    @Column(name = "document_number", nullable = false, unique = true, length = 50)
+    private String documentNumber;
 
     @Size(max = 30, message = "El teléfono no puede exceder 30 caracteres")
     @Column(name = "phone", length = 30)
     private String phone;
 
-    @NotNull(message = "El estado es obligatorio")
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
+    @Email(message = "El email debe ser válido")
+    @Size(max = 120, message = "El email no puede exceder 120 caracteres")
+    @Column(name = "email", length = 120)
+    private String email;
 
     @NotNull(message = "La fecha de creación es obligatoria")
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
+
+    @NotNull(message = "La fecha de actualización es obligatoria")
+    @Column(name = "updated_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }
+        if (updatedAt == null) {
+            updatedAt = LocalDateTime.now();
+        }
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }

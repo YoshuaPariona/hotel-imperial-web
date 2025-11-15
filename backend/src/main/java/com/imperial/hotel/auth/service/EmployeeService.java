@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
+//@Service
+//@RequiredArgsConstructor
 public class EmployeeService {
-
+/*
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
     private final EmployeeMapper employeeMapper;
@@ -45,4 +45,5 @@ public class EmployeeService {
         Employee saved = employeeRepository.save(employee);
         return employeeMapper.toDTO(saved);
     }
+    */
 }
