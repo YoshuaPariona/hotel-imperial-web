@@ -19,34 +19,28 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
-                  remarks: "Referencia a la habitación cuyo estado cambió."
               - column:
                   name: changed_by
                   type: BIGINT
                   constraints:
                     nullable: false
-                  remarks: "Usuario responsable del cambio (puede ser nulo si fue automático)."
               - column:
                   name: previous_status
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
-                  remarks: "Estado anterior de la habitación."
               - column:
                   name: new_status
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
-                  remarks: "Nuevo estado de la habitación."
               - column:
                   name: changed_at
                   type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP
-                  remarks: "Momento exacto del cambio."
               - column:
                   name: change_reason
                   type: TEXT
-                  remarks: "Motivo del cambio de estado."
         - addForeignKeyConstraint:
             baseTableName: room_status_history
             baseColumnNames: room_id

@@ -23,4 +23,3 @@ databaseChangeLog:
               - column:
                   name: description
                   type: TEXT
-                  remarks: "Descripción detallada del rol."

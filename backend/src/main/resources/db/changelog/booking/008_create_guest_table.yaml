@@ -28,7 +28,6 @@ databaseChangeLog:
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
-                  remarks: "Tipo de documento (ej: DNI, pasaporte)."
               - column:
                   name: document_number
                   type: VARCHAR(50)

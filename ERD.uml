@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.charges</OriginalElement>
+  <nodes>
+    <node x="-5.384844050972788" y="-89.12430422535147">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee</node>
+    <node x="-421.979888783367" y="-89.12430422535147">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room_status_history</node>
+    <node x="-9.884844050972788" y="280.6041495694169">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.payments</node>
+    <node x="-401.4798887833671" y="-422.85275802011984">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room</node>
+    <node x="762.8406457411127" y="280.6041495694169">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.guest</node>
+    <node x="387.636021569416" y="-422.85275802011984">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.incident_history</node>
+    <node x="21.115155949027212" y="-422.85275802011984">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room_type</node>
+    <node x="786.3406457411127" y="-422.85275802011984">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.charges</node>
+    <node x="-376.979888783367" y="280.6041495694169">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.role</node>
+    <node x="768.8406457411127" y="-89.12430422535147">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.occupancy</node>
+    <node x="1224.2260841797965" y="-256.05622131615866">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.databasechangelog</node>
+    <node x="1208.2260841797965" y="332.2779163855605">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.databasechangeloglock</node>
+    <node x="381.636021569416" y="280.6041495694169">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.reservation</node>
+    <node x="390.636021569416" y="-89.12430422535135">c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.incident</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.reservation" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee" relationship="REFERENCES">
+      <point x="-116.0" y="0.0" />
+      <point x="294.6172129631117" y="417.6041495694169" />
+      <point x="294.6172129631117" y="86.87569577464865" />
+      <point x="120.0" y="51.000000000000114" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.payments" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.occupancy" relationship="REFERENCES">
+      <point x="0.0" y="101.0" />
+      <point x="114.61515594902721" y="589.9120081770628" />
+      <point x="1120.0290517505023" y="589.9120081770628" />
+      <point x="1120.0290517505023" y="47.875695774648534" />
+      <point x="115.0" y="0.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.incident_history" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee" relationship="REFERENCES">
+      <point x="-110.0" y="58.5" />
+      <point x="114.61515594902721" y="-275.35275802011984" />
+      <point x="0.0" y="-125.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.payments" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee" relationship="REFERENCES">
+      <point x="0.0" y="-101.0" />
+      <point x="0.0" y="125.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.role" relationship="REFERENCES">
+      <point x="-120.0" y="94.5" />
+      <point x="-298.479888783367" y="130.37569577464853" />
+      <point x="0.0" y="-53.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.incident_history" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.incident" relationship="REFERENCES">
+      <point x="0.0" y="89.0" />
+      <point x="0.0" y="-161.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.occupancy" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room" relationship="REFERENCES">
+      <point x="1.0194501214755292E-5" y="-136.99991710261597" />
+      <point x="883.8406559356139" y="-157.253530733199" />
+      <point x="-298.4803440643861" y="-157.253530733199" />
+      <point x="-4.552810190148193E-4" y="101.00014445070352" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.occupancy" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.reservation" relationship="REFERENCES">
+      <point x="-115.0" y="0.0" />
+      <point x="669.1380785835006" y="47.875695774648534" />
+      <point x="669.1380785835006" y="390.6041495694169" />
+      <point x="116.0" y="-27.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room_status_history" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee" relationship="REFERENCES">
+      <point x="123.5" y="24.0" />
+      <point x="-120.0" y="0.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.incident" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee" relationship="REFERENCES">
+      <point x="-107.0" y="0.0" />
+      <point x="120.0" y="36.000000000000114" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.charges" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.employee" relationship="REFERENCES">
+      <point x="1.0194501214755292E-5" y="125.0" />
+      <point x="883.8406559356139" y="-200.10316738832915" />
+      <point x="129.6151559490272" y="-200.10316738832915" />
+      <point x="15.0" y="-125.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room_type" relationship="REFERENCES">
+      <point x="103.0" y="-36.0" />
+      <point x="-93.5" y="0.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.charges" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.occupancy" relationship="REFERENCES">
+      <point x="15.000010194501215" y="125.0" />
+      <point x="898.8406559356139" y="-183.0515322655927" />
+      <point x="15.000010194501215" y="-137.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room_status_history" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room" relationship="REFERENCES">
+      <point x="-4.5528101907166274E-4" y="-100.99991710261597" />
+      <point x="-4.552810190148193E-4" y="101.00014445070352" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.incident" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.room" relationship="REFERENCES">
+      <point x="-15.000365633802062" y="-160.99991710261608" />
+      <point x="482.63565593561395" y="-122.25419396378237" />
+      <point x="-298.4803440643861" y="-122.25419396378237" />
+      <point x="-4.552810190148193E-4" y="101.00014445070352" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.reservation" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.guest" relationship="REFERENCES">
+      <point x="116.0" y="-12.0" />
+      <point x="-118.0" y="0.0" />
+    </edge>
+    <edge source="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.occupancy" target="c0e57de8-685d-4f0d-a3b2-3be92404a5e5.TABLE:imperial_database.guest" relationship="REFERENCES">
+      <point x="-3.0" y="137.0" />
+      <point x="0.0" y="-125.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.8635043562439496" showDependencies="false" x="568.0000000000001" y="83.49999999999994" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

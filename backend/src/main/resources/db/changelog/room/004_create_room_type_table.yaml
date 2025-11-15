@@ -19,12 +19,9 @@ databaseChangeLog:
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
-                  remarks: "Categoría de habitación, ej. STANDARD, MATRIMONIAL."
               - column:
                   name: bed_size
                   type: VARCHAR(50)
-                  remarks: "Tamaño de cama, ej. SINGLE, DOUBLE."
               - column:
                   name: bed_quantity
                   type: INTEGER
-                  remarks: "Cantidad de camas en la habitación."
