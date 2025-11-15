@@ -4,14 +4,14 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: validate    # Verifica que el esquema coincide con las entidades, sin modificarlo
+      ddl-auto: none    # Verifica que el esquema coincide con las entidades, sin modificarlo
     show-sql: true          # Muestra SQL en consola
     properties:
       hibernate:
         format_sql: true
         use_sql_comments: true  # Añade comentarios en el SQL con el nombre de la entidad
   liquibase:
-    enabled: false
+    enabled: true
 # Configuración de logs detallados para depuración de SQL y bindings
 logging:
   level:

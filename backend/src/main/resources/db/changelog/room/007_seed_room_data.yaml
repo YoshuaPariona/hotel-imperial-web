@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: seed-room-type
+      id: 007_seed_room_type
       author: Yoshua
       comment: "Inserta tipos de habitaciones comunes en el hotel."
       changes:
@@ -41,7 +41,7 @@ databaseChangeLog:
               - column: { name: bed_quantity, value: "3" }
 
   - changeSet:
-      id: seed-room
+      id: 007_seed_room
       author: Yoshua
       comment: "Inserta habitaciones de ejemplo para cada tipo."
       changes:
@@ -107,7 +107,7 @@ databaseChangeLog:
               - column: { name: nightly_rate, value: "80.00" }
 
   - changeSet:
-      id: seed-room-status-history
+      id: 007_seed_room_status_history
       author: Yoshua
       comment: "Inserta registros de ejemplo para el historial de estados de habitaciones."
       changes:

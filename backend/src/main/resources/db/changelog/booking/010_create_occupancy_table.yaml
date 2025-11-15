@@ -1,8 +1,8 @@
 databaseChangeLog:
   - changeSet:
-      id: 001_create_occupancy_table
+      id: 010_create_occupancy_table
       author: Yoshua
-      comment: "Crea tabla 'occupancy' para vincular huéspedes con sus reservas activas."
+      comment: "Crea tabla 'occupancy' para vincular huéspedes con estadías activas"
       changes:
         - createTable:
             tableName: occupancy
@@ -14,18 +14,29 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: room_id
+                  name: reservation_id
                   type: BIGINT
-                  constraints:
-                    nullable: false
               - column:
                   name: guest_id
                   type: BIGINT
                   constraints:
                     nullable: false
               - column:
-                  name: reservation_id
+                  name: room_id
                   type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: checkin_datetime
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: checkout_datetime
+                  type: TIMESTAMP
+              - column:
+                  name: number_of_nights
+                  type: SMALLINT
                   constraints:
                     nullable: false
               - column:
@@ -33,41 +44,37 @@ databaseChangeLog:
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
-                  defaultValue: 'ACTIVA'
-              - column:
-                  name: check_in_date
-                  type: TIMESTAMP
-                  constraints:
-                    nullable: false
-              - column:
-                  name: check_out_date
-                  type: TIMESTAMP
-                  constraints:
-                    nullable: false
+                  defaultValue: "active"
               - column:
                   name: created_at
                   type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
-                  defaultValueComputed: CURRENT_TIMESTAMP
-        - addForeignKeyConstraint:
-            baseTableName: occupancy
-            baseColumnNames: room_id
-            constraintName: fk_occupancy_room
-            referencedTableName: room
-            referencedColumnNames: room_id
-            onDelete: RESTRICT
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: occupancy
             baseColumnNames: guest_id
-            constraintName: fk_occupancy_guest
             referencedTableName: guest
             referencedColumnNames: guest_id
+            constraintName: fk_occupancy_guest
             onDelete: RESTRICT
         - addForeignKeyConstraint:
             baseTableName: occupancy
             baseColumnNames: reservation_id
-            constraintName: fk_occupancy_reservation
             referencedTableName: reservation
             referencedColumnNames: reservation_id
-            onDelete: CASCADE
+            constraintName: fk_occupancy_reservation
+            onDelete: SET NULL
+        - addForeignKeyConstraint:
+            baseTableName: occupancy
+            baseColumnNames: room_id
+            referencedTableName: room
+            referencedColumnNames: room_id
+            constraintName: fk_occupancy_room
+            onDelete: RESTRICT

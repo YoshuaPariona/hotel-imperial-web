@@ -2,14 +2,15 @@ databaseChangeLog:
   - changeSet:
       id: 001_create_incident_table
       author: Yoshua
-      comment: "Crea la tabla principal 'incident' con referencias a usuarios y habitaciones."
+      comment: "Crea la tabla 'incident' para registrar incidencias en habitaciones o áreas del hotel"
       changes:
         - createTable:
             tableName: incident
             columns:
               - column:
                   name: incident_id
-                  type: BIGSERIAL
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
@@ -33,7 +34,8 @@ databaseChangeLog:
               - column:
                   name: priority
                   type: VARCHAR(20)
-                  defaultValue: 'MEDIA'
+                  constraints:
+                    nullable: false
               - column:
                   name: team
                   type: VARCHAR(50)
@@ -41,15 +43,20 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: reported_at
-                  type: TIMESTAMP WITH TIME ZONE
+                  type: DATETIME
                   defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
                   name: status
                   type: VARCHAR(20)
-                  defaultValue: 'PENDIENTE'
+                  constraints:
+                    nullable: false
               - column:
                   name: reported_by
                   type: BIGINT
+                  constraints:
+                    nullable: false
               - column:
                   name: handled_by
                   type: BIGINT
@@ -62,15 +69,18 @@ databaseChangeLog:
             constraintName: fk_incident_reported_employee
             referencedTableName: employee
             referencedColumnNames: employee_id
+            onDelete: RESTRICT
         - addForeignKeyConstraint:
             baseTableName: incident
             baseColumnNames: handled_by
             constraintName: fk_incident_handled_employee
             referencedTableName: employee
             referencedColumnNames: employee_id
+            onDelete: SET NULL
         - addForeignKeyConstraint:
             baseTableName: incident
             baseColumnNames: room_id
             constraintName: fk_incident_room
             referencedTableName: room
             referencedColumnNames: room_id
+            onDelete: SET NULL

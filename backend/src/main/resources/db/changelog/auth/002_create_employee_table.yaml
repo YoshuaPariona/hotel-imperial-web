@@ -40,6 +40,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+                  remarks: "Contraseña hasheada del empleado (ej: bcrypt)."
               - column:
                   name: phone
                   type: VARCHAR(30)

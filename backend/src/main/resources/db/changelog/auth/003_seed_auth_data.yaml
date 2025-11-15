@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 003_seed-role
+      id: 003_seed_role
       author: Yoshua
       comment: "Inserta roles básicos para el sistema de autenticación."
       changes:
@@ -26,7 +26,7 @@ databaseChangeLog:
               - column: { name: description, value: "Personal de limpieza y preparación de habitaciones." }
 
   - changeSet:
-      id: 003_seed-employee
+      id: 003_seed_employee
       author: Yoshua
       comment: "Inserta usuarios de ejemplo para cada rol."
       changes:

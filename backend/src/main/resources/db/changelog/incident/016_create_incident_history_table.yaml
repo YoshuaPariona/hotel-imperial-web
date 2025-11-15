@@ -2,14 +2,15 @@ databaseChangeLog:
   - changeSet:
       id: 002_create_incident_history_table
       author: Yoshua
-      comment: "Crea tabla 'incident_history' para rastrear los cambios de estado en cada incidencia."
+      comment: "Crea tabla 'incident_history' para rastrear cambios de estado de cada incidencia"
       changes:
         - createTable:
             tableName: incident_history
             columns:
               - column:
                   name: incident_history_id
-                  type: BIGSERIAL
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
@@ -30,13 +31,14 @@ databaseChangeLog:
               - column:
                   name: changed_by
                   type: BIGINT
+                  constraints:
+                    nullable: false
               - column:
                   name: changed_at
-                  type: TIMESTAMP WITH TIME ZONE
+                  type: DATETIME
                   defaultValueComputed: CURRENT_TIMESTAMP
-              - column:
-                  name: note
-                  type: TEXT
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: incident_history
             baseColumnNames: incident_id
@@ -50,3 +52,4 @@ databaseChangeLog:
             constraintName: fk_incident_history_employee
             referencedTableName: employee
             referencedColumnNames: employee_id
+            onDelete: RESTRICT

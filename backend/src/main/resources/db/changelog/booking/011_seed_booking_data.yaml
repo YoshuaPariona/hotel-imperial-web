@@ -1,0 +1,82 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011_seed_guest
+      author: Yoshua
+      comment: "Inserta datos iniciales en la tabla 'guest'."
+      changes:
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "Juan" }
+              - column: { name: last_name, value: "Pérez" }
+              - column: { name: document_type, value: "DNI" }
+              - column: { name: document_number, value: "12345678" }
+              - column: { name: phone, value: "+51987654321" }
+              - column: { name: email, value: "juan.perez@example.com" }
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "María" }
+              - column: { name: last_name, value: "Gómez" }
+              - column: { name: document_type, value: "Pasaporte" }
+              - column: { name: document_number, value: "AB123456" }
+              - column: { name: phone, value: "+51987123456" }
+              - column: { name: email, value: "maria.gomez@example.com" }
+        - insert:
+            tableName: guest
+            columns:
+              - column: { name: first_name, value: "Carlos" }
+              - column: { name: last_name, value: "López" }
+              - column: { name: document_type, value: "DNI" }
+              - column: { name: document_number, value: "87654321" }
+              - column: { name: phone, value: "+51981234567" }
+              - column: { name: email, value: "carlos.lopez@example.com" }
+
+  - changeSet:
+      id: 011_seed_reservation
+      author: Yoshua
+      comment: "Inserta datos iniciales en la tabla 'reservation'."
+      changes:
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: code, value: "RES-001" }
+              - column: { name: guest_id, value: "1" }
+              - column: { name: employee_id, value: "1" }
+              - column: { name: checkin_date_expected, value: "2025-12-01" }
+              - column: { name: checkout_date_expected, value: "2025-12-05" }
+              - column: { name: status, value: "confirmed" }
+        - insert:
+            tableName: reservation
+            columns:
+              - column: { name: code, value: "RES-002" }
+              - column: { name: guest_id, value: "2" }
+              - column: { name: employee_id, value: "1" }
+              - column: { name: checkin_date_expected, value: "2025-12-10" }
+              - column: { name: checkout_date_expected, value: "2025-12-15" }
+              - column: { name: status, value: "pending" }
+
+  - changeSet:
+      id: 011_seed_occupancy
+      author: Yoshua
+      comment: "Inserta datos iniciales en la tabla 'occupancy'."
+      changes:
+        - insert:
+            tableName: occupancy
+            columns:
+              - column: { name: reservation_id, value: "1" } # RES-001
+              - column: { name: guest_id, value: "1" } # Juan Pérez
+              - column: { name: room_id, value: "1" } # Asumiendo que existe una habitación con ID 101
+              - column: { name: checkin_datetime, value: "2025-12-01 14:00:00" }
+              - column: { name: checkout_datetime, value: "2025-12-05 12:00:00" }
+              - column: { name: number_of_nights, value: "4" }
+              - column: { name: status, value: "active" }
+        - insert:
+            tableName: occupancy
+            columns:
+              - column: { name: reservation_id, value: "2" } # RES-002
+              - column: { name: guest_id, value: "2" } # María Gómez
+              - column: { name: room_id, value: "2" } # Asumiendo que existe una habitación con ID 102
+              - column: { name: checkin_datetime, value: "2025-12-10 15:00:00" }
+              - column: { name: number_of_nights, value: "5" }
+              - column: { name: status, value: "active" }

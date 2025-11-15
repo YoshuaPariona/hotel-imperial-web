@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012_create_charges_table
+      author: Yoshua
+      changes:
+        - createTable:
+            tableName: charges
+            columns:
+              - column:
+                  name: charge_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: occupancy_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: unit_price
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: charges
+            baseColumnNames: occupancy_id
+            referencedTableName: occupancy
+            referencedColumnNames: occupancy_id
+            constraintName: fk_charges_occupancy
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: charges
+            baseColumnNames: created_by
+            referencedTableName: employee
+            referencedColumnNames: employee_id
+            constraintName: fk_charges_employee

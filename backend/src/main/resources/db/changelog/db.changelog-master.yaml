@@ -9,33 +9,37 @@ databaseChangeLog:
 
 # Room tables
   - include:
-      file: db/changelog/room/001_create_room_type_table.yaml
+      file: db/changelog/room/004_create_room_type_table.yaml
   - include:
-      file: db/changelog/room/002_create_room_table.yaml
+      file: db/changelog/room/005_create_room_table.yaml
   - include:
-      file: db/changelog/room/003_create_room_status_history_table.yaml
+      file: db/changelog/room/006_create_room_status_history_table.yaml
   - include:
-      file: db/changelog/room/004_seed_room_data.yaml
+      file: db/changelog/room/007_seed_room_data.yaml
 
 # Booking tables
   - include:
-      file: db/changelog/booking/001_create_guest_table.yaml
+      file: db/changelog/booking/008_create_guest_table.yaml
   - include:
-      file: db/changelog/booking/002_create_reservation_table.yaml
+      file: db/changelog/booking/009_create_reservation_table.yaml
   - include:
-      file: db/changelog/booking/003_seed_booking_data.yaml
+      file: db/changelog/booking/010_create_occupancy_table.yaml
+  - include:
+      file: db/changelog/booking/011_seed_booking_data.yaml
 
-# Occupancy tables
+# Payment tables
   - include:
-      file: db/changelog/occupancy/001_create_occupancy_table.yaml
+        file: db/changelog/payment/012_create_charges_table.yaml
   - include:
-      file: db/changelog/occupancy/002_seed_occupancy_data.yaml
+        file: db/changelog/payment/013_create_payments_table.yaml
+  - include:
+        file: db/changelog/payment/014_seed_payment_data.yaml
 
 # Incident tables
-#  - include:
-#      file: db/changelog/incident/001_create_incident_table.yaml
-#  - include:
-#      file: db/changelog/incident/002_create_incident_history_table.yaml
-#  - include:
-#      file: db/changelog/incident/003_seed_incident_data.yaml
+  - include:
+      file: db/changelog/incident/015_create_incident_table.yaml
+  - include:
+      file: db/changelog/incident/016_create_incident_history_table.yaml
+  - include:
+      file: db/changelog/incident/017_seed_incident_data.yaml
 

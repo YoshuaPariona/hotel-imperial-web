@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008_seed_incident_table
+      author: Yoshua
+      comment: "Inserta datos iniciales en la tabla 'incident'."
+      changes:
+        - insert:
+            tableName: incident
+            columns:
+              - column: { name: type, value: "Mantenimiento" }
+              - column: { name: area, value: "Habitación" }
+              - column: { name: location_detail, value: "Baño - Grifo con fuga" }
+              - column: { name: description, value: "El grifo del lavamanos en la habitación 101 tiene una fuga constante de agua." }
+              - column: { name: priority, value: "Alta" }
+              - column: { name: team, value: "Mantenimiento" }
+              - column: { name: status, value: "Reportado" }
+              - column: { name: reported_by, value: "1" } # Empleado con ID 1
+              - column: { name: room_id, value: "1" } # Habitación 101
+        - insert:
+            tableName: incident
+            columns:
+              - column: { name: type, value: "Limpieza" }
+              - column: { name: area, value: "Área común" }
+              - column: { name: location_detail, value: "Pasillo del segundo piso - Mancha en la alfombra" }
+              - column: { name: description, value: "Mancha de líquido no identificado en la alfombra cerca del ascensor." }
+              - column: { name: priority, value: "Media" }
+              - column: { name: team, value: "Limpieza" }
+              - column: { name: status, value: "Reportado" }
+              - column: { name: reported_by, value: "2" } # Empleado con ID 2
+        - insert:
+            tableName: incident
+            columns:
+              - column: { name: type, value: "Eléctrico" }
+              - column: { name: area, value: "Habitación" }
+              - column: { name: location_detail, value: "Luz del techo - No enciende" }
+              - column: { name: description, value: "La luz principal del techo en la habitación 203 no funciona." }
+              - column: { name: priority, value: "Alta" }
+              - column: { name: team, value: "Mantenimiento" }
+              - column: { name: status, value: "En progreso" }
+              - column: { name: reported_by, value: "1" }
+              - column: { name: handled_by, value: "3" } # Empleado con ID 3
+              - column: { name: room_id, value: "3" } # Habitación 201
+
+  - changeSet:
+      id: 009_seed_incident_history_table
+      author: Yoshua
+      comment: "Inserta datos iniciales en la tabla 'incident_history'."
+      changes:
+        - insert:
+            tableName: incident_history
+            columns:
+              - column: { name: incident_id, value: "1" } # Incidencia del grifo
+              - column: { name: old_status, value: "Reportado" }
+              - column: { name: new_status, value: "En progreso" }
+              - column: { name: changed_by, value: "3" } # Empleado con ID 3
+              - column: { name: changed_at, value: "2025-11-14 10:00:00" }
+        - insert:
+            tableName: incident_history
+            columns:
+              - column: { name: incident_id, value: "3" } # Incidencia de la luz
+              - column: { name: old_status, value: "Reportado" }
+              - column: { name: new_status, value: "En progreso" }
+              - column: { name: changed_by, value: "3" }
+              - column: { name: changed_at, value: "2025-11-14 09:30:00" }

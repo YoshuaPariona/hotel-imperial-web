@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 002_create_room_table
+      id: 005_create_room_table
       author: Yoshua
       comment: "Crea tabla 'room' con columnas VARCHAR para estados y referencias a room_type."
       changes:
@@ -19,18 +19,15 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
-                  remarks: "Relación con la tabla room_type."
               - column:
                   name: room_number
                   type: VARCHAR(15)
                   constraints:
                     unique: true
                     nullable: false
-                  remarks: "Número identificador de la habitación."
               - column:
                   name: floor
                   type: INTEGER
-                  remarks: "Piso donde se encuentra la habitación."
               - column:
                   name: current_status
                   type: VARCHAR(20)

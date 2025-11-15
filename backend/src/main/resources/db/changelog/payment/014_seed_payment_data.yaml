@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 014_seed_charges
+      author: Yoshua
+      comment: "Inserta datos iniciales en la tabla 'charges'."
+      changes:
+        - insert:
+            tableName: charges
+            columns:
+              - column: { name: occupancy_id, value: "1" } # Ocupación de Juan Pérez
+              - column: { name: type, value: "Alojamiento" }
+              - column: { name: description, value: "Noche de alojamiento (4 noches)" }
+              - column: { name: unit_price, value: "150.00" }
+              - column: { name: quantity, value: "4" }
+              - column: { name: total, value: "600.00" }
+              - column: { name: created_by, value: "1" } # Empleado con ID 1
+        - insert:
+            tableName: charges
+            columns:
+              - column: { name: occupancy_id, value: "1" }
+              - column: { name: type, value: "Desayuno" }
+              - column: { name: description, value: "Desayuno buffet (4 días)" }
+              - column: { name: unit_price, value: "20.00" }
+              - column: { name: quantity, value: "4" }
+              - column: { name: total, value: "80.00" }
+              - column: { name: created_by, value: "1" }
+        - insert:
+            tableName: charges
+            columns:
+              - column: { name: occupancy_id, value: "2" } # Ocupación de María Gómez
+              - column: { name: type, value: "Alojamiento" }
+              - column: { name: description, value: "Noche de alojamiento (5 noches)" }
+              - column: { name: unit_price, value: "150.00" }
+              - column: { name: quantity, value: "5" }
+              - column: { name: total, value: "750.00" }
+              - column: { name: created_by, value: "1" }
+        - insert:
+            tableName: charges
+            columns:
+              - column: { name: occupancy_id, value: "2" }
+              - column: { name: type, value: "Servicio de spa" }
+              - column: { name: description, value: "Masaje relajante" }
+              - column: { name: unit_price, value: "80.00" }
+              - column: { name: quantity, value: "1" }
+              - column: { name: total, value: "80.00" }
+              - column: { name: created_by, value: "1" }
+
+  - changeSet:
+      id: 014_seed_payments
+      author: Yoshua
+      comment: "Inserta datos iniciales en la tabla 'payments'."
+      changes:
+        - insert:
+            tableName: payments
+            columns:
+              - column: { name: occupancy_id, value: "1" } # Ocupación de Juan Pérez
+              - column: { name: amount, value: "680.00" }
+              - column: { name: method, value: "Tarjeta de crédito" }
+              - column: { name: transaction_number, value: "TXN-2025-1201-001" }
+              - column: { name: created_by, value: "1" } # Empleado con ID 1
+        - insert:
+            tableName: payments
+            columns:
+              - column: { name: occupancy_id, value: "2" } # Ocupación de María Gómez
+              - column: { name: amount, value: "300.00" }
+              - column: { name: method, value: "Efectivo" }
+              - column: { name: transaction_number, value: "TXN-2025-1210-001" }
+              - column: { name: created_by, value: "1" }
+        - insert:
+            tableName: payments
+            columns:
+              - column: { name: occupancy_id, value: "2" }
+              - column: { name: amount, value: "530.00" }
+              - column: { name: method, value: "Transferencia bancaria" }
+              - column: { name: transaction_number, value: "TXN-2025-1212-001" }
+              - column: { name: created_by, value: "1" }
