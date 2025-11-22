@@ -13,6 +13,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,19 +36,16 @@ public class RoomService {
     public List<RoomListDTO> findAllByFilter(String number, String category, String currentStatus) {
         Specification<Room> spec = (root, query, cb) -> cb.conjunction();
 
-        if(number != null && !number.isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.upper(root.get("number")), "%" + number + "%"));
+        if (number != null && !number.isEmpty()) {
+            spec = spec.and((root, query, cb) -> cb.like(cb.upper(root.get("number")), "%" + number + "%"));
         }
 
-        if(category != null && !category.isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(cb.upper(root.get("roomType").get("category")), category));
+        if (category != null && !category.isEmpty()) {
+            spec = spec.and((root, query, cb) -> cb.equal(cb.upper(root.get("roomType").get("category")), category));
         }
 
-        if(currentStatus != null && !currentStatus.isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(cb.upper(root.get("currentStatus")), currentStatus));
+        if (currentStatus != null && !currentStatus.isEmpty()) {
+            spec = spec.and((root, query, cb) -> cb.equal(cb.upper(root.get("currentStatus")), currentStatus));
         }
 
         return roomRepository.findAll(spec).stream()
@@ -65,5 +64,15 @@ public class RoomService {
         room.setCurrentStatus(dto.getNewStatus());
         roomRepository.save(room);
         roomStatusHistoryRepository.save(history);
+    }
+
+    @Transactional(readOnly = true)
+    public List<RoomListDTO> getAvailableRooms(LocalDate checkinDate, LocalDate checkoutDate) {
+        LocalDateTime checkinDatetime = checkinDate.atTime(14, 0);
+        LocalDateTime checkoutDatetime = checkoutDate.atTime(12, 0);
+
+        return roomRepository.findAvailableRooms(checkinDatetime, checkoutDatetime).stream()
+                .map(roomMapper::toListDTO)
+                .collect(Collectors.toList());
     }
 }

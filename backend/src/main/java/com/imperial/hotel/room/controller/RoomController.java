@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,5 +35,12 @@ public class RoomController {
             @PathVariable Long roomId) {
         roomService.registerStatusChange(roomId, dto);
         return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<RoomListDTO>> getAvailableRooms(
+            @RequestParam LocalDate checkinDate,
+            @RequestParam LocalDate checkoutDate) {
+        return ResponseEntity.ok(roomService.getAvailableRooms(checkinDate, checkoutDate));
     }
 }
