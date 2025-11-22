@@ -7,6 +7,7 @@ export const RoomsPage = () => {
   const {
     habitaciones,
     isLoading,
+    isError,
     modalOpen,
     openModal,
     closeModal,
@@ -15,21 +16,29 @@ export const RoomsPage = () => {
 
   if (isLoading) {
     return (
-        <p className="text-center mt-10 text-xl text-gray-700">
-          Cargando habitaciones...
-        </p>
+      <p className="text-center mt-10 text-xl text-gray-700">
+        Cargando habitaciones...
+      </p>
+    );
+  }
+
+  if (isError) {
+    return (
+      <p className="text-center mt-10 text-xl text-red-600">
+        Error al cargar las habitaciones. Por favor, revisa la consola para más detalles.
+      </p>
     );
   }
 
   return (
-      <>
-        <RoomsStatusModal
-            isOpen={modalOpen}
-            onClose={closeModal}
-            onConfirm={handleStatusChange}
-        />
+    <>
+      <RoomsStatusModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        onConfirm={handleStatusChange}
+      />
 
-        <RoomsTable habitaciones={habitaciones} onStatusSelect={openModal} />
-      </>
+      <RoomsTable habitaciones={habitaciones} onStatusSelect={openModal} />
+    </>
   );
 };

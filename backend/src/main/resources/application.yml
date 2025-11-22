@@ -4,8 +4,8 @@
 spring:
   application:
     name: hotel
-#  profiles:
-#    active: dev
+  profiles:
+    active: dev
 
   jpa:
     # Propiedades comunes de JPA

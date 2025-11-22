@@ -17,27 +17,33 @@ export const useRooms = () => {
     data: habitaciones = [],
     isLoading,
     isError,
+    error,
   } = useQuery({
     queryKey: ["rooms"],
     queryFn: getRooms,
   });
 
+  // Log errors for debugging
+  if (isError) {
+    console.error("Error fetching rooms:", error);
+  }
+
   // --- Mutation para actualizar estado ---
   const updateStatusMutation = useMutation({
     mutationFn: ({
-                   roomId,
-                   newStatus,
-                   changeReason,
-                 }: {
+      roomId,
+      newStatus,
+      changeReason,
+    }: {
       roomId: number;
       newStatus: Estado;
       changeReason: string;
     }) =>
-        updateRoomStatus(roomId, {
-          employeeId: 1,
-          newStatus,
-          changeReason,
-        }),
+      updateRoomStatus(roomId, {
+        employeeId: 1,
+        newStatus,
+        changeReason,
+      }),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rooms"] });

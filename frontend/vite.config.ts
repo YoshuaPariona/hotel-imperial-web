@@ -6,8 +6,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [
-      react(),
-      tailwindcss()
+    react(),
+    tailwindcss()
   ],
   resolve: {
     alias: {
@@ -21,5 +21,25 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "src/styles"),
     },
   },
-
+  server: {
+    proxy: {
+      // Proxy API requests to the backend
+      '/rooms': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/reservations': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/guests': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      },
+      // Add other API endpoints as needed
+    },
+  },
 })
