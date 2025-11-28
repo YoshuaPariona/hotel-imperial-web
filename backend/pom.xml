@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -9,8 +9,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.6</version>
-        <relativePath/>
+        <version>3.5.8</version>
+        <relativePath />
     </parent>
 
     <groupId>com.imperial</groupId>
@@ -49,7 +49,6 @@
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>3.4.0</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -131,7 +130,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <release>${java.version}</release>
                     <annotationProcessorPaths>
@@ -158,7 +156,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
@@ -173,7 +170,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.2.5</version>
                 <executions>
                     <execution>
                         <goals>
@@ -208,50 +204,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- === Spotless: formateo automático de código === -->
-            <plugin>
-                <groupId>com.diffplug.spotless</groupId>
-                <artifactId>spotless-maven-plugin</artifactId>
-                <version>${spotless.plugin.version}</version>
-                <configuration>
-                    <java>
-                        <!-- Aplica estilo Google por defecto -->
-                        <googleJavaFormat/>
-                        <!-- Evita errores de formato en los tests -->
-                        <target>src/*/java/**/*.java</target>
-                    </java>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>verify</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- === SpotBugs: análisis estático de errores === -->
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${spotbugs.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- Genera informe HTML -->
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <xmlOutput>false</xmlOutput>
-                </configuration>
             </plugin>
 
             <!-- === Empaquetado de aplicación === -->

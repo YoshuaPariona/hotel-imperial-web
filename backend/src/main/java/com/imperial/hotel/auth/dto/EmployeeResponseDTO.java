@@ -3,11 +3,11 @@ package com.imperial.hotel.auth.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeResponseDTO {
     private Long id;
     private String firstName;
@@ -16,14 +16,14 @@ public class EmployeeResponseDTO {
     private String email;
     private String phone;
     private Boolean isActive;
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
     private RoleDTO role;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RoleDTO {
-        private Long Id;
+        private Long id;
         private String name;
         private String description;
     }

@@ -6,11 +6,11 @@ Proyecto académico desarrollado por estudiantes de la **Escuela Académico Prof
 
 ## 📌 Integrantes del Equipo
 
-| APELLIDOS Y NOMBRES               | CÓDIGO   |
-|----------------------------------|-----------|
-| **Castro Verastegui Juan Alejandro** | 71388098 |
+| APELLIDOS Y NOMBRES                    | CÓDIGO   |
+|----------------------------------------|----------|
+| **Castro Verastegui Juan Alejandro**   | 71388098 |
 | **Pariona Inga Logan Yoshua Leonardo** | 72508579 |
-| **Quispe Medina Willy Alexander** | 76990858 |
+| **Quispe Medina Willy Alexander**      | 76990858 |
 
 ---
 

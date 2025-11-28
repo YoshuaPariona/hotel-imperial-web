@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-//@Service
-//@RequiredArgsConstructor
+@Service
+@RequiredArgsConstructor
 public class EmployeeService {
-/*
+
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
     private final EmployeeMapper employeeMapper;
@@ -26,7 +27,14 @@ public class EmployeeService {
         return employeeRepository.findAll()
                 .stream()
                 .map(employeeMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public EmployeeResponseDTO findById(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + id));
+        return employeeMapper.toDTO(employee);
     }
 
     @Transactional
@@ -45,5 +53,36 @@ public class EmployeeService {
         Employee saved = employeeRepository.save(employee);
         return employeeMapper.toDTO(saved);
     }
-    */
+
+    @Transactional
+    public EmployeeResponseDTO update(Long id, EmployeeRequestDTO dto) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + id));
+
+        employee.setFirstName(dto.getFirstName());
+        employee.setLastName(dto.getLastName());
+        employee.setEmail(dto.getEmail());
+        employee.setPhone(dto.getPhone());
+
+        if (dto.getRoleName() != null) {
+            Role role = roleRepository.findByName(dto.getRoleName())
+                    .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + dto.getRoleName()));
+            employee.setRole(role);
+        }
+
+        if (dto.getRawPassword() != null && !dto.getRawPassword().isEmpty()) {
+            employee.setHashedPassword("{noop}" + dto.getRawPassword());
+        }
+
+        Employee updated = employeeRepository.save(employee);
+        return employeeMapper.toDTO(updated);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + id));
+        employee.setIsActive(false);
+        employeeRepository.save(employee);
+    }
 }
