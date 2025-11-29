@@ -18,9 +18,13 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
-  # Fuente de datos compartida por todos los entornos
-  datasource:
-    url: jdbc:mariadb://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:imperial_database}?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=UTC
-    username: ${DB_USER:root}
-    password: ${DB_PASSWORD:1234}
-    driver-class-name: org.mariadb.jdbc.Driver
+springdoc:
+  swagger-ui:
+    display-operation-id: false
+    display-request-duration: false
+    filter: false
+    deep-linking: false
+    doc-expansion: none
+    try-it-out-enabled: true
+    show-extensions: false
+    show-common-extensions: false

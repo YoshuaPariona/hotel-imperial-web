@@ -17,6 +17,7 @@ public class HomeController {
         info.put("message", "Bienvenido a la API del Hotel Imperial");
         info.put("status", "OK");
         info.put("docs", "/swagger-ui.html");
+        info.put("database", "/h2-console");
         return info;
     }
 }
