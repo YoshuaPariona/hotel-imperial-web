@@ -2,3 +2,4 @@
 
 ### Get all reservations
 GET {{baseUrl}}/reservations
+Accept: application/json
