@@ -2,29 +2,33 @@
 import axios from "axios";
 
 export const api = axios.create({
-  // In development, use relative URLs (Vite proxy handles routing)
-  // In production, use the full API URL from environment variable
-  baseURL: import.meta.env.PROD ? import.meta.env.VITE_API_URL : "",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080", // URL del backend
   timeout: 10000,
   withCredentials: true,
 });
 
-// Interceptor opcional de request (token, etc.)
+// Interceptor para agregar el token a las solicitudes
 api.interceptors.request.use(
-  (config) => {
-    // Ejemplo: agregar token
-    // const token = localStorage.getItem("token");
-    // if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  },
-  (error) => Promise.reject(error)
+    (config) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
 );
 
-// Interceptor de respuesta (logs, manejo global de errores)
+// Interceptor de respuesta para manejar errores globales
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error("API Error:", error);
-    return Promise.reject(error);
-  }
+    (response) => response,
+    (error) => {
+      if (error.response && error.response.status === 401) {
+        // Redirigir al login si el token es inválido o ha expirado
+        localStorage.removeItem("token");
+        window.location.href = "/auth";
+      }
+      console.error("API Error:", error);
+      return Promise.reject(error);
+    }
 );

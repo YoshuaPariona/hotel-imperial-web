@@ -8,9 +8,9 @@ import com.imperial.hotel.auth.model.Role;
 import com.imperial.hotel.auth.repository.EmployeeRepository;
 import com.imperial.hotel.auth.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +21,7 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
     private final EmployeeMapper employeeMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<EmployeeResponseDTO> findAll() {
@@ -40,16 +41,11 @@ public class EmployeeService {
     @Transactional
     public EmployeeResponseDTO create(EmployeeRequestDTO dto) {
         Employee employee = employeeMapper.toEntity(dto);
-
-        // Buscar rol por nombre
         Role role = roleRepository.findByName(dto.getRoleName())
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + dto.getRoleName()));
-
         employee.setRole(role);
-
-        // Simulamos el hash de contraseña (en real, usar BCrypt)
-        employee.setHashedPassword("{noop}" + dto.getRawPassword());
-
+        // Hashear la contraseña antes de guardar
+        employee.setHashedPassword(passwordEncoder.encode(dto.getRawPassword()));
         Employee saved = employeeRepository.save(employee);
         return employeeMapper.toDTO(saved);
     }
@@ -58,22 +54,19 @@ public class EmployeeService {
     public EmployeeResponseDTO update(Long id, EmployeeRequestDTO dto) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Empleado no encontrado con ID: " + id));
-
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
         employee.setEmail(dto.getEmail());
         employee.setPhone(dto.getPhone());
-
         if (dto.getRoleName() != null) {
             Role role = roleRepository.findByName(dto.getRoleName())
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + dto.getRoleName()));
             employee.setRole(role);
         }
-
         if (dto.getRawPassword() != null && !dto.getRawPassword().isEmpty()) {
-            employee.setHashedPassword("{noop}" + dto.getRawPassword());
+            // Hashear la nueva contraseña si se proporciona
+            employee.setHashedPassword(passwordEncoder.encode(dto.getRawPassword()));
         }
-
         Employee updated = employeeRepository.save(employee);
         return employeeMapper.toDTO(updated);
     }

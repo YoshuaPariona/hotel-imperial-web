@@ -3,4 +3,3 @@
 ###
 GET http://localhost:8080/occupancies
 Accept: application/json
-
