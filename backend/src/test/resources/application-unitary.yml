@@ -7,11 +7,10 @@ spring:
       on-profile: unitary
 
   datasource:
-    # Base local separada para tests unitarios (puedes crearla vacía)
+    # Base local separada para tests unitarios
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:unitary_db}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:1234}
-    driver-class-name: org.postgresql.Driver
 
   jpa:
     # Se genera y destruye el esquema para cada suite de tests

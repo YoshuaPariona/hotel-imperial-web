@@ -7,8 +7,8 @@ import {
   ConciergeBell,
   Bed,
   Bot,
-  User,
-  Settings,
+  // User,
+  // Settings,
   LogOut,
   TriangleAlert,
   BadgeCheck,
@@ -53,7 +53,7 @@ export const SIDEBAR_ITEMS: Record<string, MenuSection> = {
 } as const;
 
 export const USER_MENU_ITEMS: readonly MenuItem[] = [
-  { title: "Perfil", url: "/perfil", icon: User },
-  { title: "Ajustes", url: "/ajustes", icon: Settings },
+  // { title: "Perfil", url: "/perfil", icon: User },
+  // { title: "Ajustes", url: "/ajustes", icon: Settings },
   { title: "Cerrar sesión", url: "/", icon: LogOut },
 ] as const;

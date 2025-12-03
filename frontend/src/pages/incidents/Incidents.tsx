@@ -1,9 +1,11 @@
 import {FC} from "react";
 
-// TODO: Implementar la página de registro de incidencias
-// Consiste en una tabla con la lista de incidencias, su ID, habitación asociada, descripción, estado (abierta, en progreso, cerrada), fecha de creación y fecha de resolución.
-// Solo para gerente: un kebab menu con CRUD completo.
-// Para cualquier usuario: debe incluir un botón para agregar nuevas incidencias y manejar su estado.
+// TODO: Implementar la página de gestion de calidad
+// Consiste en un gráfico tipo radar con las incidencias registradas.
+// Debe permitir mostrar indicadores KPI de calidad, como el número de incidencias por tipo, tiempo de resolución promedio y satisfacción del cliente relacionada con la calidad.
+// opcional: Debe permitir exportar informes de calidad en formatos PDF o Excel para su análisis y presentación.
+// opcional: Calendario de mantenimiento preventivo.
+
 
 export const Incidents: FC = () => (
     <>

@@ -1,3 +1,4 @@
+// src/pages/reservations/Reservations.tsx
 import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import { ReservationsTable } from "./views/ReservationsTable";
@@ -53,12 +54,7 @@ export const Reservations: FC = () => {
     <div className="container mx-auto py-6">
       {/* Header */}
       <div className="flex justify-between items-center mb-6 px-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Reservas</h1>
-          <p className="text-gray-600 mt-1">
-            Gestión de reservas del hotel
-          </p>
-        </div>
+
         <Button
           onClick={openCreateModal}
           className="flex items-center gap-2"

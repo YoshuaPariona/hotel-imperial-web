@@ -27,13 +27,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        // Ignora la validación para el endpoint de login
-        if (request.getServletPath().equals("/auth/login")) {
+        // Ignora la validación para endpoints públicos
+        if (isPublicEndpoint(request)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Validar el token para todos los demás endpoints
+        // Validar el token para endpoints protegidos
         String token = request.getHeader("Authorization");
         if (token == null || !token.startsWith("Bearer ")) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido o ausente");
@@ -62,11 +62,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         null,
                         userDetails.getAuthorities()
                 );
-
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request)
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         filterChain.doFilter(request, response);
@@ -74,13 +72,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return isPublicEndpoint(request);
+    }
+
+    private boolean isPublicEndpoint(HttpServletRequest request) {
         String path = request.getRequestURI();
+        /*
         return path.startsWith("/v3/api-docs")
                 || path.startsWith("/swagger-ui")
                 || path.equals("/swagger-ui.html")
                 || path.equals("/")
-                || path.startsWith("/swagger-resources")
-                || path.startsWith("/webjars")
-                || path.startsWith("/h2-console");
+                || path.startsWith("/h2-console")
+                || path.equals("/login");
+
+         */
+        return path.startsWith("/");
     }
 }

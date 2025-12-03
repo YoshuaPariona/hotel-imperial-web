@@ -1,32 +1,33 @@
 # ================================================
-# 🧩 application-dev.yml — H2 para desarrollo (modo MariaDB)
+# 🧩 application-dev.yml — Configuración para H2 (Desarrollo)
 # ================================================
 spring:
   datasource:
-    url: jdbc:h2:mem:imperial_database;MODE=MariaDB;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:imperial_database;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE  # Base de datos en memoria
     driver-class-name: org.h2.Driver
     username: sa
-    password:
+    password: ""
   jpa:
     hibernate:
-      ddl-auto: none
-    show-sql: true
+      ddl-auto: none  # Desactiva la generación automática de esquemas (Liquibase se encarga)
+    show-sql: true  # Muestra el SQL generado en la consola
     properties:
       hibernate:
         format_sql: true
-        use_sql_comments: true
-  liquibase:
-    enabled: true
+        use_sql_comments: true  # Añade comentarios en el SQL generado
   h2:
     console:
       enabled: true
       path: /h2-console
       settings:
-        web-allow-others: true
+        web-allow-others: true  # Permite acceso remoto a la consola (solo para desarrollo)
+  liquibase:
+    enabled: true  # Activa Liquibase para migraciones
+
 logging:
   level:
-    org.hibernate.SQL: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
-    org.hibernate: ERROR
+    org.hibernate.SQL: debug  # Muestra el SQL generado
+    org.hibernate.type.descriptor.sql.BasicBinder: trace  # Muestra los valores de los parámetros en el SQL
+    org.springframework.security: DEBUG  # Logs detallados de Spring Security
+    org.springframework.web: DEBUG  # Logs detallados de Spring Web
+    org.hibernate: ERROR  # Solo muestra errores de Hibernate

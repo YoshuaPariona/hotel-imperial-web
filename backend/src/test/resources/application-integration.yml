@@ -11,7 +11,6 @@ spring:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:integration_db}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:1234}
-    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:

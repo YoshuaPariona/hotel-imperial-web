@@ -4,6 +4,7 @@ databaseChangeLog:
       author: Yoshua
       comment: "Inserta datos iniciales en la tabla 'incident'."
       changes:
+        # Ejemplos existentes
         - insert:
             tableName: incident
             columns:
@@ -14,8 +15,8 @@ databaseChangeLog:
               - column: { name: priority, value: "Alta" }
               - column: { name: team, value: "Mantenimiento" }
               - column: { name: status, value: "Reportado" }
-              - column: { name: reported_by, value: "1" } # Empleado con ID 1
-              - column: { name: room_id, value: "1" } # Habitación 101
+              - column: { name: reported_by, value: "1" }
+              - column: { name: room_id, value: "1" }
         - insert:
             tableName: incident
             columns:
@@ -26,7 +27,7 @@ databaseChangeLog:
               - column: { name: priority, value: "Media" }
               - column: { name: team, value: "Limpieza" }
               - column: { name: status, value: "Reportado" }
-              - column: { name: reported_by, value: "2" } # Empleado con ID 2
+              - column: { name: reported_by, value: "2" }
         - insert:
             tableName: incident
             columns:
@@ -38,8 +39,58 @@ databaseChangeLog:
               - column: { name: team, value: "Mantenimiento" }
               - column: { name: status, value: "En progreso" }
               - column: { name: reported_by, value: "1" }
-              - column: { name: handled_by, value: "3" } # Empleado con ID 3
-              - column: { name: room_id, value: "3" } # Habitación 201
+              - column: { name: handled_by, value: "3" }
+              - column: { name: room_id, value: "3" }
+
+        # Nuevos ejemplos
+        - insert:
+            tableName: incident
+            columns:
+              - column: { name: type, value: "Seguridad" }
+              - column: { name: area, value: "Área común" }
+              - column: { name: location_detail, value: "Salida de emergencia - Señalización dañada" }
+              - column: { name: description, value: "La señal de salida de emergencia en el primer piso está rota y no es visible." }
+              - column: { name: priority, value: "Alta" }
+              - column: { name: team, value: "Seguridad" }
+              - column: { name: status, value: "Reportado" }
+              - column: { name: reported_by, value: "2" }
+        - insert:
+            tableName: incident
+            columns:
+              - column: { name: type, value: "Mantenimiento" }
+              - column: { name: area, value: "Habitación" }
+              - column: { name: location_detail, value: "Aire acondicionado - No enfría" }
+              - column: { name: description, value: "El aire acondicionado de la habitación 201 no está enfriando adecuadamente." }
+              - column: { name: priority, value: "Media" }
+              - column: { name: team, value: "Mantenimiento" }
+              - column: { name: status, value: "Resuelto" }
+              - column: { name: reported_by, value: "3" }
+              - column: { name: handled_by, value: "3" }
+              - column: { name: room_id, value: "2" }
+        - insert:
+            tableName: incident
+            columns:
+              - column: { name: type, value: "Limpieza" }
+              - column: { name: area, value: "Habitación" }
+              - column: { name: location_detail, value: "Ventana - Cristales sucios" }
+              - column: { name: description, value: "Los cristales de la ventana en la habitación 101 están muy sucios y no permiten ver al exterior." }
+              - column: { name: priority, value: "Baja" }
+              - column: { name: team, value: "Limpieza" }
+              - column: { name: status, value: "En progreso" }
+              - column: { name: reported_by, value: "1" }
+              - column: { name: room_id, value: "1" }
+        - insert:
+            tableName: incident
+            columns:
+              - column: { name: type, value: "Mobiliario" }
+              - column: { name: area, value: "Habitación" }
+              - column: { name: location_detail, value: "Silla - Pata rota" }
+              - column: { name: description, value: "Una de las sillas del escritorio en la habitación 203 tiene una pata rota." }
+              - column: { name: priority, value: "Baja" }
+              - column: { name: team, value: "Mantenimiento" }
+              - column: { name: status, value: "Reportado" }
+              - column: { name: reported_by, value: "3" }
+              - column: { name: room_id, value: "3" }
 
   - changeSet:
       id: 009_seed_incident_history_table

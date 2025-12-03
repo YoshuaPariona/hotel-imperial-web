@@ -1,23 +1,24 @@
-# ===================
-# 🌍 application.yml
-# ===================
+# ===========================
+# 🌍 application.yml (Base)
+# ===========================
 spring:
   application:
     name: hotel
   profiles:
-    active: dev
-
+    active: dev  # Perfil activo por defecto
   jpa:
-    # Propiedades comunes de JPA
-    open-in-view: false     # Evita LazyInitializationException por mal uso en controladores
+    open-in-view: false  # Desactiva OpenSessionInView para evitar LazyInitializationException
     properties:
       hibernate:
-        format_sql: true    # Aplica formato legible al SQL generado
-
-  # Configuración de Liquibase (migraciones)
+        format_sql: true  # Formatea el SQL generado para mejor legibilidad
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-
+    change-log: classpath:db/changelog/db.changelog-master.yaml  # Ubicación del changelog de Liquibase
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
 springdoc:
   swagger-ui:
     display-operation-id: false
